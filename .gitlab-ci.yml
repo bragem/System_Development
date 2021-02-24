@@ -28,6 +28,7 @@ test:
     - mvn clean test
 
 pages:
+  stage: pages
   script:
     - echo "Building Javadoc"
     - mvn javadoc:javadoc
