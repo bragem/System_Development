@@ -1,0 +1,38 @@
+image: maven:latest
+
+stages:
+  - build
+  - test
+  - pages
+
+cache:
+  paths:
+    - /root/.m2/repository/
+
+build:
+  stage: build
+  only:
+    - master
+    - merge_requests
+  script:
+    - echo "Building project"
+    - mvn clean compile
+
+test:
+  stage: test
+  only:
+    - master
+    - merge_requests
+  script:
+    - echo "Running tests"
+    - mvn clean test
+
+pages:
+  script:
+    - echo "Building Javadoc"
+    - mvn javadoc:javadoc
+  artifacts:
+    paths:
+      - public/javadoc
+  only:
+    - master
