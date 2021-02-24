@@ -1,3 +1,1 @@
-public class TodoListAppTest {
-
-}
+public class TodoListAppTest {}

@@ -2,7 +2,7 @@ image: maven:latest
 
 stages:
   - build
-  - test
+  - verify
   - pages
 
 cache:
@@ -18,8 +18,17 @@ build:
     - echo "Building project"
     - mvn clean compile
 
+lint:
+  stage: verify
+  only:
+    - master
+    - merge_requests
+  script:
+    - echo "Checking formatting"
+    - mvn clean fmt:format
+
 test:
-  stage: test
+  stage: verify
   only:
     - master
     - merge_requests

@@ -7,20 +7,20 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class TodoListApp extends Application {
-    @Override
-    public void start(Stage primaryStage) {
-        try {
-            Text messageText = new Text("If you can read this, JavaFX is properly set up! Good job!");
+  @Override
+  public void start(Stage primaryStage) {
+    try {
+      Text messageText = new Text("If you can read this, JavaFX is properly set up! Good job!");
 
-            StackPane root = new StackPane();
-            root.getChildren().add(messageText);
+      StackPane root = new StackPane();
+      root.getChildren().add(messageText);
 
-            Scene scene = new Scene(root,400,400);
-            primaryStage.setScene(scene);
-            primaryStage.show();
+      Scene scene = new Scene(root, 400, 400);
+      primaryStage.setScene(scene);
+      primaryStage.show();
 
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+  }
 }
