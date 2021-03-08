@@ -25,7 +25,7 @@ lint:
     - merge_requests
   script:
     - echo "Checking formatting"
-    - mvn clean fmt:format
+    - mvn clean fmt:check
 
 test:
   stage: verify
