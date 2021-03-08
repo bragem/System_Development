@@ -1,0 +1,27 @@
+/* @import url("light-theme.css"); Add this line to make theme display in scene builder. */
+
+.bg {
+    -fx-background-color: -background-color;
+}
+
+.button {
+    -fx-border-color: -border-color;
+    -fx-border-width: 1px;
+}
+
+.splash-img {
+    -fx-background-image: url("../img/splash.jpg");
+    -fx-background-size: contain;
+}
+
+.text {
+    -fx-fill: -fill-color;
+}
+
+.textfield {
+    -fx-text-fill: -fill-color;
+    -fx-background-color: -background-color;
+    -fx-border-color: -border-color;
+    -jfx-focus-color: -border-color;
+    -jfx-unfocus-color: -background-color;
+}
