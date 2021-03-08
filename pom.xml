@@ -11,13 +11,13 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <project.mainClass>edu.ntnu.idatt1002.k2g10.TodoListApp</project.mainClass>
+        <project.mainClass>edu.ntnu.idatt1002.k2g10.App</project.mainClass>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javafx.version>15.0.1</javafx.version>
     </properties>
 
     <dependencies>
-        <!-- JUnit - Unit testing -->
+        <!-- JUnit - Testing - Documentation: https://junit.org/junit5/docs/current/user-guide/ -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -31,7 +31,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- JavaFX + FXML - GUI -->
+        <!-- JavaFX - GUI - Documentation: https://openjfx.io/javadoc/11/index.html -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
@@ -42,18 +42,34 @@
             <artifactId>javafx-fxml</artifactId>
             <version>${javafx.version}</version>
         </dependency>
+
+        <!-- JavaFX Material Design - GUI - Documentation: http://www.jfoenix.com/documentation.html -->
+        <dependency>
+            <groupId>com.jfoenix</groupId>
+            <artifactId>jfoenix</artifactId>
+            <version>9.0.10</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <!-- JUnit - Unit testing -->
+            <!-- JUnit - Testing -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.0</version>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
 
-            <!-- Google Java Format - Code formatting -->
+            <!-- Google Java Format - Formatting -->
             <plugin>
                 <groupId>com.coveo</groupId>
                 <artifactId>fmt-maven-plugin</artifactId>
@@ -67,15 +83,6 @@
                 <version>0.0.5</version>
                 <configuration>
                     <mainClass>${project.mainClass}</mainClass>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
 
