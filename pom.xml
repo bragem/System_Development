@@ -69,11 +69,11 @@
                 </configuration>
             </plugin>
 
-            <!-- Google Java Format - Formatting -->
+            <!-- Eclipse Java Format - Formatting -->
             <plugin>
-                <groupId>com.coveo</groupId>
-                <artifactId>fmt-maven-plugin</artifactId>
-                <version>2.10</version>
+                <groupId>net.revelc.code.formatter</groupId>
+                <artifactId>formatter-maven-plugin</artifactId>
+                <version>2.14.0</version>
             </plugin>
 
             <!-- JavaFX - GUI -->
