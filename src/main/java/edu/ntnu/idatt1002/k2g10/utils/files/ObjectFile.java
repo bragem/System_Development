@@ -1,5 +1,7 @@
 package edu.ntnu.idatt1002.k2g10.utils.files;
 
+import edu.ntnu.idatt1002.k2g10.App;
+
 import java.io.*;
 import java.util.InputMismatchException;
 import java.util.Objects;
@@ -119,6 +121,8 @@ public class ObjectFile<T extends Serializable> extends File {
             objOut.writeObject(object);
             objOut.close();
         } catch (IOException e) {
+            App.getLogger()
+                    .warning(String.format("Unable to write %s object to file.", object.getClass().getSimpleName()));
             return false;
         }
 
@@ -140,6 +144,8 @@ public class ObjectFile<T extends Serializable> extends File {
             objOut.writeObject(object);
             this.object = object;
         } catch (IOException e) {
+            App.getLogger()
+                    .warning(String.format("Unable to write %s object to file.", object.getClass().getSimpleName()));
             return false;
         }
 
@@ -166,9 +172,12 @@ public class ObjectFile<T extends Serializable> extends File {
 
             object = (T) readObject;
         } catch (IOException | ClassNotFoundException e) {
+            App.getLogger().warning(
+                    String.format("Unable to read object from file because of an %s.", e.getClass().getSimpleName()));
             return false;
         } catch (ClassCastException e) {
             // This is thrown if the class of the read object is not the same as T.
+            App.getLogger().warning("Unable to read object from file because object types do not match.");
             throw new InputMismatchException("The object in the given file is not an instance of type parameter.");
         }
 

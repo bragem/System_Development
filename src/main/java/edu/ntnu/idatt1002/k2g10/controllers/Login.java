@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.k2g10.controllers;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import edu.ntnu.idatt1002.k2g10.App;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -15,8 +16,7 @@ public class Login {
      * @author trthingnes
      */
     public void buttonClickLogin() {
-        System.out.println("Login clicked.");
-        System.out.printf("Got username '%s' and password '%s'.%n", usernameField.getText(), passwordField.getText());
+        App.getLogger().info("Login button clicked");
     }
 
     /**
@@ -24,14 +24,12 @@ public class Login {
      *
      * @param event
      *            Event information
-     * 
+     *
      * @author trthingnes
      */
     public void keyPressLogin(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            System.out.println("Enter pressed.");
-            System.out.printf("Got username '%s' and password '%s'.%n", usernameField.getText(),
-                    passwordField.getText());
+            App.getLogger().info("Enter pressed.");
         }
     }
 }
