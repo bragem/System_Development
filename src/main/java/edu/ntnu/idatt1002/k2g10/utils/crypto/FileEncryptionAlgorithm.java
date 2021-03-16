@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k2g10.utils.crypto;
 
 import java.io.*;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Scanner;
@@ -96,10 +97,13 @@ public class FileEncryptionAlgorithm {
      * 
      * @throws EncryptionException
      *             If a problem is encountered while decrypting file.
+     *
+     * @throws InvalidAlgorithmParameterException
+     *             If the given password is not correct.
      * 
      * @author trthingnes
      */
-    public void decryptFile(File file, String password) throws EncryptionException {
+    public void decryptFile(File file, String password) throws EncryptionException, InvalidAlgorithmParameterException {
         if (!file.getPath().contains(ENCRYPTED_FILE_EXTENSION)) {
             file = new File(file.getPath().concat(ENCRYPTED_FILE_EXTENSION));
         }
@@ -126,7 +130,7 @@ public class FileEncryptionAlgorithm {
             // Translate the file with the cipher.
             runCipherOnFiles(cipher, file, new File(file.getPath().replace(ENCRYPTED_FILE_EXTENSION, "")));
         } catch (BadPaddingException e) {
-            throw new EncryptionException("Incorrect password for the given file.");
+            throw new InvalidAlgorithmParameterException("Incorrect password for the given file.");
         } catch (Exception e) {
             throw new EncryptionException(
                     String.format("A %s was caught with the message \"%s\"", e.getClass(), e.getMessage()));

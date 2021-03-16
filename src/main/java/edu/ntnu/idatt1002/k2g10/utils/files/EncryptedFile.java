@@ -1,9 +1,11 @@
 package edu.ntnu.idatt1002.k2g10.utils.files;
 
+import edu.ntnu.idatt1002.k2g10.App;
 import edu.ntnu.idatt1002.k2g10.utils.crypto.EncryptionException;
 import edu.ntnu.idatt1002.k2g10.utils.crypto.FileEncryptionAlgorithm;
 import java.io.File;
 import java.net.URI;
+import java.security.InvalidAlgorithmParameterException;
 
 /**
  * {@link EncryptedFile} behaves like a {@link File} but it can be encrypted using the {@link #encrypt} method. To
@@ -155,6 +157,7 @@ public class EncryptedFile extends File {
         try {
             algorithm.encryptFile(this, password);
         } catch (EncryptionException e) {
+            App.getLogger().severe("Encryption failed with the message: " + e.getMessage());
             return false;
         }
 
@@ -176,6 +179,10 @@ public class EncryptedFile extends File {
         try {
             algorithm.decryptFile(this, password);
         } catch (EncryptionException e) {
+            App.getLogger().severe("Decryption failed with the message: " + e.getMessage());
+            return false;
+        } catch (InvalidAlgorithmParameterException e) {
+            App.getLogger().warning("Decryption failed with the message: " + e.getMessage());
             return false;
         }
 
