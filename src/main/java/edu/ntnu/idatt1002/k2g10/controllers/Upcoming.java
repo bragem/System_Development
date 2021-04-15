@@ -160,12 +160,18 @@ public class Upcoming implements TaskListController {
      *
      * @param categories HashSet of Category objects
      */
-    public void fillCategoryList(HashSet<Category> categories) {
+    public void fillCategoryList(HashSet<Category> categories) throws IOException{
         categoryList.getChildren().clear();
         for (Category c : categories) {
             HBox hbox = new HBox();
+            hbox.getChildren().add(new Label(Character.toString(c.getIcon())));
             hbox.getChildren().add(new Label(c.getTitle()));
+
+            // Adds some spacing between the icon and the label
+            hbox.getChildren().get(1).setStyle("-fx-padding: 0px 0px 0px 5px");
+
             hbox.getStyleClass().add("menu-option");
+            hbox.setStyle("-fx-padding: 5px 0px 5px 10px");
             categoryList.getChildren().add(hbox);
         }
     }
