@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXComboBox;
 import edu.ntnu.idatt1002.k2g10.Session;
 import edu.ntnu.idatt1002.k2g10.Theme;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 
 /**
  * @author hasanro
@@ -28,8 +29,14 @@ public class Settings {
      */
     @FXML
     public void changeTheme() {
+        Scene scene = themePicker.getScene();
+
         Theme newTheme = Theme.get(themePicker.getSelectionModel().getSelectedItem());
         Session.setTheme(newTheme);
+
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add(String.format("/css/%s.css", Session.getTheme().getFileName()));
+
         themePicker.getSelectionModel().select(newTheme.getDisplayName());
     }
 }
