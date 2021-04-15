@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import edu.ntnu.idatt1002.k2g10.Session;
 import edu.ntnu.idatt1002.k2g10.Theme;
 import edu.ntnu.idatt1002.k2g10.exceptions.DuplicateTaskException;
+import edu.ntnu.idatt1002.k2g10.factory.DialogFactory;
 import edu.ntnu.idatt1002.k2g10.models.*;
 import edu.ntnu.idatt1002.k2g10.repositories.UserRepository;
 import edu.ntnu.idatt1002.k2g10.utils.crypto.EncryptionException;
@@ -71,7 +72,8 @@ public class Login {
                         Priority.MEDIUM, freetime));
 
                 Session.setActiveUser(johndoe);
-                Session.setLocation("upcoming");
+                Session.setActivePassword("password");
+                Session.setLocation("overview");
             } catch (IOException | DuplicateTaskException e) {
                 e.printStackTrace();
             }
@@ -91,11 +93,10 @@ public class Login {
             Session.setLocation("upcoming");
         } catch (EncryptionException | IOException e) {
             Session.getLogger().severe(e.getMessage());
-            Session.dialog("Login failed", "Unable to log in because of an internal error. (" + e.getMessage() + ")");
-            e.printStackTrace();
+            DialogFactory.getOKDialog("Login failed", "Unable to log in because of an internal error. (" + e.getMessage() + ")").show();
         } catch (IncorrectPasswordException e) {
             Session.getLogger().warning(e.getMessage());
-            Session.dialog("Login failed", "Incorrect password for the given user.");
+            DialogFactory.getOKDialog("Login failed", "Incorrect password for the given user.").show();
         }
 
     }

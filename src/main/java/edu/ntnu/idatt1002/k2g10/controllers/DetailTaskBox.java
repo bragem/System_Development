@@ -1,22 +1,16 @@
 package edu.ntnu.idatt1002.k2g10.controllers;
 
 import com.jfoenix.controls.*;
-import edu.ntnu.idatt1002.k2g10.App;
 import edu.ntnu.idatt1002.k2g10.Session;
 import edu.ntnu.idatt1002.k2g10.models.Category;
 import edu.ntnu.idatt1002.k2g10.models.Priority;
 import edu.ntnu.idatt1002.k2g10.models.Task;
 import edu.ntnu.idatt1002.k2g10.utils.files.FXMLFile;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -48,7 +42,6 @@ public class DetailTaskBox {
     @FXML
     private DatePicker endDate;
 
-    private final TaskListController parentController;
     private final Task task;
 
     /**
@@ -57,16 +50,13 @@ public class DetailTaskBox {
      *
      * @param task
      *            Task to show detailed view for.
-     * @param parentController
-     *            Controller class of the parent view.
      * 
      * @throws IOException
      *             If {@link DetailTaskBox} fails to load.
      */
-    public DetailTaskBox(Task task, TaskListController parentController) throws IOException {
+    public DetailTaskBox(Task task) throws IOException {
         FXMLFile.load("detail-taskbox", this);
 
-        this.parentController = parentController;
         this.task = task;
         updateLabels();
 
@@ -125,7 +115,6 @@ public class DetailTaskBox {
         task.setStartTime(startDate.getValue().atStartOfDay());
         task.setEndTime(endDate.getValue().atStartOfDay());
         Session.setLocation("Upcoming");
-        parentController.update();
     }
 
     /**
@@ -143,8 +132,5 @@ public class DetailTaskBox {
         } else {
             task.setNotCompleted();
         }
-
-        // Updates the view in the parent controller.
-        parentController.update();
     }
 }

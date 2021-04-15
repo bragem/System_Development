@@ -1,13 +1,10 @@
 package edu.ntnu.idatt1002.k2g10;
 
-import edu.ntnu.idatt1002.k2g10.models.*;
 import edu.ntnu.idatt1002.k2g10.utils.files.FXMLFile;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
-import java.time.LocalDateTime;
 
 public class App extends Application {
     private static final String WINDOW_TITLE = "Todo list application";

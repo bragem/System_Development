@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="bg" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2g10.controllers.AddTask">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="bg" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2g10.controllers.AddTaskController">
    <children>
       <GridPane layoutX="25.0" layoutY="37.0" prefHeight="327.0" prefWidth="550.0">
         <columnConstraints>
@@ -68,7 +68,7 @@
                <GridPane.margin>
                   <Insets />
                </GridPane.margin></JFXTextArea>
-            <JFXButton buttonType="RAISED" onMouseClicked="#addTask" text="Add task" GridPane.columnIndex="4" GridPane.rowIndex="9">
+            <JFXButton buttonType="RAISED" onMouseClicked="#onSubmit" text="Add task" GridPane.columnIndex="4" GridPane.rowIndex="9">
                <font>
                   <Font size="14.0" />
                </font>
