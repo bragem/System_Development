@@ -1,6 +1,6 @@
 package edu.ntnu.idatt1002.k2g10.utils.files;
 
-import edu.ntnu.idatt1002.k2g10.App;
+import edu.ntnu.idatt1002.k2g10.Session;
 
 import java.io.*;
 import java.util.InputMismatchException;
@@ -26,16 +26,14 @@ public class ObjectFile<T extends Serializable> extends File {
      * After file creating, the object is added to the instance and contained.
      *
      * @param pathname
-     *            A pathname string
+     *            A pathname string.
      * @param object
-     *            An object to store
+     *            An object to store.
      * 
      * @throws NullPointerException
-     *             If the {@code pathname} argument is {@code null}
+     *             If the {@code pathname} argument is {@code null}.
      * 
      * @see File#File(String)
-     * 
-     * @author trthingnes
      */
     public ObjectFile(String pathname, T object) {
         super(pathname);
@@ -47,14 +45,12 @@ public class ObjectFile<T extends Serializable> extends File {
      * pathname. If the given string is the empty string, then the result is the empty abstract pathname.
      *
      * @param pathname
-     *            A pathname string
+     *            A pathname string.
      * 
      * @throws NullPointerException
-     *             If the {@code pathname} argument is {@code null}
+     *             If the {@code pathname} argument is {@code null}.
      * 
      * @see File#File(String)
-     * 
-     * @author trthingnes
      */
     public ObjectFile(String pathname) {
         super(pathname);
@@ -65,10 +61,13 @@ public class ObjectFile<T extends Serializable> extends File {
      * contained in this {@link ObjectFile}.
      *
      * @return Object of the defined type {@code T}, or {@code null} if file read fails.
-     * 
-     * @author trthingnes
+     *
+     * @throws IOException
+     *             If something goes wrong while reading the file.
+     * @throws ClassNotFoundException
+     *             If object in file does not match type parameter.
      */
-    public T getObject() {
+    public T getObject() throws IOException, ClassNotFoundException {
         if (!hasObject()) {
             refreshObject();
         }
@@ -81,13 +80,14 @@ public class ObjectFile<T extends Serializable> extends File {
      * newest version of an object.
      *
      * @return Object of the defined type {@code T}, or {@code null} if file read fails.
-     * 
-     * @author trthingnes
+     *
+     * @throws IOException
+     *             If something goes wrong while reading the file.
+     * @throws ClassNotFoundException
+     *             If object in file does not match type parameter.
      */
-    public T readObjectFromFile() {
-        if (!refreshObject()) {
-            return null;
-        }
+    public T readObjectFromFile() throws IOException, ClassNotFoundException {
+        refreshObject();
 
         return object;
     }
@@ -96,9 +96,7 @@ public class ObjectFile<T extends Serializable> extends File {
      * Set the object in the cache.
      *
      * @param object
-     *            Object to put in cache
-     * 
-     * @author trthingnes
+     *            Object to put in cache.
      */
     public void setObject(T object) {
         this.object = object;
@@ -107,89 +105,60 @@ public class ObjectFile<T extends Serializable> extends File {
     /**
      * Writes the cached object to file.
      *
-     * @return True if write is successful, and false if not
-     * 
-     * @author trthingnes
+     * @throws IOException
+     *             If file does not exist and cannot be created, or if file fails to write.
      */
-    public boolean writeObjectToFile() {
-        try {
-            if (!this.exists() && !this.createNewFile()) {
-                return false;
-            }
-
-            ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(this));
-            objOut.writeObject(object);
-            objOut.close();
-        } catch (IOException e) {
-            App.getLogger()
-                    .warning(String.format("Unable to write %s object to file.", object.getClass().getSimpleName()));
-            return false;
+    public void writeObjectToFile() throws IOException {
+        if (!this.exists() && !this.createNewFile()) {
+            throw new IOException(
+                    "The object file at \"" + this.getPath() + "\" does not exist and could not be created.");
         }
 
-        return true;
+        try (ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(this))) {
+            objOut.writeObject(object);
+        }
     }
 
     /**
      * Writes the given object to both the cache and file.
      *
      * @param object
-     *            Object to write to file
-     * 
-     * @return True if write is successful, and false if not
-     * 
-     * @author trthingnes
+     *            Object to write to file.
+     *
+     * @throws IOException
+     *             If object cannot be written to file.
      */
-    public boolean writeObjectToFile(T object) {
+    public void writeObjectToFile(T object) throws IOException {
         try (ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(this))) {
             objOut.writeObject(object);
             this.object = object;
-        } catch (IOException e) {
-            App.getLogger()
-                    .warning(String.format("Unable to write %s object to file.", object.getClass().getSimpleName()));
-            return false;
         }
-
-        return true;
     }
 
     /**
-     * Reads the object stored in the {@link ObjectFile}.
+     * Reads the object stored serialized file into the {@link ObjectFile} instance.
      *
-     * @return True if read is successful, and false if not
-     * 
-     * @throws InputMismatchException
-     *             If the object read is not the same as type parameter T
-     * 
-     * @author trthingnes
+     * @throws IOException
+     *             If the file does not exist or if the file fails to read.
+     * @throws ClassNotFoundException
+     *             If the object read is not the same as type parameter T.
      */
-    private boolean refreshObject() {
+    private void refreshObject() throws IOException, ClassNotFoundException {
         if (!this.exists()) {
-            return false;
+            throw new IOException("The object file at \"" + this.getPath() + "\" does not exist.");
         }
 
         try (ObjectInputStream objIn = new ObjectInputStream(new FileInputStream(this))) {
             Object readObject = objIn.readObject();
 
             object = (T) readObject;
-        } catch (IOException | ClassNotFoundException e) {
-            App.getLogger().warning(
-                    String.format("Unable to read object from file because of an %s.", e.getClass().getSimpleName()));
-            return false;
-        } catch (ClassCastException e) {
-            // This is thrown if the class of the read object is not the same as T.
-            App.getLogger().warning("Unable to read object from file because object types do not match.");
-            throw new InputMismatchException("The object in the given file is not an instance of type parameter.");
         }
-
-        return true;
     }
 
     /**
      * Returns whether or not the {@link ObjectFile} contains an object.
      *
      * @return True if {@link ObjectFile} contains object, false if not.
-     * 
-     * @author trthingnes
      */
     public boolean hasObject() {
         return !Objects.isNull(object);

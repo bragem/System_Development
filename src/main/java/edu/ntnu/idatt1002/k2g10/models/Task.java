@@ -15,7 +15,7 @@ public class Task implements Serializable {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private Priority priority;
-    private final Category category;
+    private Category category;
     private boolean completed = false;
 
     /**
@@ -125,5 +125,9 @@ public class Task implements Serializable {
 
     public boolean getCompleted() {
         return completed;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

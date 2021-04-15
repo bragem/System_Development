@@ -1,11 +1,11 @@
 package edu.ntnu.idatt1002.k2g10.utils.files;
 
-import edu.ntnu.idatt1002.k2g10.App;
+import edu.ntnu.idatt1002.k2g10.utils.crypto.IncorrectPasswordException;
 import edu.ntnu.idatt1002.k2g10.utils.crypto.EncryptionException;
 import edu.ntnu.idatt1002.k2g10.utils.crypto.FileEncryptionAlgorithm;
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
-import java.security.InvalidAlgorithmParameterException;
 
 /**
  * {@link EncryptedFile} behaves like a {@link File} but it can be encrypted using the {@link #encrypt} method. To
@@ -18,7 +18,7 @@ import java.security.InvalidAlgorithmParameterException;
  * @author trthingnes
  */
 public class EncryptedFile extends File {
-    private final FileEncryptionAlgorithm algorithm = FileEncryptionAlgorithm.AES_CBC_PKCS5P;
+    private static final FileEncryptionAlgorithm ALGORITHM = FileEncryptionAlgorithm.AES_CBC_PKCS5P;
 
     /**
      * Creates a new {@code EncryptedFile} instance by converting the given pathname string into an abstract pathname.
@@ -150,18 +150,19 @@ public class EncryptedFile extends File {
      *
      * @param password
      *            Password to use for encryption
+     *
+     * @throws IOException
+     *             If files cannot be cleaned up after encryption
+     * @throws EncryptionException
+     *             If file could not be encrypted successfully
      * 
-     * @return True if encryption succeeds, false if not
+     * @author trthingnes
      */
-    public boolean encrypt(String password) {
-        try {
-            algorithm.encryptFile(this, password);
-        } catch (EncryptionException e) {
-            App.getLogger().severe("Encryption failed with the message: " + e.getMessage());
-            return false;
+    public void encrypt(String password) throws IOException, EncryptionException {
+        ALGORITHM.encryptFile(this, password);
+        if (!this.delete()) {
+            throw new IOException("Could not delete unencrypted file after encryption.");
         }
-
-        return this.delete();
     }
 
     /**
@@ -169,23 +170,25 @@ public class EncryptedFile extends File {
      *
      * @param password
      *            Password to attempt for decryption
-     * 
-     * @return True if decryption succeeds, false if not
+     *
+     * @throws IOException
+     *             If files cannot be cleaned up after encryption
+     * @throws IncorrectPasswordException
+     *             If password for file is incorrect
+     * @throws EncryptionException
+     *             If file could not be decrypted successfully
+     *
+     * @author trthingnes
      */
-    public boolean decrypt(String password) {
-        File encFile = new File(this.getPath().concat(FileEncryptionAlgorithm.ENCRYPTED_FILE_EXTENSION));
-        File keyFile = new File(this.getPath().concat(FileEncryptionAlgorithm.SALT_IV_FILE_EXTENSION));
+    public void decrypt(String password, boolean deleteEncrypted)
+            throws IOException, IncorrectPasswordException, EncryptionException {
+        File encFile = new File(this.getPath().concat(FileEncryptionAlgorithm.ENCRYPTED_EXTENSION));
+        File keyFile = new File(this.getPath().concat(FileEncryptionAlgorithm.SALT_IV_EXTENSION));
 
-        try {
-            algorithm.decryptFile(this, password);
-        } catch (EncryptionException e) {
-            App.getLogger().severe("Decryption failed with the message: " + e.getMessage());
-            return false;
-        } catch (InvalidAlgorithmParameterException e) {
-            App.getLogger().warning("Decryption failed with the message: " + e.getMessage());
-            return false;
+        ALGORITHM.decryptFile(this, password);
+
+        if (deleteEncrypted && (!encFile.delete() || !keyFile.delete())) {
+            throw new IOException("Could not delete encrypted files after decryption.");
         }
-
-        return encFile.delete() && keyFile.delete();
     }
 }
