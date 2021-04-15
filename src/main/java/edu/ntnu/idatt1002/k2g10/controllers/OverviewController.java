@@ -6,11 +6,15 @@ import edu.ntnu.idatt1002.k2g10.factory.PopupWindowFactory;
 import edu.ntnu.idatt1002.k2g10.factory.TableColumnFactory;
 import edu.ntnu.idatt1002.k2g10.models.Task;
 import javafx.collections.FXCollections;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.skin.TableColumnHeader;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -56,12 +60,12 @@ public class OverviewController {
         TableColumn<Task, String> categoryColumn = columnFactory.getTableColumn("Category", "category");
         taskList.getColumns().addAll(List.of(titleColumn, priorityColumn, categoryColumn));
 
+
         // Link task list table to the task list.
-        taskList.setItems(FXCollections.observableList(displayedTasks));
+        taskList.getSelectionModel().selectedItemProperty().addListener((task) -> showTaskDetails());
         refreshAndFilterTaskList();
 
         // Link category list view to category list.
-        categoryList.setItems(FXCollections.observableList(displayedCategories));
         refreshCategoryList();
 
         // Make detail panel grow to fill right menu
@@ -100,7 +104,7 @@ public class OverviewController {
 
         displayedTasks.clear();
         displayedTasks.addAll(matchingTasks);
-        taskList.refresh();
+        taskList.setItems(FXCollections.observableList(displayedTasks));
     }
 
     @FXML
@@ -109,8 +113,7 @@ public class OverviewController {
         popupWindow.showAndWait();
 
         refreshCategoryList();
-
-        categoryList.refresh();
+        showTaskDetails();
     }
 
     private void refreshCategoryList() {
@@ -120,6 +123,18 @@ public class OverviewController {
                 .map(c -> String.format("%s %s", c.getIcon(), c.getTitle()))
                 .sorted()
                 .collect(Collectors.toList()));
+
+        categoryList.setItems(FXCollections.observableList(displayedCategories));
+    }
+
+    private void showTaskDetails()  {
+        Task selectedTask = taskList.getSelectionModel().getSelectedItem();
+
+        try {
+            Objects.requireNonNull(selectedTask);
+            taskDetailPanel.getChildren().clear();
+            taskDetailPanel.getChildren().add(new DetailTaskBox(selectedTask).getContainer());
+        } catch (IOException | NullPointerException ignored) {}
     }
 
     @FXML

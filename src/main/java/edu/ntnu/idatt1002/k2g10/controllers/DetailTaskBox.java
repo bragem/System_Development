@@ -114,7 +114,6 @@ public class DetailTaskBox {
         task.setCategory(category);
         task.setStartTime(startDate.getValue().atStartOfDay());
         task.setEndTime(endDate.getValue().atStartOfDay());
-        Session.setLocation("Upcoming");
     }
 
     /**

@@ -168,7 +168,10 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </HBox>
-            <TableView fx:id="taskList" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <TableView fx:id="taskList" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy></TableView>
          </children>
       </VBox>
       <VBox fx:id="taskDetailPanel" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="400.0" styleClass="right-menu">
