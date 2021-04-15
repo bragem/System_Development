@@ -155,6 +155,11 @@ public class Upcoming implements TaskListController {
         taskDetailPanel.getChildren().add(detailTaskBox.getContainer());
     }
 
+    /**
+     * Fills all the added categories into the GUI
+     *
+     * @param categories HashSet of Category objects
+     */
     public void fillCategoryList(HashSet<Category> categories) {
         categoryList.getChildren().clear();
         for (Category c : categories) {
