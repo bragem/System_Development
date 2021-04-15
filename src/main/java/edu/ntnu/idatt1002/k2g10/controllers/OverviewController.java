@@ -37,16 +37,14 @@ public class OverviewController {
     @FXML
     private Label emailLabel;
 
-    private List<String> categoryTitles;
+    private final List<Task> displayedTasks = new ArrayList<>();
+    private final List<String> displayedCategories = new ArrayList<>();
 
     /**
      * Runs when the view is loaded.
-     *
-     * @throws IOException
-     *             If updating the view fails.
      */
     @FXML
-    public void initialize() throws IOException {
+    public void initialize() {
         // Fill user info
         usernameLabel.setText(Session.getActiveUser().getUsername());
         emailLabel.setText(Session.getActiveUser().getEmail());
@@ -57,15 +55,14 @@ public class OverviewController {
         TableColumn<Task, String> priorityColumn = columnFactory.getTableColumn("Priority", "priority");
         TableColumn<Task, String> categoryColumn = columnFactory.getTableColumn("Category", "category");
         taskList.getColumns().addAll(List.of(titleColumn, priorityColumn, categoryColumn));
-        taskList.setItems(FXCollections.observableList(Session.getActiveUser().getTaskList().getTasks()));
 
-        // Initialize category list
-        categoryTitles = Session.getActiveUser().getTaskList().getCategories()
-                .stream()
-                .map(c -> String.format("%s %s", c.getIcon(), c.getTitle()))
-                .sorted()
-                .collect(Collectors.toList());
-        categoryList.setItems(FXCollections.observableList(categoryTitles));
+        // Link task list table to the task list.
+        taskList.setItems(FXCollections.observableList(displayedTasks));
+        refreshAndFilterTaskList();
+
+        // Link category list view to category list.
+        categoryList.setItems(FXCollections.observableList(displayedCategories));
+        refreshCategoryList();
 
         // Make detail panel grow to fill right menu
         taskDetailPanel.setPrefHeight(Double.MAX_VALUE);
@@ -74,8 +71,35 @@ public class OverviewController {
     @FXML
     public void showAddTask() throws IOException {
         Stage popupWindow = PopupWindowFactory.getPopupWindow("add-task");
+        popupWindow.setTitle("Add new task");
         popupWindow.showAndWait();
 
+        refreshAndFilterTaskList();
+
+        taskList.refresh();
+    }
+
+    @FXML
+    public void refreshAndFilterTaskList() {
+        String query = searchField.getText().toLowerCase(Locale.ROOT);
+
+        List<Task> matchingTasks = new ArrayList<>();
+        if(!query.isBlank()) {
+            for(Task task : Session.getActiveUser().getTaskList().getTasks()) {
+                if(task.getTitle().toLowerCase(Locale.ROOT).contains(query) ||
+                        task.getDescription().toLowerCase(Locale.ROOT).contains(query) ||
+                        task.getCategory().getTitle().toLowerCase(Locale.ROOT).contains(query)
+                ) {
+                    matchingTasks.add(task);
+                }
+            }
+        }
+        else {
+            matchingTasks = Session.getActiveUser().getTaskList().getTasks();
+        }
+
+        displayedTasks.clear();
+        displayedTasks.addAll(matchingTasks);
         taskList.refresh();
     }
 
@@ -84,38 +108,28 @@ public class OverviewController {
         Stage popupWindow = PopupWindowFactory.getPopupWindow("add-category");
         popupWindow.showAndWait();
 
-        categoryTitles.clear();
-        categoryTitles.addAll(Session.getActiveUser().getTaskList().getCategories()
-                .stream()
-                .map(c -> String.format("%s %s", c.getIcon(), c.getTitle()))
-                .sorted()
-                .collect(Collectors.toList()));
+        refreshCategoryList();
 
         categoryList.refresh();
     }
 
-    /**
-     * Opens a settings popup window.
-     *
-     * @throws IOException
-     *             If the FXML file fails to load.
-     */
+    private void refreshCategoryList() {
+        displayedCategories.clear();
+        displayedCategories.addAll(Session.getActiveUser().getTaskList().getCategories()
+                .stream()
+                .map(c -> String.format("%s %s", c.getIcon(), c.getTitle()))
+                .sorted()
+                .collect(Collectors.toList()));
+    }
+
     @FXML
     public void showSettings() throws IOException {
         Stage popupWindow = PopupWindowFactory.getPopupWindow("settings");
         popupWindow.show();
     }
 
-    /**
-     * Takes the user to the login screen.
-     *
-     * @throws IOException
-     *             If login screen fails to load.
-     */
     @FXML
     public void logout() throws IOException {
         Session.setLocation("login");
     }
-
-    //TODO: Search logic
 }

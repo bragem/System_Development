@@ -1,6 +1,5 @@
 package edu.ntnu.idatt1002.k2g10.controllers;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
@@ -40,7 +39,7 @@ public class AddCategoryController {
         try {
             Category newCategory = new Category(categoryTitle, categoryIcon);
             Session.getActiveUser().getTaskList().addCategory(newCategory);
-            Session.save(); // Saves user to file.
+            Session.save(); // Saves user data.
             stage.close();
         } catch (IOException e) {
             //TODO: Exception handling.
