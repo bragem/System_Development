@@ -1,0 +1,15 @@
+* {
+    -background-color: #161616;
+    -textfield-background-color: -background-color;
+    -dropdown-background-color: -background-color;
+    -button-background-color: #f700ff;
+    -menu-background-color: #444444;
+    -user-menu-background-color: #282828;
+    -border-color: #f700ff;
+    -fill-color: #ffff00;
+    -unfocus-color: #a0a0a0;
+}
+
+.splash-img {
+    -fx-background-image: url("../img/dark/splash.jpg");
+}

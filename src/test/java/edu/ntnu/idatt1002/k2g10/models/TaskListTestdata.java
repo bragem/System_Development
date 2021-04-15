@@ -11,9 +11,9 @@ public final class TaskListTestdata {
     }
 
     public static TaskList fillTasklistWithData(TaskList tasks) {
-        Category testC1 = new Category("c1", 'a');
-        Category testC2 = new Category("c2", 'b');
-        Category testC3 = new Category("c3", 'c');
+        Category testC1 = new Category("a1", '\uf17b');
+        Category testC2 = new Category("c2", '\uf17b');
+        Category testC3 = new Category("c3", '\uf17b');
 
         tasks.addCategory(testC1);
         tasks.addCategory(testC2);
@@ -21,7 +21,7 @@ public final class TaskListTestdata {
 
         LocalDateTime today = LocalDateTime.now();
 
-        Task task1 = new Task("task1", "test task", today, today.plus(4, ChronoUnit.DAYS), Priority.NONE, testC1);
+        Task task1 = new Task("aaaTask1", "test task", today, today.plus(4, ChronoUnit.DAYS), Priority.NONE, testC1);
         Task task2 = new Task("task2", "test task", today, today.plus(3, ChronoUnit.DAYS), Priority.HIGH, testC2);
         Task task3 = new Task("task3", "test task", today, today.plus(5, ChronoUnit.DAYS), Priority.LOW, testC3);
         Task task4 = new Task("task4", "test task", today, today.plus(9, ChronoUnit.DAYS), Priority.MEDIUM);

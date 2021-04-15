@@ -33,7 +33,7 @@ class TaskListTest {
     void sortTasksByCategory() {
         TaskList tasks = TaskListTestdata.fillTasklistWithData(new TaskList());
         Category category = tasks.getTasks().get(0).getCategory();
-        ArrayList<Task> sortedList = tasks.sortByCategory(category);
+        ArrayList<Task> sortedList = tasks.filterByCategory(category);
         assertEquals(tasks.getTasks().get(0), sortedList.get(0));
     }
 
@@ -86,5 +86,23 @@ class TaskListTest {
         Category category = tasks.getTasks().get(0).getCategory();
         tasks.addCategory(category);
         assertFalse(tasks.addCategory(category));
+    }
+
+    @Test
+    @DisplayName("Sorts tasks alphabetically")
+    void sortTasksAlphabetically() {
+        TaskList tasks = TaskListTestdata.fillTasklistWithData(new TaskList());
+        Task taskA = tasks.getTasks().get(0);
+        ArrayList<Task> list = tasks.sortByName();
+        assertEquals(taskA, list.get(0));
+    }
+
+    @Test
+    @DisplayName("Sorts tasks alphabetically by category name")
+    void sortTasksAlphabeticallyByCategory() {
+        TaskList tasks = TaskListTestdata.fillTasklistWithData(new TaskList());
+        Task taskA = tasks.getTasks().get(0);
+        ArrayList<Task> list = tasks.sortByCategory();
+        assertEquals(taskA, list.get(0));
     }
 }

@@ -32,8 +32,6 @@ public class PasswordHashAlgorithm {
      * 
      * @see SecretKeyFactory#getInstance(String)
      * @see PBEKeySpec#PBEKeySpec(char[], byte[], int, int)
-     * 
-     * @author trthingnes
      */
     public PasswordHashAlgorithm(String algorithm, int keyLength, int iterations) {
         this.algorithm = algorithm;
@@ -53,8 +51,6 @@ public class PasswordHashAlgorithm {
      * 
      * @throws HashException
      *             If the hashing cannot be completed.
-     * 
-     * @author trthingnes
      */
     public String getSaltedHash(String password, String salt) throws HashException {
         char[] chars = password.toCharArray();
@@ -85,8 +81,6 @@ public class PasswordHashAlgorithm {
      * 
      * @throws HashException
      *             If the hashing cannot be completed.
-     * 
-     * @author trthingnes
      */
     public String[] getSaltedHash(String password) throws HashException {
         String salt = generateSalt();
@@ -104,8 +98,6 @@ public class PasswordHashAlgorithm {
      *            Hash to compare the hashing result to.
      * 
      * @return True if the result and the given hash match, false if not.
-     * 
-     * @author trthingnes
      */
     public boolean verifyHash(String password, String salt, String hash) {
         String passwordHash;
@@ -124,8 +116,6 @@ public class PasswordHashAlgorithm {
      * @return Salt encoded as a {@link Base64} string.
      * 
      * @see #generateSalt(int)
-     * 
-     * @author trthingnes
      */
     public String generateSalt() {
         final int DEFAULT_SALT_SIZE = 32;
@@ -140,8 +130,6 @@ public class PasswordHashAlgorithm {
      *            Number of bytes in the returned salt.
      * 
      * @return Salt encoded as a {@link Base64} string.
-     * 
-     * @author trthingnes
      */
     public String generateSalt(int length) {
         SecureRandom sr = new SecureRandom();

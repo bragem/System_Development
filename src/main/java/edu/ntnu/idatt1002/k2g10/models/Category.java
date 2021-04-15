@@ -10,35 +10,35 @@ import java.util.Objects;
  */
 public class Category implements Serializable {
     private String title;
-    private Character symbol;
+    private char icon;
 
     /**
      * Construct a new category instance.
      * 
      * @param title
      *            Category title to display
-     * @param symbol
+     * @param icon
      *            Category symbol/emoji to display
      */
-    public Category(String title, Character symbol) {
+    public Category(String title, char icon) {
         this.title = title;
-        this.symbol = symbol;
+        this.icon = icon;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public Character getSymbol() {
-        return symbol;
+    public char getIcon() {
+        return icon;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public void setSymbol(Character symbol) {
-        this.symbol = symbol;
+    public void setIcon(char icon) {
+        this.icon = icon;
     }
 
     @Override
@@ -53,6 +53,6 @@ public class Category implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, symbol);
+        return Objects.hash(title, icon);
     }
 }

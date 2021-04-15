@@ -1,7 +1,6 @@
 package edu.ntnu.idatt1002.k2g10.utils.crypto;
 
 import java.io.*;
-import java.security.InvalidAlgorithmParameterException;
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Scanner;
@@ -22,8 +21,8 @@ public class FileEncryptionAlgorithm {
     public static final FileEncryptionAlgorithm AES_CBC_PKCS5P = new FileEncryptionAlgorithm("AES/CBC/PKCS5Padding",
             "AES", PasswordHashAlgorithm.PBKDF2);
 
-    public static final String ENCRYPTED_FILE_EXTENSION = ".encrypted";
-    public static final String SALT_IV_FILE_EXTENSION = ".encrypted.keys";
+    public static final String ENCRYPTED_EXTENSION = ".encrypted";
+    public static final String SALT_IV_EXTENSION = ".encrypted.keys";
 
     private final String algorithm;
     private final String keyAlgorithm;
@@ -33,11 +32,11 @@ public class FileEncryptionAlgorithm {
      * Creates a new {@link FileEncryptionAlgorithm} instance.
      *
      * @param algorithm
-     *            Encryption algorithm name
+     *            Name of the {@link Cipher} algorithm to use for encryption
      * @param keyAlgorithm
-     *            Key algorithm name
+     *            Name of the {@link SecretKeySpec} algorithm to use for key generation
      * @param hashAlgorithm
-     *            Hash algorithm preset
+     *            Hash algorithm instance to use for hashing password
      * 
      * @see PasswordHashAlgorithm
      * 
@@ -55,10 +54,10 @@ public class FileEncryptionAlgorithm {
      * @param file
      *            File to encrypt
      * @param password
-     *            Password to encrypt file with
+     *            Password to use for encryption
      * 
      * @throws EncryptionException
-     *             If a problem is encountered while encrypting file.
+     *             If a problem is encountered while encrypting the given file.
      * 
      * @author trthingnes
      */
@@ -74,13 +73,13 @@ public class FileEncryptionAlgorithm {
             cipher.init(Cipher.ENCRYPT_MODE, key, iv);
 
             // Write salt and IV to use for decryption.
-            try (FileWriter writer = new FileWriter(file.getPath().concat(SALT_IV_FILE_EXTENSION))) {
+            try (FileWriter writer = new FileWriter(file.getPath().concat(SALT_IV_EXTENSION))) {
                 writer.write(salt);
                 writer.write("\n");
                 writer.write(Base64.getEncoder().encodeToString(iv.getIV()));
             }
 
-            runCipherOnFiles(cipher, file, new File(file.getPath().concat(ENCRYPTED_FILE_EXTENSION)));
+            runCipherOnFiles(cipher, file, new File(file.getPath().concat(ENCRYPTED_EXTENSION)));
         } catch (Exception e) {
             throw new EncryptionException(
                     String.format("A %s was caught with the message \"%s\"", e.getClass(), e.getMessage()));
@@ -96,16 +95,17 @@ public class FileEncryptionAlgorithm {
      *            Password to use for decryption
      * 
      * @throws EncryptionException
-     *             If a problem is encountered while decrypting file.
+     *             If a problem is encountered while decrypting the given file.
      *
-     * @throws InvalidAlgorithmParameterException
-     *             If the given password is not correct.
+     * @throws IncorrectPasswordException
+     *             If the given password cannot be used to decrypt the file.
      * 
      * @author trthingnes
      */
-    public void decryptFile(File file, String password) throws EncryptionException, InvalidAlgorithmParameterException {
-        if (!file.getPath().contains(ENCRYPTED_FILE_EXTENSION)) {
-            file = new File(file.getPath().concat(ENCRYPTED_FILE_EXTENSION));
+    public void decryptFile(File file, String password) throws EncryptionException, IncorrectPasswordException {
+        // If the given path is to unencrypted file, add encrypted extension to it.
+        if (!file.getPath().contains(ENCRYPTED_EXTENSION)) {
+            file = new File(file.getPath().concat(ENCRYPTED_EXTENSION));
         }
 
         try {
@@ -114,7 +114,7 @@ public class FileEncryptionAlgorithm {
 
             // Read salt and IV to use for decryption.
             try (Scanner reader = new Scanner(
-                    new File(file.getPath().replace(ENCRYPTED_FILE_EXTENSION, "").concat(SALT_IV_FILE_EXTENSION)))) {
+                    new File(file.getPath().replace(ENCRYPTED_EXTENSION, "").concat(SALT_IV_EXTENSION)))) {
                 salt = reader.nextLine();
                 iv = new IvParameterSpec(Base64.getDecoder().decode(reader.nextLine()));
             }
@@ -128,12 +128,12 @@ public class FileEncryptionAlgorithm {
             cipher.init(Cipher.DECRYPT_MODE, key, iv);
 
             // Translate the file with the cipher.
-            runCipherOnFiles(cipher, file, new File(file.getPath().replace(ENCRYPTED_FILE_EXTENSION, "")));
+            runCipherOnFiles(cipher, file, new File(file.getPath().replace(ENCRYPTED_EXTENSION, "")));
         } catch (BadPaddingException e) {
-            throw new InvalidAlgorithmParameterException("Incorrect password for the given file.");
+            throw new IncorrectPasswordException("Could not decrypt file with the given password.");
         } catch (Exception e) {
             throw new EncryptionException(
-                    String.format("A %s was caught with the message \"%s\"", e.getClass(), e.getMessage()));
+                    String.format("A %s was caught with the message \"%s\".", e.getClass(), e.getMessage()));
         }
     }
 
@@ -148,7 +148,7 @@ public class FileEncryptionAlgorithm {
      *            Result of encryption/decryption
      * 
      * @throws BadPaddingException
-     *             If the padding is incorrect (usually because of incorrect password)
+     *             If the padding is incorrect (usually because of an incorrect password)
      * @throws IllegalBlockSizeException
      *             If the block size is incorrect
      * @throws IOException

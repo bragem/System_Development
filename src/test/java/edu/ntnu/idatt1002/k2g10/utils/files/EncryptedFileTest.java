@@ -2,9 +2,12 @@ package edu.ntnu.idatt1002.k2g10.utils.files;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import edu.ntnu.idatt1002.k2g10.utils.crypto.EncryptionException;
 import edu.ntnu.idatt1002.k2g10.utils.crypto.FileEncryptionAlgorithm;
 import java.io.*;
 import java.util.Scanner;
+
+import edu.ntnu.idatt1002.k2g10.utils.crypto.IncorrectPasswordException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -34,12 +37,12 @@ public class EncryptedFileTest {
             assertTrue(file.delete());
         }
 
-        File keys = new File(file.getPath().concat(FileEncryptionAlgorithm.SALT_IV_FILE_EXTENSION));
+        File keys = new File(file.getPath().concat(FileEncryptionAlgorithm.SALT_IV_EXTENSION));
         if (keys.exists()) {
             assertTrue(keys.delete());
         }
 
-        File enc = new File(file.getPath().concat(FileEncryptionAlgorithm.ENCRYPTED_FILE_EXTENSION));
+        File enc = new File(file.getPath().concat(FileEncryptionAlgorithm.ENCRYPTED_EXTENSION));
         if (enc.exists()) {
             assertTrue(enc.delete());
         }
@@ -48,39 +51,41 @@ public class EncryptedFileTest {
     @Test
     @DisplayName("File encrypts successfully")
     void testFileEncryptsSuccessfully() {
-        assertTrue(file.encrypt(passwordA));
+        assertDoesNotThrow(() -> file.encrypt(passwordA));
     }
 
     @Test
     @DisplayName("File decrypts successfully with correct password")
-    void testFileDecryptsSuccessfullyWithCorrectPassword() {
+    void testFileDecryptsSuccessfullyWithCorrectPassword() throws IOException, EncryptionException {
         file.encrypt(passwordA);
 
-        assertTrue(file.decrypt(passwordA));
+        assertDoesNotThrow(() -> file.decrypt(passwordA, true));
     }
 
     @Test
     @DisplayName("File decrypts successfully with correct password after failed decryption")
-    void testFileDecryptsSuccessfullyWithCorrectPasswordAfterFailedDecryption() {
+    void testFileDecryptsSuccessfullyWithCorrectPasswordAfterFailedDecryption()
+            throws IOException, EncryptionException {
         file.encrypt(passwordA);
-        file.decrypt(passwordB);
 
-        assertTrue(file.decrypt(passwordA));
+        assertThrows(IncorrectPasswordException.class, () -> file.decrypt(passwordB, true));
+        assertDoesNotThrow(() -> file.decrypt(passwordA, true));
     }
 
     @Test
     @DisplayName("File does not decrypt with incorrect password")
-    void testFileDoesNotDecryptWithIncorrectPassword() {
+    void testFileDoesNotDecryptWithIncorrectPassword() throws IOException, EncryptionException {
         file.encrypt(passwordA);
 
-        assertFalse(file.decrypt(passwordB));
+        assertThrows(IncorrectPasswordException.class, () -> file.decrypt(passwordB, true));
     }
 
     @Test
     @DisplayName("File content is the same after being encrypted and decrypted")
-    void testObjectIsTheSameAfterBeingWrittenAndRead() throws IOException {
+    void testObjectIsTheSameAfterBeingWrittenAndRead()
+            throws IOException, EncryptionException, IncorrectPasswordException {
         file.encrypt(passwordA);
-        file.decrypt(passwordA);
+        file.decrypt(passwordA, true);
 
         String content;
         try (Scanner scanner = new Scanner(file)) {

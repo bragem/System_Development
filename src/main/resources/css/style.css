@@ -1,0 +1,112 @@
+@font-face {
+    src: url("../font/fontawesome.ttf");
+}
+
+* {
+    -fx-font-family: Arial;
+}
+
+.bg {
+    -fx-background-color: -background-color;
+}
+
+.button {
+    -fx-border-color: -border-color;
+    -fx-background-color: -button-background-color;
+    -fx-border-width: 1px;
+}
+
+.splash-img {
+    -fx-background-size: cover;
+    -fx-background-repeat: stretch;
+}
+
+.text {
+    -fx-fill: -fill-color;
+}
+
+.selectfield {
+    -fx-border-color: -border-color;
+    -jfx-focus-color: -border-color;
+    -jfx-unfocus-color: -background-color;
+}
+
+.selectfield .combo-box-popup .list-cell {
+    -fx-background-color: -dropdown-background-color;
+    -fx-border-color: -border-color;
+    -fx-border-width: 1px;
+    -fx-text-fill: -fill-color;
+}
+
+.icon * {
+    -fx-font-family: "FontAwesome Regular";
+    -fx-font-size: 21px;
+}
+
+.textfield {
+    -fx-text-fill: -fill-color;
+    -fx-background-color: -textfield-background-color;
+    -fx-border-color: -border-color;
+    -jfx-focus-color: -border-color;
+    -jfx-unfocus-color: -unfocus-color;
+}
+
+.right-menu .text-area {
+    -fx-text-fill: -fill-color;
+    -fx-background-color: -textfield-background-color;
+    -fx-border-color: -border-color;
+}
+
+.top-menu {
+    -fx-border-width: 0px 0px 1px 0px;
+    -fx-border-color: -fill-color;
+}
+
+.search-filter-box {
+    -fx-text-fill: -fill-color;
+    -fx-background-color: -textfield-background-color;
+    -jfx-focus-color: -border-color;
+    -jfx-unfocus-color: -unfocus-color;
+}
+
+.right-menu {
+    -fx-background-color: -menu-background-color;
+    -fx-border-width: 0px 0px 0px 1px;
+    -fx-border-color: -fill-color;
+}
+
+.left-menu {
+    -fx-background-color: -menu-background-color;
+    -fx-border-width: 0px 1px 0px 0px;
+    -fx-border-color: -fill-color;
+}
+
+.menu-option {
+    -fx-pref-width: 999999;
+    -fx-text-alignment: center;
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-color: -fill-color;
+}
+
+.menu-option .selected-menu-option {
+    -fx-background-color: -user-menu-background-color;
+}
+
+.left-menu .user-menu {
+    -fx-background-color: -user-menu-background-color;
+    -fx-border-width: 1px 0px 0px 0px;
+    -fx-border-color: -fill-color;
+}
+
+.taskbox {
+    -fx-border-width: 0px 0px 1px 0px;
+    -fx-border-color: -fill-color;
+}
+
+.taskbox .check-box {
+    -jfx-unchecked-color: -fill-color;
+}
+
+.right-menu .check-box {
+    -jfx-unchecked-color: -fill-color;
+}

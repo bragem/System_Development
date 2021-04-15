@@ -1,9 +1,7 @@
 package edu.ntnu.idatt1002.k2g10.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Comparator;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import edu.ntnu.idatt1002.k2g10.exceptions.DuplicateTaskException;
@@ -121,6 +119,40 @@ public class TaskList implements Serializable {
     }
 
     /**
+     * Method for sorting {@link Task} objects in {@link TaskList} alphabetically
+     *
+     * @return a sorted ArrayList
+     *
+     * @author andetel
+     */
+    public ArrayList<Task> sortByName() {
+        ArrayList<Task> sortedList;
+        sortedList = (ArrayList<Task>) tasks.stream().sorted(Comparator.comparing(Task::getTitle))
+                .collect(Collectors.toList());
+        return sortedList;
+    }
+
+    /**
+     * Method for sorting {@link Task} objects in {@link TaskList} by category alphabetically
+     * 
+     * @return a sorted ArrayList
+     * 
+     * @author andetel, bragemi, trthingnes
+     */
+    public ArrayList<Task> sortByCategory() {
+        ArrayList<Task> sortedList;
+        sortedList = (ArrayList<Task>) tasks.stream().sorted(Comparator.comparing(task -> {
+            if (Objects.isNull(task.getCategory())) {
+                // tasks without a category will be put at the end of the list,
+                // by returning a "~" which has the highest ASCII-value before delete
+                return "~";
+            }
+            return task.getCategory().getTitle();
+        })).collect(Collectors.toList());
+        return sortedList;
+    }
+
+    /**
      * Method for sorting {@link Task} objects in {@link TaskList} by category
      * 
      * @param category
@@ -130,7 +162,7 @@ public class TaskList implements Serializable {
      * 
      * @author bragemi, hasanro
      */
-    public ArrayList<Task> sortByCategory(Category category) {
+    public ArrayList<Task> filterByCategory(Category category) {
         ArrayList<Task> sortedList;
         sortedList = (ArrayList<Task>) tasks.stream().filter(task -> task.getCategory() == category)
                 .collect(Collectors.toList());
