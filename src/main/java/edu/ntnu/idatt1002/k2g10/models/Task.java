@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.k2g10.models;
 
 import java.io.Serializable;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -12,8 +13,8 @@ import java.time.LocalDateTime;
 public class Task implements Serializable {
     private String title;
     private String description;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private LocalDate startTime;
+    private LocalDate endTime;
     private Priority priority;
     private Category category;
     private boolean completed = false;
@@ -34,7 +35,7 @@ public class Task implements Serializable {
      * @param category
      *            Category of the task object
      */
-    public Task(String title, String description, LocalDateTime startTime, LocalDateTime endTime, Priority priority,
+    public Task(String title, String description, LocalDate startTime, LocalDate endTime, Priority priority,
             Category category) {
         this.title = title;
         this.description = description;
@@ -58,7 +59,7 @@ public class Task implements Serializable {
      * @param priority
      *            Task priority
      */
-    public Task(String title, String description, LocalDateTime startTime, LocalDateTime endTime, Priority priority) {
+    public Task(String title, String description, LocalDate startTime, LocalDate endTime, Priority priority) {
         this.title = title;
         this.description = description;
         this.startTime = startTime;
@@ -75,11 +76,11 @@ public class Task implements Serializable {
         return description;
     }
 
-    public LocalDateTime getStartTime() {
+    public LocalDate getStartTime() {
         return startTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public LocalDate getEndTime() {
         return endTime;
     }
 
@@ -103,11 +104,11 @@ public class Task implements Serializable {
         this.description = description;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(LocalDate startTime) {
         this.startTime = startTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(LocalDate endTime) {
         this.endTime = endTime;
     }
 

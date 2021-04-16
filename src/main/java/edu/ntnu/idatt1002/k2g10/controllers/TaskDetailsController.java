@@ -89,8 +89,8 @@ public class TaskDetailsController {
                 .orElse(task.getPriority());
         task.setPriority(priority);
 
-        task.setStartTime(startDate.getValue().atStartOfDay());
-        task.setEndTime(endDate.getValue().atStartOfDay());
+        task.setStartTime(startDate.getValue());
+        task.setEndTime(endDate.getValue());
 
         parentController.refreshAndFilterTaskList();
     }
@@ -127,8 +127,8 @@ public class TaskDetailsController {
         priorityDropdown.getItems().addAll(priorityNames);
         priorityDropdown.getSelectionModel().select(task.getPriority().toString());
 
-        startDate.setValue(task.getStartTime().toLocalDate());
-        endDate.setValue(task.getEndTime().toLocalDate());
+        startDate.setValue(task.getStartTime());
+        endDate.setValue(task.getEndTime());
     }
 
     /**

@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import edu.ntnu.idatt1002.k2g10.Session;
@@ -62,18 +63,18 @@ public class LoginController {
                 johndoe.getTaskList().addCategory(freetime);
 
                 TaskList list = johndoe.getTaskList();
-                list.addTask(new Task("Title A", "Desc", LocalDateTime.of(2021, 1, 1, 0, 0), LocalDateTime.now(),
+                list.addTask(new Task("Title A", "Desc", LocalDate.of(2021, 1, 1), LocalDate.now(),
                         Priority.HIGH, school));
-                list.addTask(new Task("Title B", "Desc", LocalDateTime.of(2021, 2, 1, 0, 0), LocalDateTime.now(),
+                list.addTask(new Task("Title B", "Desc", LocalDate.of(2021, 2, 1), LocalDate.now(),
                         Priority.LOW, work));
-                list.addTask(new Task("Title C", "Desc", LocalDateTime.of(2021, 3, 1, 0, 0), LocalDateTime.now(),
+                list.addTask(new Task("Title C", "Desc", LocalDate.of(2021, 3, 1), LocalDate.now(),
                         Priority.NONE, shopping));
-                list.addTask(new Task("Title D", "Desc", LocalDateTime.of(2021, 4, 1, 0, 0), LocalDateTime.now(),
+                list.addTask(new Task("Title D", "Desc", LocalDate.of(2021, 4, 1), LocalDate.now(),
                         Priority.MEDIUM, freetime));
 
                 Session.setActiveUser(johndoe);
                 Session.setActivePassword("password");
-                Session.setLocation("overview");
+                Session.setLocation("taskview");
             } catch (IOException | DuplicateTaskException e) {
                 e.printStackTrace();
             }

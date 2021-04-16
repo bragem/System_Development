@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.k2g10.models;
 
 import edu.ntnu.idatt1002.k2g10.exceptions.DuplicateTaskException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -19,7 +20,7 @@ public final class TaskListTestdata {
         tasks.addCategory(testC2);
         tasks.addCategory(testC3);
 
-        LocalDateTime today = LocalDateTime.now();
+        LocalDate today = LocalDate.now();
 
         Task task1 = new Task("aaaTask1", "test task", today, today.plus(4, ChronoUnit.DAYS), Priority.NONE, testC1);
         Task task2 = new Task("task2", "test task", today, today.plus(3, ChronoUnit.DAYS), Priority.HIGH, testC2);

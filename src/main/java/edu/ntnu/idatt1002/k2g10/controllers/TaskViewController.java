@@ -16,7 +16,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 /**
@@ -64,12 +66,12 @@ public class TaskViewController {
         taskList.getColumns().addAll(List.of(titleColumn, priorityColumn, categoryColumn));
 
         // Link task list table to the task list.
-        taskList.getSelectionModel().selectedItemProperty().addListener((task) -> showTaskDetails());
+        taskList.getSelectionModel().selectedItemProperty().addListener(task -> showTaskDetails());
         refreshAndFilterTaskList();
 
         // Initialize view mode list.
         viewModeList.setItems(FXCollections.observableList(List.of(TaskViewMode.values())));
-        viewModeList.getSelectionModel().selectedItemProperty().addListener((mode) -> changeTaskViewMode());
+        viewModeList.getSelectionModel().selectedItemProperty().addListener(mode -> changeTaskViewMode());
 
         // Link category list view to category list.
         refreshCategoryList();
@@ -103,25 +105,64 @@ public class TaskViewController {
         String query = searchField.getText().toLowerCase(Locale.ROOT);
         List<Task> tasksToDisplay = new ArrayList<>(Session.getActiveUser().getTaskList().getTasks());
 
-        //TODO: Filter by task view mode.
         switch(viewMode) {
+            case OVERVIEW: {
+                break;
+            }
+
+            case UPCOMING: {
+                tasksToDisplay.sort(Comparator.comparing(Task::getEndTime));
+                break;
+            }
+
+            case DAY: {
+                tasksToDisplay = tasksToDisplay.stream()
+                        .filter(task -> task.getStartTime()
+                                .datesUntil(task.getEndTime().plusDays(1))
+                                .anyMatch(date -> date.equals(LocalDate.now())))
+                        .collect(Collectors.toList());
+                break;
+            }
+
+            case WEEK: {
+                List<LocalDate> nextWeekDates = LocalDate.now()
+                        .datesUntil(LocalDate.now().plusDays(8))
+                        .collect(Collectors.toList());
+
+                tasksToDisplay = tasksToDisplay.stream()
+                        .filter(task -> task.getStartTime()
+                                .datesUntil(task.getEndTime().plusDays(1))
+                                .anyMatch(nextWeekDates::contains))
+                        .collect(Collectors.toList());
+                break;
+            }
+
+            case MONTH: {
+                List<LocalDate> nextMonthDates = LocalDate.now()
+                        .datesUntil(LocalDate.now().plusMonths(1).plusDays(1))
+                        .collect(Collectors.toList());
+
+                tasksToDisplay = tasksToDisplay.stream()
+                        .filter(task -> task.getStartTime()
+                                .datesUntil(task.getEndTime().plusDays(1))
+                                .anyMatch(nextMonthDates::contains))
+                        .collect(Collectors.toList());
+                break;
+            }
+
             default: {
-                System.out.println("The view mode " + viewMode + " has not been implemented yet.");
+                Session.getLogger().log(Level.INFO, "The view mode {} has not been implemented yet.", viewMode);
             }
         }
 
         if(!query.isBlank()) {
-            for(Task task : Session.getActiveUser().getTaskList().getTasks()) {
-                if(task.getTitle().toLowerCase(Locale.ROOT).contains(query) ||
+            tasksToDisplay = tasksToDisplay.stream()
+                    .filter(task ->
+                        task.getTitle().toLowerCase(Locale.ROOT).contains(query) ||
                         task.getDescription().toLowerCase(Locale.ROOT).contains(query) ||
                         task.getCategory().getTitle().toLowerCase(Locale.ROOT).contains(query)
-                ) {
-                    tasksToDisplay.add(task);
-                }
-            }
-        }
-        else {
-            tasksToDisplay = Session.getActiveUser().getTaskList().getTasks();
+                    )
+                    .collect(Collectors.toList());
         }
 
         displayedTasks.clear();
@@ -180,7 +221,9 @@ public class TaskViewController {
             Objects.requireNonNull(selectedTask);
             taskDetailPanel.getChildren().clear();
             taskDetailPanel.getChildren().add(new TaskDetailsController(selectedTask, this).getRootContainer());
-        } catch (IOException | NullPointerException ignored) {/*TODO*/}
+        } catch (IOException e) {
+            DialogFactory.getOKDialog("Task detail failed", "Failed to show detailed task view.").show();
+        } catch (NullPointerException ignored) {}
     }
 
     /**
@@ -214,6 +257,5 @@ public class TaskViewController {
         DAY,
         WEEK,
         MONTH
-        //TODO: Add view modes.
     }
 }

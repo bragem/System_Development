@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
 import edu.ntnu.idatt1002.k2g10.Session;
+import edu.ntnu.idatt1002.k2g10.factory.DialogFactory;
 import edu.ntnu.idatt1002.k2g10.models.Category;
 import edu.ntnu.idatt1002.k2g10.utils.crypto.EncryptionException;
 import edu.ntnu.idatt1002.k2g10.utils.icons.FontAwesomeIcon;
@@ -41,12 +42,8 @@ public class AddCategoryController {
             Session.getActiveUser().getTaskList().addCategory(newCategory);
             Session.save(); // Saves user data.
             stage.close();
-        } catch (IOException e) {
-            //TODO: Exception handling.
-            e.printStackTrace();
-        } catch (EncryptionException e) {
-            //TODO: Exception handling.
-            e.printStackTrace();
+        } catch (IOException | EncryptionException e) {
+            DialogFactory.getOKDialog("Category add failed", "Unable to add category.\n(" + e.getMessage() + ")").show();
         }
     }
 }
