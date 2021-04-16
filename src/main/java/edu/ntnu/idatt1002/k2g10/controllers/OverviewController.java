@@ -112,6 +112,7 @@ public class OverviewController implements TaskListController {
         displayedTasks.clear();
         displayedTasks.addAll(tasksToDisplay);
         taskList.setItems(FXCollections.observableList(displayedTasks));
+        taskList.refresh();
     }
 
     /**

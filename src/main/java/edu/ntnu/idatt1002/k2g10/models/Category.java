@@ -58,6 +58,6 @@ public class Category implements Serializable {
 
     @Override
     public String toString() {
-        return title;
+        return String.format("%s %s", icon, title);
     }
 }
