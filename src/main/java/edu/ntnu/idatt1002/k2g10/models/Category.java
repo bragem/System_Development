@@ -10,7 +10,15 @@ import java.util.Objects;
  */
 public class Category implements Serializable {
     private String title;
+    private String color;
     private char icon;
+
+
+    public Category(String title, char icon) {
+        this.title = title;
+        this.color = "";
+        this.icon = icon;
+    }
 
     /**
      * Construct a new category instance.
@@ -20,13 +28,18 @@ public class Category implements Serializable {
      * @param icon
      *            Category symbol/emoji to display
      */
-    public Category(String title, char icon) {
+    public Category(String title, char icon, String color) {
         this.title = title;
+        this.color = color;
         this.icon = icon;
     }
 
     public String getTitle() {
         return title;
+    }
+
+    public String getColor() {
+        return color;
     }
 
     public char getIcon() {
@@ -35,6 +48,10 @@ public class Category implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public void setIcon(char icon) {
