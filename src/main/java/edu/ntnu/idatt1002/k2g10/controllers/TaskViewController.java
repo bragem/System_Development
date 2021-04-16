@@ -24,9 +24,11 @@ import java.util.stream.Collectors;
  *
  * @author tobiasth, bragemi
  */
-public class OverviewController implements TaskListController {
+public class TaskViewController {
     @FXML
     private JFXTextField searchField;
+    @FXML
+    private ListView<TaskViewMode> viewModeList;
     @FXML
     private ListView<String> categoryList;
     @FXML
@@ -40,6 +42,8 @@ public class OverviewController implements TaskListController {
 
     private final List<Task> displayedTasks = new ArrayList<>();
     private final List<String> displayedCategories = new ArrayList<>();
+
+    private TaskViewMode viewMode = TaskViewMode.OVERVIEW;
 
     /**
      * Initializes task and category lists and user info labels.
@@ -59,16 +63,20 @@ public class OverviewController implements TaskListController {
         TableColumn<Task, String> categoryColumn = columnFactory.getTableColumn("Category", "category");
         taskList.getColumns().addAll(List.of(titleColumn, priorityColumn, categoryColumn));
 
-
         // Link task list table to the task list.
         taskList.getSelectionModel().selectedItemProperty().addListener((task) -> showTaskDetails());
         refreshAndFilterTaskList();
 
+        // Initialize view mode list.
+        viewModeList.setItems(FXCollections.observableList(List.of(TaskViewMode.values())));
+        viewModeList.getSelectionModel().selectedItemProperty().addListener((mode) -> changeTaskViewMode());
+
         // Link category list view to category list.
         refreshCategoryList();
 
-        // Make detail panel grow to fill right menu
+        // Make detail panel grow to fill right menu.
         taskDetailPanel.setPrefHeight(Double.MAX_VALUE);
+
     }
 
     /**
@@ -93,8 +101,15 @@ public class OverviewController implements TaskListController {
     @FXML
     public void refreshAndFilterTaskList() {
         String query = searchField.getText().toLowerCase(Locale.ROOT);
+        List<Task> tasksToDisplay = new ArrayList<>(Session.getActiveUser().getTaskList().getTasks());
 
-        List<Task> tasksToDisplay = new ArrayList<>();
+        //TODO: Filter by task view mode.
+        switch(viewMode) {
+            default: {
+                System.out.println("The view mode " + viewMode + " has not been implemented yet.");
+            }
+        }
+
         if(!query.isBlank()) {
             for(Task task : Session.getActiveUser().getTaskList().getTasks()) {
                 if(task.getTitle().toLowerCase(Locale.ROOT).contains(query) ||
@@ -146,6 +161,14 @@ public class OverviewController implements TaskListController {
     }
 
     /**
+     * Changes the task view mode and refreshes the task list.
+     */
+    private void changeTaskViewMode() {
+        viewMode = viewModeList.getSelectionModel().getSelectedItem();
+        refreshAndFilterTaskList();
+    }
+
+    /**
      * Shows task details in the right side of the screen.
      *
      * This method runs on task list selection.
@@ -183,5 +206,14 @@ public class OverviewController implements TaskListController {
         } catch (IOException e) {
             DialogFactory.getOKDialog("Logout failed", "Unable to set location to login screen.").show();
         }
+    }
+
+    enum TaskViewMode {
+        OVERVIEW,
+        UPCOMING,
+        DAY,
+        WEEK,
+        MONTH
+        //TODO: Add view modes.
     }
 }

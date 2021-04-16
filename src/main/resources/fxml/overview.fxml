@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="599.0" prefWidth="840.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2g10.controllers.OverviewController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="599.0" prefWidth="840.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2g10.controllers.TaskViewController">
    <children>
       <VBox alignment="CENTER" minWidth="150.0" prefWidth="200.0" styleClass="left-menu">
          <children>
@@ -29,7 +29,7 @@
                               <Insets bottom="5.0" left="2.0" />
                            </VBox.margin>
                         </Label>
-                        <JFXListView />
+                        <JFXListView fx:id="viewModeList" />
                      </children>
                      <padding>
                         <Insets bottom="30.0" left="10.0" right="10.0" top="10.0" />

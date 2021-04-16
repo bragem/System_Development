@@ -44,7 +44,7 @@ public class TaskDetailsController {
     private DatePicker endDate;
 
     private final Task task;
-    private final TaskListController parentController;
+    private final TaskViewController parentController;
 
     /**
      * Creates a new instance of {@link TaskDetailsController}. This instance cannot be added to a {@link Node} directly. To add
@@ -56,7 +56,7 @@ public class TaskDetailsController {
      * @throws IOException
      *             If {@link TaskDetailsController} fails to load.
      */
-    public TaskDetailsController(Task task, TaskListController parentController) throws IOException {
+    public TaskDetailsController(Task task, TaskViewController parentController) throws IOException {
         FXMLFile.load("task-details", this);
 
         this.parentController = parentController;
