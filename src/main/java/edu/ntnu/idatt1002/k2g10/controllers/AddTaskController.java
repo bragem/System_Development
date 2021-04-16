@@ -3,7 +3,7 @@ package edu.ntnu.idatt1002.k2g10.controllers;
 import com.jfoenix.controls.*;
 import edu.ntnu.idatt1002.k2g10.Session;
 import edu.ntnu.idatt1002.k2g10.exceptions.DuplicateTaskException;
-import edu.ntnu.idatt1002.k2g10.factory.DialogFactory;
+import edu.ntnu.idatt1002.k2g10.factories.DialogFactory;
 import edu.ntnu.idatt1002.k2g10.models.Category;
 import edu.ntnu.idatt1002.k2g10.models.Priority;
 import edu.ntnu.idatt1002.k2g10.models.Task;
@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -40,7 +39,8 @@ public class AddTaskController {
     public void initialize() {
         // Add priorities and categories to dropdowns
         Arrays.stream(Priority.values()).forEach(p -> priorityDropdown.getItems().add(p.toString()));
-        Session.getActiveUser().getTaskList().getCategories().forEach(c -> categoryDropdown.getItems().add(c.getTitle()));
+        Session.getActiveUser().getTaskList().getCategories()
+                .forEach(c -> categoryDropdown.getItems().add(c.getTitle()));
     }
 
     /**
@@ -56,18 +56,18 @@ public class AddTaskController {
         String desc = descriptionField.getText();
         LocalDate startDate = startDatePicker.getValue();
         LocalDate endDate = endDatePicker.getValue();
-        Priority priority = Priority.valueOf(priorityDropdown.getSelectionModel().getSelectedItem().toUpperCase(Locale.ROOT));
-        Category category = Session.getActiveUser().getTaskList().getCategories().stream().filter(c ->
-            c.getTitle().equals(categoryDropdown.getSelectionModel().getSelectedItem())
-        ).findAny().orElse(null);
+        Priority priority = Priority
+                .valueOf(priorityDropdown.getSelectionModel().getSelectedItem().toUpperCase(Locale.ROOT));
+        Category category = Session.getActiveUser().getTaskList().getCategories().stream()
+                .filter(c -> c.getTitle().equals(categoryDropdown.getSelectionModel().getSelectedItem())).findAny()
+                .orElse(null);
 
         try {
             Task newTask = new Task(title, desc, startDate, endDate, priority, category);
             Session.getActiveUser().getTaskList().addTask(newTask);
             Session.save();
             stage.close();
-        }
-        catch(DuplicateTaskException | EncryptionException | IOException  e) {
+        } catch (DuplicateTaskException | EncryptionException | IOException e) {
             DialogFactory.getOKDialog("Task add failed", "Unable to add task.\n(" + e.getMessage() + ")").show();
         }
     }

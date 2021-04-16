@@ -1,4 +1,4 @@
-package edu.ntnu.idatt1002.k2g10.factory;
+package edu.ntnu.idatt1002.k2g10.factories;
 
 import edu.ntnu.idatt1002.k2g10.App;
 import javafx.scene.control.ButtonType;
@@ -8,15 +8,20 @@ import javafx.stage.Stage;
 
 /**
  * Generates {@link Dialog} objects.
+ * 
  * @author trthingnes
  */
 public class DialogFactory {
     /**
      * Get a dialog with the given title, content and buttons.
      *
-     * @param title Window title to display.
-     * @param content Content to display in window.
-     * @param buttonTypes Buttons to display in window.
+     * @param title
+     *            Window title to display.
+     * @param content
+     *            Content to display in window.
+     * @param buttonTypes
+     *            Buttons to display in window.
+     * 
      * @return Dialog.
      */
     public static Dialog<ButtonType> getDialog(String title, String content, ButtonType[] buttonTypes) {
@@ -33,9 +38,14 @@ public class DialogFactory {
 
     /**
      * Gets a dialog with the given title, content and OK button.
-     * @param title Window title to display.
-     * @param content Content to display in window.
+     * 
+     * @param title
+     *            Window title to display.
+     * @param content
+     *            Content to display in window.
+     * 
      * @return Dialog.
+     * 
      * @see #getDialog(String, String, ButtonType[])
      */
     public static Dialog<ButtonType> getOKDialog(String title, String content) {
@@ -44,9 +54,14 @@ public class DialogFactory {
 
     /**
      * Gets a dialog with the given title, content and YES and NO buttons.
-     * @param title Window title to display.
-     * @param content Content to display in window.
+     * 
+     * @param title
+     *            Window title to display.
+     * @param content
+     *            Content to display in window.
+     * 
      * @return Dialog.
+     * 
      * @see #getDialog(String, String, ButtonType[])
      */
     public static Dialog<ButtonType> getYesNoDialog(String title, String content) {

@@ -1,4 +1,4 @@
-package edu.ntnu.idatt1002.k2g10.factory;
+package edu.ntnu.idatt1002.k2g10.factories;
 
 import edu.ntnu.idatt1002.k2g10.App;
 import edu.ntnu.idatt1002.k2g10.Session;

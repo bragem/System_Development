@@ -47,8 +47,8 @@ public class TaskDetailsController {
     private final TaskViewController parentController;
 
     /**
-     * Creates a new instance of {@link TaskDetailsController}. This instance cannot be added to a {@link Node} directly. To add
-     * this custom module, use the {@link VBox} from {@link #getRootContainer}.
+     * Creates a new instance of {@link TaskDetailsController}. This instance cannot be added to a {@link Node}
+     * directly. To add this custom module, use the {@link VBox} from {@link #getRootContainer}.
      *
      * @param task
      *            Task to show detailed view for.
@@ -77,15 +77,13 @@ public class TaskDetailsController {
         task.setDescription(descriptionArea.getText());
 
         Category category = Session.getActiveUser().getTaskList().getCategories().stream()
-                .filter(c -> c.getTitle().equals(categoryDropdown.getSelectionModel().getSelectedItem()))
-                .findAny()
+                .filter(c -> c.getTitle().equals(categoryDropdown.getSelectionModel().getSelectedItem())).findAny()
                 .orElse(task.getCategory());
         task.setCategory(category);
         iconLabel.setText(String.valueOf(task.getCategory().getIcon()));
 
         Priority priority = Arrays.stream(Priority.values())
-                .filter(p -> p.toString().equals(priorityDropdown.getSelectionModel().getSelectedItem()))
-                .findAny()
+                .filter(p -> p.toString().equals(priorityDropdown.getSelectionModel().getSelectedItem())).findAny()
                 .orElse(task.getPriority());
         task.setPriority(priority);
 
@@ -115,14 +113,12 @@ public class TaskDetailsController {
         completedBox.selectedProperty().set(task.getCompleted());
 
         List<String> categoryNames = Session.getActiveUser().getTaskList().getCategories().stream()
-                .map(Category::getTitle)
-                .collect(Collectors.toList());
+                .map(Category::getTitle).collect(Collectors.toList());
         categoryDropdown.getItems().addAll(categoryNames);
         categoryDropdown.getSelectionModel().select(task.getCategory().getTitle());
         iconLabel.setText(String.valueOf(task.getCategory().getIcon()));
 
-        List<String> priorityNames = Arrays.stream(Priority.values())
-                .map(Priority::toString)
+        List<String> priorityNames = Arrays.stream(Priority.values()).map(Priority::toString)
                 .collect(Collectors.toList());
         priorityDropdown.getItems().addAll(priorityNames);
         priorityDropdown.getSelectionModel().select(task.getPriority().toString());

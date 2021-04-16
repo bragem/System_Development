@@ -5,7 +5,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import edu.ntnu.idatt1002.k2g10.Session;
 import edu.ntnu.idatt1002.k2g10.Theme;
-import edu.ntnu.idatt1002.k2g10.factory.DialogFactory;
+import edu.ntnu.idatt1002.k2g10.factories.DialogFactory;
 import edu.ntnu.idatt1002.k2g10.models.User;
 import edu.ntnu.idatt1002.k2g10.repositories.UserRepository;
 import edu.ntnu.idatt1002.k2g10.utils.crypto.EncryptionException;
@@ -104,8 +104,10 @@ public class SignupController {
         try {
             Session.setLocation("upcoming");
         } catch (IOException e) {
-            DialogFactory.getOKDialog("Registration successful", "Registration succeeded but we're unable to take you to "
-                    + "the logged in screen. (" + e.getMessage() + ")").show();
+            DialogFactory
+                    .getOKDialog("Registration successful", "Registration succeeded but we're unable to take you to "
+                            + "the logged in screen. (" + e.getMessage() + ")")
+                    .show();
             Session.getLogger().warning("Unable to view logged in screen.");
         }
     }

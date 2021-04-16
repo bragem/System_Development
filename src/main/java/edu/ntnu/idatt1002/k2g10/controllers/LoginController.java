@@ -5,12 +5,11 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import edu.ntnu.idatt1002.k2g10.Session;
 import edu.ntnu.idatt1002.k2g10.Theme;
 import edu.ntnu.idatt1002.k2g10.exceptions.DuplicateTaskException;
-import edu.ntnu.idatt1002.k2g10.factory.DialogFactory;
+import edu.ntnu.idatt1002.k2g10.factories.DialogFactory;
 import edu.ntnu.idatt1002.k2g10.models.*;
 import edu.ntnu.idatt1002.k2g10.repositories.UserRepository;
 import edu.ntnu.idatt1002.k2g10.utils.crypto.EncryptionException;
@@ -63,14 +62,14 @@ public class LoginController {
                 johndoe.getTaskList().addCategory(freetime);
 
                 TaskList list = johndoe.getTaskList();
-                list.addTask(new Task("Title A", "Desc", LocalDate.of(2021, 1, 1), LocalDate.now(),
-                        Priority.HIGH, school));
-                list.addTask(new Task("Title B", "Desc", LocalDate.of(2021, 2, 1), LocalDate.now(),
-                        Priority.LOW, work));
-                list.addTask(new Task("Title C", "Desc", LocalDate.of(2021, 3, 1), LocalDate.now(),
-                        Priority.NONE, shopping));
-                list.addTask(new Task("Title D", "Desc", LocalDate.of(2021, 4, 1), LocalDate.now(),
-                        Priority.MEDIUM, freetime));
+                list.addTask(
+                        new Task("Title A", "Desc", LocalDate.of(2021, 1, 1), LocalDate.now(), Priority.HIGH, school));
+                list.addTask(
+                        new Task("Title B", "Desc", LocalDate.of(2021, 2, 1), LocalDate.now(), Priority.LOW, work));
+                list.addTask(new Task("Title C", "Desc", LocalDate.of(2021, 3, 1), LocalDate.now(), Priority.NONE,
+                        shopping));
+                list.addTask(new Task("Title D", "Desc", LocalDate.of(2021, 4, 1), LocalDate.now(), Priority.MEDIUM,
+                        freetime));
 
                 Session.setActiveUser(johndoe);
                 Session.setActivePassword("password");
@@ -94,7 +93,8 @@ public class LoginController {
             Session.setLocation("upcoming");
         } catch (EncryptionException | IOException e) {
             Session.getLogger().severe(e.getMessage());
-            DialogFactory.getOKDialog("Login failed", "Unable to log in because of an internal error. (" + e.getMessage() + ")").show();
+            DialogFactory.getOKDialog("Login failed",
+                    "Unable to log in because of an internal error. (" + e.getMessage() + ")").show();
         } catch (IncorrectPasswordException e) {
             Session.getLogger().warning(e.getMessage());
             DialogFactory.getOKDialog("Login failed", "Incorrect password for the given user.").show();
