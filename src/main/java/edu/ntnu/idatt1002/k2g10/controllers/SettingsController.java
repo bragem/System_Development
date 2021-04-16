@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 /**
  * @author hasanro
  */
-public class Settings {
+public class SettingsController {
     @FXML
     private JFXComboBox<String> themePicker;
 

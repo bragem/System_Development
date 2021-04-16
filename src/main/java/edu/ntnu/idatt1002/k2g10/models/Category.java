@@ -55,4 +55,9 @@ public class Category implements Serializable {
     public int hashCode() {
         return Objects.hash(title, icon);
     }
+
+    @Override
+    public String toString() {
+        return title;
+    }
 }

@@ -20,7 +20,7 @@ import java.util.Objects;
  *
  * @author chrisoss, trthingnes
  */
-public class Signup {
+public class SignupController {
     @FXML
     private JFXTextField firstnameField;
     @FXML

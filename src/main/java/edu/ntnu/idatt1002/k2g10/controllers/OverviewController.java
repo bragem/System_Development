@@ -2,19 +2,16 @@ package edu.ntnu.idatt1002.k2g10.controllers;
 
 import com.jfoenix.controls.JFXTextField;
 import edu.ntnu.idatt1002.k2g10.Session;
+import edu.ntnu.idatt1002.k2g10.factory.DialogFactory;
 import edu.ntnu.idatt1002.k2g10.factory.PopupWindowFactory;
 import edu.ntnu.idatt1002.k2g10.factory.TableColumnFactory;
 import edu.ntnu.idatt1002.k2g10.models.Task;
 import javafx.collections.FXCollections;
-import javafx.event.EventTarget;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.skin.TableColumnHeader;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -25,9 +22,9 @@ import java.util.stream.Collectors;
 /**
  * Controller for Overview view.
  *
- * @author tobiasth
+ * @author tobiasth, bragemi
  */
-public class OverviewController {
+public class OverviewController implements TaskListController {
     @FXML
     private JFXTextField searchField;
     @FXML
@@ -35,17 +32,19 @@ public class OverviewController {
     @FXML
     private TableView<Task> taskList;
     @FXML
-    private VBox taskDetailPanel;
-    @FXML
     private Label usernameLabel;
     @FXML
     private Label emailLabel;
+    @FXML
+    private VBox taskDetailPanel;
 
     private final List<Task> displayedTasks = new ArrayList<>();
     private final List<String> displayedCategories = new ArrayList<>();
 
     /**
-     * Runs when the view is loaded.
+     * Initializes task and category lists and user info labels.
+     *
+     * Runs on scene load.
      */
     @FXML
     public void initialize() {
@@ -72,50 +71,68 @@ public class OverviewController {
         taskDetailPanel.setPrefHeight(Double.MAX_VALUE);
     }
 
+    /**
+     * Shows a popup allowing the user to add a task, then refreshes the task list.
+     */
     @FXML
-    public void showAddTask() throws IOException {
-        Stage popupWindow = PopupWindowFactory.getPopupWindow("add-task");
-        popupWindow.setTitle("Add new task");
-        popupWindow.showAndWait();
-
-        refreshAndFilterTaskList();
-
-        taskList.refresh();
+    public void showAddTask() {
+        try {
+            Stage popupWindow = PopupWindowFactory.getPopupWindow("add-task");
+            popupWindow.setTitle("Add new task");
+            popupWindow.showAndWait();
+            refreshAndFilterTaskList();
+            taskList.refresh();
+        } catch (IOException e) {
+            DialogFactory.getOKDialog("Add task failed", "Unable to open add task window.").show();
+        }
     }
 
+    /**
+     * Refreshes the task list and applies the search query if there is one.
+     */
     @FXML
     public void refreshAndFilterTaskList() {
         String query = searchField.getText().toLowerCase(Locale.ROOT);
 
-        List<Task> matchingTasks = new ArrayList<>();
+        List<Task> tasksToDisplay = new ArrayList<>();
         if(!query.isBlank()) {
             for(Task task : Session.getActiveUser().getTaskList().getTasks()) {
                 if(task.getTitle().toLowerCase(Locale.ROOT).contains(query) ||
                         task.getDescription().toLowerCase(Locale.ROOT).contains(query) ||
                         task.getCategory().getTitle().toLowerCase(Locale.ROOT).contains(query)
                 ) {
-                    matchingTasks.add(task);
+                    tasksToDisplay.add(task);
                 }
             }
         }
         else {
-            matchingTasks = Session.getActiveUser().getTaskList().getTasks();
+            tasksToDisplay = Session.getActiveUser().getTaskList().getTasks();
         }
 
         displayedTasks.clear();
-        displayedTasks.addAll(matchingTasks);
+        displayedTasks.addAll(tasksToDisplay);
         taskList.setItems(FXCollections.observableList(displayedTasks));
     }
 
+    /**
+     * Shows a popup allowing the user to add a category, then refreshes the category list.
+     */
     @FXML
-    public void showAddCategory() throws IOException {
-        Stage popupWindow = PopupWindowFactory.getPopupWindow("add-category");
-        popupWindow.showAndWait();
+    public void showAddCategory() {
+        try {
+            Stage popupWindow = PopupWindowFactory.getPopupWindow("add-category");
+            popupWindow.showAndWait();
+            refreshCategoryList();
+            showTaskDetails();
+        } catch (IOException e) {
+            DialogFactory.getOKDialog("Add category failed", "Unable to open add category window.").show();
+        }
 
-        refreshCategoryList();
-        showTaskDetails();
     }
 
+    /**
+     * Refreshes the category list.
+     */
     private void refreshCategoryList() {
         displayedCategories.clear();
         displayedCategories.addAll(Session.getActiveUser().getTaskList().getCategories()
@@ -127,24 +144,43 @@ public class OverviewController {
         categoryList.setItems(FXCollections.observableList(displayedCategories));
     }
 
+    /**
+     * Shows task details in the right side of the screen.
+     *
+     * This method runs on task list selection.
+     */
     private void showTaskDetails()  {
         Task selectedTask = taskList.getSelectionModel().getSelectedItem();
 
         try {
             Objects.requireNonNull(selectedTask);
             taskDetailPanel.getChildren().clear();
-            taskDetailPanel.getChildren().add(new DetailTaskBox(selectedTask).getContainer());
-        } catch (IOException | NullPointerException ignored) {}
+            taskDetailPanel.getChildren().add(new TaskDetailsController(selectedTask, this).getRootContainer());
+        } catch (IOException | NullPointerException ignored) {/*TODO*/}
     }
 
+    /**
+     * Shows a popup allowing user to change settings.
+     */
     @FXML
-    public void showSettings() throws IOException {
-        Stage popupWindow = PopupWindowFactory.getPopupWindow("settings");
-        popupWindow.show();
+    public void showSettings() {
+        try {
+            Stage popupWindow = PopupWindowFactory.getPopupWindow("settings");
+            popupWindow.show();
+        } catch (IOException e) {
+            DialogFactory.getOKDialog("Open settings failed", "Unable to open add settings window.").show();
+        }
     }
 
+    /**
+     * Takes the user back to the login screen.
+     */
     @FXML
-    public void logout() throws IOException {
-        Session.setLocation("login");
+    public void logout() {
+        try {
+            Session.setLocation("login");
+        } catch (IOException e) {
+            DialogFactory.getOKDialog("Logout failed", "Unable to set location to login screen.").show();
+        }
     }
 }

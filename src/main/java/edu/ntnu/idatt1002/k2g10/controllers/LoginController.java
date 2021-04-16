@@ -22,7 +22,7 @@ import javafx.fxml.FXML;
  *
  * @author trthingnes
  */
-public class Login {
+public class LoginController {
     @FXML
     private JFXTextField usernameField;
     @FXML

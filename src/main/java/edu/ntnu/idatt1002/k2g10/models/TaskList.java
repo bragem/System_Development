@@ -90,7 +90,7 @@ public class TaskList implements Serializable {
      */
     public void setCompleted(Task task) {
         int index = tasks.indexOf(task);
-        tasks.get(index).setCompleted();
+        tasks.get(index).setCompleted(true);
     }
 
     /**
@@ -101,7 +101,7 @@ public class TaskList implements Serializable {
      */
     public void setNotCompleted(Task task) {
         int index = tasks.indexOf(task);
-        tasks.get(index).setNotCompleted();
+        tasks.get(index).setCompleted(false);
     }
 
     /**

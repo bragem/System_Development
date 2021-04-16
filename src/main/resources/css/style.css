@@ -3,7 +3,7 @@
 }
 
 * {
-    -fx-font-family: Arial;
+    -fx-font-family: "FontAwesome Regular", Arial;
 }
 
 .bg {
@@ -39,7 +39,6 @@
 }
 
 .icon * {
-    -fx-font-family: "FontAwesome Regular";
     -fx-font-size: 21px;
 }
 
