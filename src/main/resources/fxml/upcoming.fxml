@@ -96,11 +96,14 @@
                               <Insets bottom="5.0" />
                            </VBox.margin>
                         </Label>
-                        <VBox prefHeight="0.0" prefWidth="130.0" VBox.vgrow="NEVER">
+                        <VBox prefHeight="40.0" prefWidth="144.0" VBox.vgrow="NEVER">
                            <children>
-                              <HBox alignment="CENTER" minHeight="30.0" onMouseClicked="#showAddCategory" styleClass="menu-option">
+                              <HBox alignment="CENTER" minHeight="30.0" prefHeight="30.0" prefWidth="205.0">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
                                  <children>
-                                    <Label text="Add new category" />
+                                    <JFXButton onMouseClicked="#showAddCategory" prefHeight="23.0" prefWidth="144.0" text="Add new category" />
                                  </children>
                               </HBox>
                            </children>
@@ -162,7 +165,7 @@
                         <Insets right="20.0" />
                      </HBox.margin></JFXButton>
                   <JFXTextField id="searchfield" fx:id="searchField" onAction="#filterTasksBySearch" prefHeight="25.0" prefWidth="289.0" promptText="Search" styleClass="search-filter-box" HBox.hgrow="ALWAYS" />
-                  <JFXComboBox id="filter" fx:id="filterBox" onAction="#filterTasks" minWidth="-Infinity" promptText="Filter" styleClass="search-filter-box" HBox.hgrow="ALWAYS">
+                  <JFXComboBox id="filter" fx:id="filterBox" minWidth="-Infinity" onAction="#filterTasks" promptText="Filter" styleClass="search-filter-box" HBox.hgrow="ALWAYS">
                      <padding>
                         <Insets left="20.0" />
                      </padding></JFXComboBox>
