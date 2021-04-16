@@ -158,9 +158,10 @@ public class Upcoming implements TaskListController {
     /**
      * Fills all the added categories into the GUI
      *
-     * @param categories HashSet of Category objects
+     * @param categories
+     *            HashSet of Category objects
      */
-    public void fillCategoryList(HashSet<Category> categories) throws IOException{
+    public void fillCategoryList(HashSet<Category> categories) throws IOException {
         categoryList.getChildren().clear();
         for (Category c : categories) {
             HBox hbox = new HBox();
