@@ -4,6 +4,7 @@ import edu.ntnu.idatt1002.k2g10.utils.files.FXMLFile;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -22,6 +23,8 @@ public class App extends Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
+        Font.loadFont(getClass().getResourceAsStream("/font/fontawesome.ttf"), 12);
+
         Session.setScene(new Scene(FXMLFile.load("login")));
         Session.setTheme(Theme.LIGHT);
         stage.setScene(Session.getScene());
