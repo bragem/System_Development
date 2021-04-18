@@ -13,13 +13,6 @@ public class Category implements Serializable {
     private String color;
     private char icon;
 
-
-    public Category(String title, char icon) {
-        this.title = title;
-        this.color = "";
-        this.icon = icon;
-    }
-
     /**
      * Construct a new category instance.
      * 

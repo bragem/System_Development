@@ -172,7 +172,7 @@ public class Upcoming implements TaskListController {
             hbox.getChildren().get(1).setStyle("-fx-padding: 0px 0px 0px 5px");
 
             hbox.getStyleClass().add("menu-option");
-            hbox.setStyle("-fx-padding: 5px 0px 5px 10px");
+            hbox.setStyle("-fx-padding: 5px 0px 5px 10px; -fx-background-color: " + c.getColor() + ";");
             categoryList.getChildren().add(hbox);
         }
     }
@@ -222,6 +222,7 @@ public class Upcoming implements TaskListController {
      * @author andetel
      */
     public void filterTasks() throws IOException {
+
         if (filterBox.getValue() != null) {
 
             taskList.getChildren().clear();

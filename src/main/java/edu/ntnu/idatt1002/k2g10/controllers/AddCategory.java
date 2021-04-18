@@ -35,6 +35,10 @@ public class AddCategory {
     public void addCategory() throws IOException, EncryptionException {
         String categoryTitle = title.getText();
         String categoryColor = colorPicker.getValue().toString();
+
+        // Gets the hex version of the color. 0x12345678 -> #123456
+        categoryColor = "#" + categoryColor.substring(2, categoryColor.length() - 2);
+
         char categoryIcon = iconPicker.getSelectionModel().getSelectedItem().getText().charAt(0);
 
         Session.getActiveUser().getTaskList().addCategory(new Category(categoryTitle, categoryIcon, categoryColor));
