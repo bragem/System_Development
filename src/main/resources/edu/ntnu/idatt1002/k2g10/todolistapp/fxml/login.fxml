@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="bg" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2g10.todolistapp.controllers.LoginController">
+    <children>
+        <VBox alignment="CENTER" minWidth="400.0">
+            <children>
+                <GridPane alignment="CENTER" prefHeight="260.0" prefWidth="400.0" VBox.vgrow="ALWAYS">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="317.0" minWidth="10.0" prefWidth="64.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                  <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                  <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="ALWAYS" />
+                        <RowConstraints maxHeight="30.400006103515608" minHeight="40.0" prefHeight="30.400006103515608" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="43.999975585937506" minHeight="40.0" prefHeight="34.399993896484375" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="45.5999816894531" minHeight="40.0" prefHeight="32.00002441406252" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="45.60001220703123" minHeight="40.0" prefHeight="31.200018310546852" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Welcome, please login to continue." wrappingWidth="300.576171875" GridPane.rowIndex="2">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Text>
+                        <HBox alignment="CENTER_LEFT" minHeight="40.0" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+                            <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Username">
+                                    <HBox.margin>
+                                        <Insets right="10.0" />
+                                    </HBox.margin>
+                                </Text>
+                              <JFXTextField fx:id="usernameField" styleClass="textfield" HBox.hgrow="ALWAYS" />
+                            </children>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" minHeight="40.0" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
+                            <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Password">
+                                    <HBox.margin>
+                                        <Insets right="14.0" />
+                                    </HBox.margin>
+                                </Text>
+                              <JFXPasswordField fx:id="passwordField" prefWidth="242.0" styleClass="textfield" HBox.hgrow="ALWAYS" />
+                            </children>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" minHeight="40.0" prefHeight="100.0" prefWidth="317.0" GridPane.rowIndex="5">
+                            <children>
+                                <JFXButton onMouseClicked="#login" text="Login">
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                </JFXButton>
+                        <Hyperlink onMouseClicked="#signup" text="Don't have an account? Register one here.">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Hyperlink>
+                            </children>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                        </HBox>
+                  <JFXComboBox fx:id="themePicker" labelFloat="true" onAction="#changeTheme" styleClass="selectfield" GridPane.rowIndex="7">
+                     <GridPane.margin>
+                        <Insets left="-20.0" />
+                     </GridPane.margin>
+                  </JFXComboBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                    </padding>
+                </GridPane>
+            </children>
+        </VBox>
+        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="splash-img" HBox.hgrow="ALWAYS" />
+    </children>
+</HBox>
