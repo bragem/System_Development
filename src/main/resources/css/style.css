@@ -1,5 +1,5 @@
-@font-face {
-    src: url("../font/fontawesome.ttf");
+* {
+    -fx-font-family: "FontAwesome Regular";
 }
 
 * {
