@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.models;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 import java.time.LocalDate;
@@ -9,12 +10,17 @@ import java.time.LocalDate;
  * 
  * @author hasanro, trthingnes, bragemi
  */
+@Entity
 public class Task implements Serializable {
+    @Id
+    @GeneratedValue
+    private long id;
     private String title;
     private String description;
     private LocalDate startTime;
     private LocalDate endTime;
     private Priority priority;
+    @ManyToOne
     private Category category;
     private boolean completed = false;
 
@@ -65,6 +71,18 @@ public class Task implements Serializable {
         this.endTime = endTime;
         this.priority = priority;
         this.category = null;
+    }
+
+    public Task() {
+
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getTitle() {

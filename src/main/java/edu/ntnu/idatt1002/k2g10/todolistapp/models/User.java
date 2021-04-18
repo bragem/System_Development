@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.models;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -7,13 +8,20 @@ import java.io.Serializable;
  * 
  * @author hasanro, Bragemi, trthingnes
  */
+@Entity
 public class User implements Serializable {
-    private final String username;
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String username;
     private String firstname;
     private String lastname;
     private String email;
     private String phone;
-    private final TaskList taskList;
+
+    @OneToOne
+    private final TaskList taskList = new TaskList();
 
     /**
      * Constructor of User class
@@ -35,7 +43,10 @@ public class User implements Serializable {
         this.lastname = lastname;
         this.email = email;
         this.phone = phone;
-        this.taskList = new TaskList();
+    }
+
+    public User() {
+
     }
 
     public String getUsername() {
@@ -76,5 +87,13 @@ public class User implements Serializable {
 
     public TaskList getTaskList() {
         return taskList;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

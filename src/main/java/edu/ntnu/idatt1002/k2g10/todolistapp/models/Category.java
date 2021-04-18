@@ -1,5 +1,8 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -8,7 +11,11 @@ import java.util.Objects;
  * 
  * @author hasanro, trthingnes, bragemi
  */
+@Entity
 public class Category implements Serializable {
+    @Id
+    @GeneratedValue
+    private long id;
     private String title;
     private char icon;
 
@@ -23,6 +30,18 @@ public class Category implements Serializable {
     public Category(String title, char icon) {
         this.title = title;
         this.icon = icon;
+    }
+
+    public Category() {
+
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getTitle() {

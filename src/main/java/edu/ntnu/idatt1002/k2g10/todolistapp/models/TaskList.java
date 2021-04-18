@@ -6,31 +6,41 @@ import java.util.stream.Collectors;
 
 import edu.ntnu.idatt1002.k2g10.todolistapp.exceptions.DuplicateTaskException;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 /**
  * TaskList is contained in {@link User}
  * 
  * @author hasanro, trthingnes, bragemi, andetel
  */
+@Entity
 public class TaskList implements Serializable {
-    private String name;
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @OneToMany
     private final ArrayList<Task> tasks;
+    @OneToMany
     private final HashSet<Category> categories;
 
     /**
      * Constructor of TaskList class
      */
     public TaskList() {
-        this.name = "Task list";
         this.tasks = new ArrayList<>();
         this.categories = new HashSet<>();
     }
 
-    public String getName() {
-        return name;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Long getId() {
+        return id;
     }
 
     public ArrayList<Task> getTasks() {
@@ -43,7 +53,7 @@ public class TaskList implements Serializable {
 
     /**
      * This method adds a new Category to the category-hashset
-     * 
+     *
      * @author hasanro
      */
     public boolean addCategory(Category category) {
@@ -52,10 +62,10 @@ public class TaskList implements Serializable {
 
     /**
      * This method removes a specific category
-     * 
+     *
      * @param category
      *            Category to remove
-     * 
+     *
      * @author hasanro
      */
     public boolean removeCategory(Category category) {
@@ -64,13 +74,13 @@ public class TaskList implements Serializable {
 
     /**
      * Method that adds a task to the tasklist. If the task already exists a {@link DuplicateTaskException} is thrown
-     * 
+     *
      * @param newTask
      *            Task to be added
-     * 
+     *
      * @throws DuplicateTaskException
      *             Exception thrown if object variable already exists
-     * 
+     *
      * @author bragemi
      */
     public void addTask(Task newTask) throws DuplicateTaskException {
@@ -84,7 +94,7 @@ public class TaskList implements Serializable {
 
     /**
      * Method sets a task as completed
-     * 
+     *
      * @param task
      *            task object
      */
@@ -95,7 +105,7 @@ public class TaskList implements Serializable {
 
     /**
      * Sets task as not completed
-     * 
+     *
      * @param task
      *            task object
      */
@@ -106,9 +116,9 @@ public class TaskList implements Serializable {
 
     /**
      * Method for sorting {@link Task} objects in {@link TaskList} by date
-     * 
+     *
      * @return A sorted ArrayList
-     * 
+     *
      * @author bragemi, hasanro
      */
     public ArrayList<Task> sortByEndDate() {
@@ -134,9 +144,9 @@ public class TaskList implements Serializable {
 
     /**
      * Method for sorting {@link Task} objects in {@link TaskList} by category alphabetically
-     * 
+     *
      * @return a sorted ArrayList
-     * 
+     *
      * @author andetel, bragemi, trthingnes
      */
     public ArrayList<Task> sortByCategory() {
@@ -154,12 +164,12 @@ public class TaskList implements Serializable {
 
     /**
      * Method for sorting {@link Task} objects in {@link TaskList} by category
-     * 
+     *
      * @param category
      *            category
-     * 
+     *
      * @return A sorted ArrayList
-     * 
+     *
      * @author bragemi, hasanro
      */
     public ArrayList<Task> filterByCategory(Category category) {
@@ -171,9 +181,9 @@ public class TaskList implements Serializable {
 
     /**
      * Method for sorting {@link Task} objects in {@link TaskList} by Priority from high to low
-     * 
+     *
      * @return a sorted Arraylist
-     * 
+     *
      * @author bragemi, hasanro
      */
     public ArrayList<Task> sortByPriority() {
@@ -185,5 +195,4 @@ public class TaskList implements Serializable {
 
         return sortedList;
     }
-
 }

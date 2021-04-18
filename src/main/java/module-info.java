@@ -1,4 +1,5 @@
 module TodoListApp {
+    requires java.persistence;
     requires java.logging;
     requires javafx.fxml;
     requires javafx.controls;
