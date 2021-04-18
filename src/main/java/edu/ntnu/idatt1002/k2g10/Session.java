@@ -5,11 +5,6 @@ import edu.ntnu.idatt1002.k2g10.repositories.UserRepository;
 import edu.ntnu.idatt1002.k2g10.utils.crypto.EncryptionException;
 import edu.ntnu.idatt1002.k2g10.utils.files.FXMLFile;
 import javafx.scene.Scene;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,10 +18,17 @@ public class Session {
 
     private static Logger logger;
     private static Scene scene;
-    private static Scene popup;
     private static Theme theme = Theme.LIGHT;
     private static User activeUser;
     private static String activePassword;
+
+    public static void save() throws IOException, EncryptionException {
+        UserRepository.save(activeUser, activePassword);
+    }
+
+    public static void setLocation(String fxml) throws IOException {
+        scene.setRoot(FXMLFile.load(fxml));
+    }
 
     public static Scene getScene() {
         return scene;
@@ -36,47 +38,6 @@ public class Session {
         Session.scene = scene;
     }
 
-    public static Scene getPopup() {
-        return popup;
-    }
-
-    public static void setLocation(String fxml) throws IOException {
-        scene.setRoot(FXMLFile.load(fxml));
-    }
-
-    public static void popup(String title, String fxml) throws IOException {
-        popup(title, fxml, null);
-    }
-
-    public static void popup(String title, String fxml, Object parentController) throws IOException {
-        Stage popupWindow = new Stage();
-        popup = new Scene(FXMLFile.load(fxml));
-        popup.getStylesheets().add(String.format("/css/%s.css", Session.getTheme().getFileName()));
-
-        if (Objects.nonNull(parentController)) {
-            popupWindow.setUserData(parentController);
-        }
-
-        popupWindow.setScene(popup);
-        popupWindow.setTitle(title);
-        popupWindow.setResizable(false);
-        popupWindow.setAlwaysOnTop(true);
-        popupWindow.getIcons().add(new Image(App.class.getResource("/img/icon.png").toString()));
-        popupWindow.show();
-    }
-
-    public static void dialog(String title, String content) {
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setHeaderText(title);
-        dialog.setContentText(content);
-        dialog.getDialogPane().getButtonTypes().add(new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE));
-        dialog.showAndWait();
-    }
-
-    public static void save() throws IOException, EncryptionException {
-        UserRepository.save(activeUser, activePassword);
-    }
-
     public static Theme getTheme() {
         return theme;
     }
@@ -84,20 +45,12 @@ public class Session {
     public static void setTheme(Theme theme) {
         // Remove old CSS.
         Session.scene.getStylesheets().clear();
-        try {
-            Session.popup.getStylesheets().clear();
-        } catch (NullPointerException ignored) {
-        }
 
         // Change theme.
         Session.theme = theme;
 
         // Add new CSS.
         Session.scene.getStylesheets().add(String.format("/css/%s.css", Session.getTheme().getFileName()));
-        try {
-            Session.popup.getStylesheets().add(String.format("/css/%s.css", Session.getTheme().getFileName()));
-        } catch (NullPointerException ignored) {
-        }
 
         // Log the change.
         Session.getLogger().info("Loaded theme: " + theme.getDisplayName());

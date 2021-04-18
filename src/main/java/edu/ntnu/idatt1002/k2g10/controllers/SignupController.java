@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import edu.ntnu.idatt1002.k2g10.Session;
 import edu.ntnu.idatt1002.k2g10.Theme;
+import edu.ntnu.idatt1002.k2g10.factories.DialogFactory;
 import edu.ntnu.idatt1002.k2g10.models.User;
 import edu.ntnu.idatt1002.k2g10.repositories.UserRepository;
 import edu.ntnu.idatt1002.k2g10.utils.crypto.EncryptionException;
@@ -19,7 +20,7 @@ import java.util.Objects;
  *
  * @author chrisoss, trthingnes
  */
-public class Signup {
+public class SignupController {
     @FXML
     private JFXTextField firstnameField;
     @FXML
@@ -82,7 +83,7 @@ public class Signup {
                 throw new IllegalArgumentException("The username is already taken.");
             }
         } catch (IllegalArgumentException e) {
-            Session.dialog("Registration failed", e.getMessage());
+            DialogFactory.getOKDialog("Registration failed", e.getMessage()).show();
             Session.getLogger().info("Could not register user: " + e.getMessage());
             return;
         }
@@ -92,7 +93,7 @@ public class Signup {
         try {
             UserRepository.save(newUser, password);
         } catch (IOException | EncryptionException e) {
-            Session.dialog("Registration failed", e.getMessage());
+            DialogFactory.getOKDialog("Registration failed", e.getMessage()).show();
             Session.getLogger().severe("Unable to save user to file: " + e.getMessage());
             return;
         }
@@ -103,8 +104,10 @@ public class Signup {
         try {
             Session.setLocation("upcoming");
         } catch (IOException e) {
-            Session.dialog("Registration successful", "Registration succeeded but we're unable to take you to "
-                    + "the logged in screen. (" + e.getMessage() + ")");
+            DialogFactory
+                    .getOKDialog("Registration successful", "Registration succeeded but we're unable to take you to "
+                            + "the logged in screen. (" + e.getMessage() + ")")
+                    .show();
             Session.getLogger().warning("Unable to view logged in screen.");
         }
     }

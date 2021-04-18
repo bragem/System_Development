@@ -97,12 +97,12 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <JFXCheckBox id="completedCheck" fx:id="completedBox" onAction="#updateCompletedStatus" text="Mark as done" GridPane.halignment="CENTER">
+            <JFXCheckBox id="completedCheck" fx:id="completedBox" onAction="#saveTaskCompletedStatus" text="Mark as done" GridPane.halignment="CENTER">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
             </JFXCheckBox>
-            <JFXButton id="saveButton" fx:id="saveButton" onMouseClicked="#saveChanges" text="Save" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <JFXButton id="saveButton" fx:id="saveButton" onMouseClicked="#saveTaskChanges" text="Save" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
          </children>
       </GridPane>
    </children>

@@ -1,9 +1,5 @@
-@font-face {
-    src: url("../font/fontawesome.ttf");
-}
-
 * {
-    -fx-font-family: Arial;
+    -fx-font-family: "FontAwesome Regular";
 }
 
 .bg {
@@ -39,7 +35,6 @@
 }
 
 .icon * {
-    -fx-font-family: "FontAwesome Regular";
     -fx-font-size: 21px;
 }
 
