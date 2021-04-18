@@ -48,15 +48,12 @@
                               <Insets bottom="5.0" />
                            </VBox.margin>
                         </Label>
-                        <VBox prefHeight="0.0" prefWidth="130.0" VBox.vgrow="NEVER">
-                           <children>
-                              <HBox alignment="CENTER" minHeight="30.0" onMouseClicked="#showAddCategory" styleClass="menu-option">
-                                 <children>
-                                    <Label text="Add new category" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
+                        <JFXButton onMouseClicked="#showAddCategory" prefHeight="25.0" prefWidth="200.0" text="Add new category">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                        <VBox prefHeight="0.0" prefWidth="130.0" VBox.vgrow="NEVER" />
                         <JFXListView fx:id="categoryList" />
                      </children>
                      <padding>
