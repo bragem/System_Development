@@ -11,9 +11,9 @@ public final class TaskListTestdata {
     }
 
     public static TaskList fillTasklistWithData(TaskList tasks) {
-        Category testC1 = new Category("a1", '\uf17b');
-        Category testC2 = new Category("c2", '\uf17b');
-        Category testC3 = new Category("c3", '\uf17b');
+        Category testC1 = new Category("a1", '\uf17b', "#324ea8");
+        Category testC2 = new Category("c2", '\uf17b', "#324ea8");
+        Category testC3 = new Category("c3", '\uf17b', "#324ea8");
 
         tasks.addCategory(testC1);
         tasks.addCategory(testC2);

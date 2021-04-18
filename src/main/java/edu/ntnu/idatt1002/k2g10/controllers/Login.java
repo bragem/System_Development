@@ -51,10 +51,10 @@ public class Login {
             try {
                 User johndoe = new User("johndoe", "John", "Doe", "johdoe@stud.ntnu.no", "12345678");
 
-                Category school = new Category("School", FontAwesomeIcon.BOOK.getChar());
-                Category work = new Category("Work", FontAwesomeIcon.BRIEFCASE.getChar());
-                Category shopping = new Category("Shopping", FontAwesomeIcon.SHOPPING_CART.getChar());
-                Category freetime = new Category("Free time", FontAwesomeIcon.USER.getChar());
+                Category school = new Category("School", FontAwesomeIcon.BOOK.getChar(), "#144cff");
+                Category work = new Category("Work", FontAwesomeIcon.BRIEFCASE.getChar(), "#144cff");
+                Category shopping = new Category("Shopping", FontAwesomeIcon.SHOPPING_CART.getChar(), "#144cff");
+                Category freetime = new Category("Free time", FontAwesomeIcon.USER.getChar(), "#144cff");
                 johndoe.getTaskList().addCategory(school);
                 johndoe.getTaskList().addCategory(work);
                 johndoe.getTaskList().addCategory(shopping);
