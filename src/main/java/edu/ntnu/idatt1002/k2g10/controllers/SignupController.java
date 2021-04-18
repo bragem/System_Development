@@ -102,7 +102,7 @@ public class SignupController {
         Session.setActiveUser(newUser);
         Session.setActivePassword(password);
         try {
-            Session.setLocation("upcoming");
+            Session.setLocation("taskview");
         } catch (IOException e) {
             DialogFactory
                     .getOKDialog("Registration successful", "Registration succeeded but we're unable to take you to "

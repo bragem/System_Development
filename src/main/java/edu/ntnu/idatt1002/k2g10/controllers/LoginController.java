@@ -90,7 +90,7 @@ public class LoginController {
             Session.setActivePassword(password);
             Session.getLogger().info("Logged in as user " + user.getUsername());
 
-            Session.setLocation("upcoming");
+            Session.setLocation("taskview");
         } catch (EncryptionException | IOException e) {
             Session.getLogger().severe(e.getMessage());
             DialogFactory.getOKDialog("Login failed",
