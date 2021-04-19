@@ -32,12 +32,17 @@ public class AddCategory {
         }
     }
 
+    public void showChosenColor() {
+        Label label = (Label) colorPicker.getSelectionModel().getSelectedItem();
+        String style = label.getStyle();
+        String color = style.substring(22, style.length() - 1);
+
+        colorPicker.setStyle("-fx-background-color: " + color + ";");
+    }
+
     public void addCategory() throws IOException, EncryptionException {
         String categoryTitle = title.getText();
-        String categoryColor = colorPicker.getValue().toString();
-
-        // Gets the hex version of the color. 0x12345678 -> #123456
-        categoryColor = "#" + categoryColor.substring(2, categoryColor.length() - 2);
+        String categoryColor = colorPicker.getStyle().substring(22, colorPicker.getStyle().length() - 1);
 
         char categoryIcon = iconPicker.getSelectionModel().getSelectedItem().getText().charAt(0);
 

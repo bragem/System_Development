@@ -32,7 +32,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="97.0" prefWidth="300.0">
                      <children>
-                        <JFXComboBox fx:id="colorPicker" promptText="Color" unFocusColor="BLACK">
+                        <JFXComboBox fx:id="colorPicker" onAction="#showChosenColor" promptText="Color" unFocusColor="BLACK">
                            <styleClass>
                               <String fx:value="selectfield" />
                               <String fx:value="combobox" />
