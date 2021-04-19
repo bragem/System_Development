@@ -23,7 +23,7 @@ public class AddCategory {
     @FXML
     private JFXTextField title;
     @FXML
-    private ColorPicker colorPicker;
+    private JFXComboBox colorPicker;
 
     public void initialize() {
         for (FontAwesomeIcon icon : FontAwesomeIcon.values()) {
