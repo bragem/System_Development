@@ -2,6 +2,10 @@
     -fx-font-family: "FontAwesome Regular";
 }
 
+.header {
+    -fx-font-family: "Bebas Neue" !important;
+}
+
 .bg {
     -fx-background-color: -background-color;
 }
@@ -30,7 +34,7 @@
 .selectfield .combo-box-popup .list-cell {
     -fx-background-color: -dropdown-background-color;
     -fx-border-color: -border-color;
-    -fx-border-width: 1px;
+    -fx-border-width: 0px;
     -fx-text-fill: -fill-color;
 }
 
@@ -53,8 +57,7 @@
 }
 
 .top-menu {
-    -fx-border-width: 0px 0px 1px 0px;
-    -fx-border-color: -fill-color;
+    -fx-background-color: -table-background-color;
 }
 
 .search-filter-box {
@@ -67,13 +70,11 @@
 .right-menu {
     -fx-background-color: -menu-background-color;
     -fx-border-width: 0px 0px 0px 1px;
-    -fx-border-color: -fill-color;
 }
 
 .left-menu {
     -fx-background-color: -menu-background-color;
     -fx-border-width: 0px 1px 0px 0px;
-    -fx-border-color: -fill-color;
 }
 
 .menu-option {
@@ -89,8 +90,7 @@
 
 .left-menu .user-menu {
     -fx-background-color: -user-menu-background-color;
-    -fx-border-width: 1px 0px 0px 0px;
-    -fx-border-color: -fill-color;
+    -fx-border-width: 0px;
 }
 
 .taskbox {
@@ -104,4 +104,120 @@
 
 .right-menu .check-box {
     -jfx-unchecked-color: -fill-color;
+}
+/*
+---------- Left Menu List Views -------------
+ */
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: -background-color;
+    -fx-text-fill: -fill-color;
+}
+
+.list-cell:even {
+    -fx-background-color: -background-color;
+}
+
+.list-cell:odd {
+    -fx-background-color: -background-color;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: -background-color;
+    -fx-text-fill: -fill-color;
+}
+/*
+------------- End Left Menu List Views -----------------
+ */
+
+
+/*
+---------- Table View --------------
+ */
+.table-list {
+    -fx-background-color: -table-background-color;
+}
+
+.table-list .column-header-background .filler {
+    -fx-background-color: -table-header-color;
+}
+
+.table-list .corner {
+    -fx-background-color: -table-corner-color;
+}
+
+.table-list .column-header-background {
+    -fx-background-color: -table-gradient;
+    -fx-padding: 0px 0px 5px 0px;
+}
+
+.table-list .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-list .table-cell{
+    -fx-border-color: transparent;
+    -fx-padding: 2 0 2 10px;
+}
+.table-row-cell:hover{
+    -fx-background-color: whitesmoke;
+    -fx-text-background-color: red;
+}
+.table-row-cell:odd{
+    -fx-background-color: -odd-cell-color;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+.table-row-cell:even{
+    -fx-background-color: -even-cell-color;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+
+.table-view .virtual-flow .scroll-bar:vertical,
+.table-view .virtual-flow .scroll-bar:vertical .track,
+.table-view .virtual-flow .scroll-bar:vertical .track-background,
+.table-view .virtual-flow .scroll-bar:horizontal,
+.table-view .virtual-flow .scroll-bar:horizontal .track,
+.table-view .virtual-flow .scroll-bar:horizontal .track-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .virtual-flow .scroll-bar .increment-button,
+.table-view .virtual-flow .scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 2;
+}
+
+.table-view .virtual-flow .scroll-bar:vertical .thumb{
+    -fx-background-color:  linear-gradient(to bottom, #1dbbdd44, #93f9b944);
+}
+.table-view .virtual-flow .scroll-bar:horizontal .thumb {
+    -fx-background-color:  linear-gradient(to right, #1dbbdd44, #93f9b944);
+}
+
+.table-row-cell: highlighted {
+    -fx-background-color: #81c483;
+    -fx-background-radius: 15px;
+}
+/*
+------------- End Table View ---------------
+ */
+
+.date-picker .text-field {
+    -fx-control-inner-background: -background-color;
+}
+
+.date-picker-popup > .calendar-grid {
+    -fx-background-color: -background-color;
+    -fx-text-fill: -fill-color;
+}
+
+.date-picker-popup > .month-year-pane {
+    -fx-background-color: -background-color;
+    -fx-text-fill: -fill-color;
+}
+
+.date-picker-popup > * > .date-cell {
+    -fx-background-color: -background-color;
+    -fx-text-fill: -fill-color;
 }

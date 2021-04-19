@@ -63,7 +63,9 @@ public class TaskViewController {
         TableColumn<Task, String> titleColumn = columnFactory.getTableColumn("Title", "title");
         TableColumn<Task, String> priorityColumn = columnFactory.getTableColumn("Priority", "priority");
         TableColumn<Task, String> categoryColumn = columnFactory.getTableColumn("Category", "category");
-        taskList.getColumns().addAll(List.of(titleColumn, priorityColumn, categoryColumn));
+        TableColumn<Task, String> startColumn = columnFactory.getTableColumn("Start Date", "startTime");
+        TableColumn<Task, String> endColumn = columnFactory.getTableColumn("End Date", "endTime");
+        taskList.getColumns().addAll(List.of(titleColumn, priorityColumn, categoryColumn, startColumn, endColumn));
 
         // Link task list table to the task list.
         taskList.getSelectionModel().selectedItemProperty().addListener(task -> showTaskDetails());

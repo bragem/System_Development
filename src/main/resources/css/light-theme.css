@@ -4,10 +4,16 @@
     -dropdown-background-color: -background-color;
     -button-background-color: -background-color;
     -menu-background-color: #DADADA;
-    -user-menu-background-color: #b7b7b7;
+    -user-menu-background-color: #1dbbdd11;
     -border-color: black;
     -fill-color: black;
     -unfocus-color: #a0a0a0;
+    -table-background-color: transparent;
+    -table-header-color: adfcff;
+    -table-corner-color: transparent;
+    -table-gradient: linear-gradient(to bottom, whitesmoke, #e8e8e8);
+    -odd-cell-color: whitesmoke;
+    -even-cell-color: #e8e8e8;
 }
 
 .splash-img {
