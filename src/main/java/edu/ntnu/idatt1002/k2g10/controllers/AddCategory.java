@@ -32,6 +32,9 @@ public class AddCategory {
         }
     }
 
+    /**
+     * Sets the background color of the colorPicker to the chosen color
+     */
     public void showChosenColor() {
         Label label = (Label) colorPicker.getSelectionModel().getSelectedItem();
         String style = label.getStyle();
