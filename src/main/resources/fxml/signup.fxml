@@ -6,6 +6,9 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -114,6 +117,19 @@
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin></JFXComboBox>
+                  <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <image>
+                        <Image url="@../img/icon.png" />
+                     </image>
+                  </ImageView>
+                  <Label styleClass="header" text="K2-G10" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <font>
+                        <Font size="50.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="25.0" top="5.0" />
+                     </GridPane.margin>
+                  </Label>
                     </children>
                     <padding>
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />

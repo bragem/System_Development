@@ -6,6 +6,9 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -20,7 +23,8 @@
             <children>
                 <GridPane alignment="CENTER" prefHeight="260.0" prefWidth="400.0" VBox.vgrow="ALWAYS">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="317.0" minWidth="10.0" prefWidth="64.0" />
+                        <ColumnConstraints />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="317.0" minWidth="10.0" prefWidth="64.0" />
                     </columnConstraints>
                     <rowConstraints>
                   <RowConstraints minHeight="30.0" prefHeight="30.0" />
@@ -33,12 +37,12 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Welcome, please login to continue." wrappingWidth="300.576171875" GridPane.rowIndex="2">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Welcome, please login to continue." wrappingWidth="300.576171875" GridPane.columnIndex="1" GridPane.rowIndex="2">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Text>
-                        <HBox alignment="CENTER_LEFT" minHeight="40.0" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+                        <HBox alignment="CENTER_LEFT" minHeight="40.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                             <children>
                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Username">
                                     <HBox.margin>
@@ -51,7 +55,7 @@
                         <Insets />
                      </GridPane.margin>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" minHeight="40.0" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
+                        <HBox alignment="CENTER_LEFT" minHeight="40.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                             <children>
                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Password">
                                     <HBox.margin>
@@ -64,7 +68,7 @@
                         <Insets />
                      </GridPane.margin>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" minHeight="40.0" prefHeight="100.0" prefWidth="317.0" GridPane.rowIndex="5">
+                        <HBox alignment="CENTER_LEFT" minHeight="40.0" prefHeight="100.0" prefWidth="317.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                             <children>
                                 <JFXButton onMouseClicked="#login" text="Login">
                                     <HBox.margin>
@@ -81,11 +85,24 @@
                         <Insets />
                      </GridPane.margin>
                         </HBox>
-                  <JFXComboBox fx:id="themePicker" labelFloat="true" onAction="#changeTheme" styleClass="selectfield" GridPane.rowIndex="7">
+                  <JFXComboBox fx:id="themePicker" labelFloat="true" onAction="#changeTheme" styleClass="selectfield" GridPane.columnIndex="1" GridPane.rowIndex="7">
                      <GridPane.margin>
                         <Insets left="-20.0" />
                      </GridPane.margin>
                   </JFXComboBox>
+                  <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <image>
+                        <Image url="@../img/icon.png" />
+                     </image>
+                  </ImageView>
+                  <Label styleClass="header" text="K2-G10" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets left="20.0" top="5.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="50.0" />
+                     </font>
+                  </Label>
                     </children>
                     <padding>
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
