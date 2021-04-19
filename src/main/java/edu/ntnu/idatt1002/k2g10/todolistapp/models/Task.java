@@ -33,7 +33,7 @@ public class Task implements Serializable {
     @NotNull
     private Priority priority;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = { CascadeType.ALL })
     private Category category;
 
     @NotNull
@@ -94,52 +94,44 @@ public class Task implements Serializable {
         return id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public LocalDate getStartTime() {
-        return startTime;
-    }
-
-    public LocalDate getEndTime() {
-        return endTime;
-    }
-
-    public Priority getPriority() {
-        return priority;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void removeCategory(Category category) {
-        category = null;
-    }
-
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public void setStartTime(LocalDate startTime) {
         this.startTime = startTime;
+    }
+
+    public LocalDate getStartTime() {
+        return startTime;
     }
 
     public void setEndTime(LocalDate endTime) {
         this.endTime = endTime;
     }
 
+    public LocalDate getEndTime() {
+        return endTime;
+    }
+
     public void setPriority(Priority priority) {
         this.priority = priority;
+    }
+
+    public Priority getPriority() {
+        return priority;
     }
 
     public void setCompleted(boolean completed) {
@@ -152,5 +144,13 @@ public class Task implements Serializable {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void removeCategory(Category category) {
+        setCategory(null);
     }
 }

@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import edu.ntnu.idatt1002.k2g10.todolistapp.exceptions.DuplicateTaskException;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -21,11 +19,11 @@ public class TaskList implements Serializable {
     private Long id;
 
     @NotNull
-    @OneToMany(cascade = {CascadeType.ALL})
+    @OneToMany(cascade = { CascadeType.ALL })
     private final List<Task> tasks;
 
     @NotNull
-    @OneToMany(cascade = {CascadeType.ALL})
+    @OneToMany(cascade = { CascadeType.ALL })
     private final List<Category> categories;
 
     /**
@@ -74,23 +72,15 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * Method that adds a task to the tasklist. If the task already exists a {@link DuplicateTaskException} is thrown
+     * Method that adds a task to the tasklist.
      *
      * @param newTask
      *            Task to be added
      *
-     * @throws DuplicateTaskException
-     *             Exception thrown if object variable already exists
-     *
      * @author bragemi
      */
-    public void addTask(Task newTask) throws DuplicateTaskException {
-        if (tasks.stream().anyMatch(someTask -> someTask.getTitle().equals(newTask.getTitle()))) {
-            throw new DuplicateTaskException("Task already exists");
-        } else {
-            tasks.add(newTask);
-        }
-
+    public void addTask(Task newTask) {
+        tasks.add(newTask);
     }
 
     /**

@@ -11,7 +11,6 @@ import java.util.Optional;
 import edu.ntnu.idatt1002.k2g10.todolistapp.Session;
 import edu.ntnu.idatt1002.k2g10.todolistapp.Theme;
 import edu.ntnu.idatt1002.k2g10.todolistapp.daos.UserDAO;
-import edu.ntnu.idatt1002.k2g10.todolistapp.exceptions.DuplicateTaskException;
 import edu.ntnu.idatt1002.k2g10.todolistapp.exceptions.IncorrectPasswordException;
 import edu.ntnu.idatt1002.k2g10.todolistapp.factories.DialogFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.*;
@@ -77,7 +76,7 @@ public class LoginController {
 
                 Session.setActiveUser(johndoe);
                 Session.setLocation("taskview");
-            } catch (IOException | DuplicateTaskException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
@@ -90,11 +89,11 @@ public class LoginController {
             String password = passwordField.getText();
             UserDAO userDAO = new UserDAO(Session.getEntityManager());
             Optional<User> optionalUser = userDAO.get(username);
-            if(optionalUser.isEmpty()) {
+            if (optionalUser.isEmpty()) {
                 throw new EntityNotFoundException("User does not exist.");
             }
             User user = optionalUser.get();
-            if(!PasswordHashAlgorithm.PBKDF2.verifyHash(password, user.getPasswordSalt(), user.getPasswordHash())) {
+            if (!PasswordHashAlgorithm.PBKDF2.verifyHash(password, user.getPasswordSalt(), user.getPasswordHash())) {
                 throw new IncorrectPasswordException("Incorrect password for user.");
             }
 

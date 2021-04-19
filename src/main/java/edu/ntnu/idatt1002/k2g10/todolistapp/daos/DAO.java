@@ -5,7 +5,10 @@ import java.util.Optional;
 
 /**
  * Interface for data access objects.
- * @param <T> Entity type of the DAO.
+ * 
+ * @param <T>
+ *            Entity type of the DAO.
+ * 
  * @author hasanoma
  */
 public interface DAO<T> {

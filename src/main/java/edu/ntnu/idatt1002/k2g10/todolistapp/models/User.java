@@ -40,7 +40,7 @@ public class User implements Serializable {
     @NotBlank
     private String lastname;
 
-    @OneToOne(cascade = {CascadeType.ALL})
+    @OneToOne(cascade = { CascadeType.ALL })
     private final TaskList taskList = new TaskList();
 
     /**
@@ -63,7 +63,8 @@ public class User implements Serializable {
         this.passwordSalt = PasswordHashAlgorithm.PBKDF2.generateSalt();
         try {
             this.passwordHash = PasswordHashAlgorithm.PBKDF2.getSaltedHash(password, passwordSalt);
-        } catch (HashException ignored) {/* This will throw SQL exception in DAO anyway. */}
+        } catch (HashException ignored) {
+            /* This will throw SQL exception in DAO anyway. */}
     }
 
     public User() {

@@ -11,6 +11,11 @@ import java.util.Locale;
 public enum Priority implements Serializable {
     NONE, LOW, MEDIUM, HIGH;
 
+    /**
+     * Get string version of priority.
+     * 
+     * @return String name.
+     */
     @Override
     public String toString() {
         String first = name().substring(0, 1);

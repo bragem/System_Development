@@ -15,11 +15,15 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.logging.*;
 
+/**
+ * Contains data about the current session.
+ */
 public class Session {
     private Session() {
     }
 
-    private static final EntityManager em = Persistence.createEntityManagerFactory("pu-todo-derby").createEntityManager();
+    private static final EntityManager em = Persistence.createEntityManagerFactory("pu-todo-derby")
+            .createEntityManager();
     private static Logger logger;
     private static Scene scene;
     private static Theme theme = Theme.LIGHT;

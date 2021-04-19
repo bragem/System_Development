@@ -2,7 +2,6 @@ package edu.ntnu.idatt1002.k2g10.todolistapp.controllers;
 
 import com.jfoenix.controls.*;
 import edu.ntnu.idatt1002.k2g10.todolistapp.Session;
-import edu.ntnu.idatt1002.k2g10.todolistapp.exceptions.DuplicateTaskException;
 import edu.ntnu.idatt1002.k2g10.todolistapp.factories.DialogFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.Category;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.Priority;
@@ -11,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -67,7 +65,7 @@ public class AddTaskController {
             Session.getActiveUser().getTaskList().addTask(newTask);
             Session.save();
             stage.close();
-        } catch (DuplicateTaskException | SQLException e) {
+        } catch (SQLException e) {
             DialogFactory.getOKDialog("Task add failed", "Unable to add task.\n(" + e.getMessage() + ")").show();
         }
     }

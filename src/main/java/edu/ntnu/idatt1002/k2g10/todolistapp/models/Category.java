@@ -37,6 +37,9 @@ public class Category implements Serializable {
         this.icon = icon;
     }
 
+    /**
+     * Construct a new category instance.
+     */
     public Category() {
     }
 
@@ -48,20 +51,20 @@ public class Category implements Serializable {
         return id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public char getIcon() {
-        return icon;
+    public String getTitle() {
+        return title;
     }
 
     public void setIcon(char icon) {
         this.icon = icon;
+    }
+
+    public char getIcon() {
+        return icon;
     }
 
     @Override

@@ -10,10 +10,26 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Generates popup window stages.
+ * 
+ * @author trthingnes
+ */
 public class PopupWindowFactory {
-    public static Stage getPopupWindow(String name) throws IOException {
+    /**
+     * Gets a popup window with the given fxml name.
+     * 
+     * @param fxml
+     *            FXML file to load into window.
+     * 
+     * @return Popup window stage.
+     * 
+     * @throws IOException
+     *             If FXML file fails to load.
+     */
+    public static Stage getPopupWindow(String fxml) throws IOException {
         Stage popupWindow = new Stage();
-        FXMLLoader loader = FXMLLoaderFactory.getFXMLLoader(name);
+        FXMLLoader loader = FXMLLoaderFactory.getFXMLLoader(fxml);
 
         popupWindow.setScene(new Scene(loader.load()));
         String path = String.format("css/%s.css", Session.getTheme().getFileName());
