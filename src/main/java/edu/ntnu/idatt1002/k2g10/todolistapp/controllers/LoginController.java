@@ -50,7 +50,7 @@ public class LoginController {
         // Allow login without username and password.
         if (usernameField.getText().isBlank() && passwordField.getText().isBlank()) {
             try {
-                User johndoe = new User("johndoe", "John", "Doe", "johdoe@stud.ntnu.no", "12345678");
+                AppUser johndoe = new AppUser("johndoe", "John", "Doe", "johdoe@stud.ntnu.no");
 
                 Category school = new Category("School", FontAwesomeIcon.BOOK.getChar());
                 Category work = new Category("Work", FontAwesomeIcon.BRIEFCASE.getChar());
@@ -85,7 +85,7 @@ public class LoginController {
         try {
             String username = usernameField.getText();
             String password = passwordField.getText();
-            User user = UserFileDAO.load(username, password);
+            AppUser user = UserFileDAO.load(username, password);
             Session.setActiveUser(user);
             Session.setActivePassword(password);
             Session.getLogger().info("Logged in as user " + user.getUsername());

@@ -1,5 +1,8 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.models;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -9,16 +12,28 @@ import java.io.Serializable;
  * @author hasanro, Bragemi, trthingnes
  */
 @Entity
-public class User implements Serializable {
+public class AppUser implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
 
+    @NotBlank
     private String username;
-    private String firstname;
-    private String lastname;
+
+    @NotBlank
+    private String passwordHash;
+
+    @NotBlank
+    private String passwordSalt;
+
+    @Email
     private String email;
-    private String phone;
+
+    @NotBlank
+    private String firstname;
+
+    @NotBlank
+    private String lastname;
 
     @OneToOne
     private final TaskList taskList = new TaskList();
@@ -34,18 +49,15 @@ public class User implements Serializable {
      *            Surname of user
      * @param email
      *            email address of user
-     * @param phone
-     *            phone number of the user
      */
-    public User(String username, String firstname, String lastname, String email, String phone) {
+    public AppUser(String username, String firstname, String lastname, String email) {
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
-        this.phone = phone;
     }
 
-    public User() {
+    public AppUser() {
 
     }
 
@@ -77,14 +89,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public TaskList getTaskList() {
         return taskList;
     }
@@ -95,5 +99,21 @@ public class User implements Serializable {
 
     public Long getId() {
         return id;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public String getPasswordSalt() {
+        return passwordSalt;
+    }
+
+    public void setPasswordSalt(String passwordSalt) {
+        this.passwordSalt = passwordSalt;
     }
 }

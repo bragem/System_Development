@@ -1,7 +1,7 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.daos;
 
 import edu.ntnu.idatt1002.k2g10.todolistapp.Session;
-import edu.ntnu.idatt1002.k2g10.todolistapp.models.User;
+import edu.ntnu.idatt1002.k2g10.todolistapp.models.AppUser;
 import edu.ntnu.idatt1002.k2g10.todolistapp.utils.crypto.IncorrectPasswordException;
 import edu.ntnu.idatt1002.k2g10.todolistapp.utils.crypto.EncryptionException;
 import edu.ntnu.idatt1002.k2g10.todolistapp.utils.files.EncryptedFile;
@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.Objects;
 
 /**
- * {@link UserFileDAO} deals offers methods related to the {@link User} model.
+ * {@link UserFileDAO} deals offers methods related to the {@link AppUser} model.
  * 
  * @author trthingnes
  */
@@ -27,7 +27,7 @@ public class UserFileDAO {
     }
 
     /**
-     * Loads the given {@link User} and attempts to use the given password for decryption.
+     * Loads the given {@link AppUser} and attempts to use the given password for decryption.
      * 
      * @param username
      *            Username of the user to access.
@@ -43,7 +43,7 @@ public class UserFileDAO {
      * @throws EncryptionException
      *             If something goes wrong while decrypting.
      */
-    public static User load(String username, String password)
+    public static AppUser load(String username, String password)
             throws IncorrectPasswordException, IOException, EncryptionException {
         String filePath = String.format("%s/%s.%s", USER_FILES_FOLDER, username, USER_FILE_EXTENSION);
 
@@ -52,8 +52,8 @@ public class UserFileDAO {
 
         // Attempt to deserialize user from file.
         try {
-            ObjectFile<User> userFile = new ObjectFile<>(filePath);
-            User user = userFile.readObjectFromFile();
+            ObjectFile<AppUser> userFile = new ObjectFile<>(filePath);
+            AppUser user = userFile.readObjectFromFile();
 
             if (!userFile.delete()) {
                 Session.getLogger().warning("Unable to delete decrypted file after reading into memory.");
@@ -66,7 +66,7 @@ public class UserFileDAO {
     }
 
     /**
-     * Saved the given {@link User} to the user file folder, and encrypts it with the given password.
+     * Saved the given {@link AppUser} to the user file folder, and encrypts it with the given password.
      * 
      * @param user
      *            User to serialize into file.
@@ -78,7 +78,7 @@ public class UserFileDAO {
      * @throws EncryptionException
      *             If something goes wrong while encrypting.
      */
-    public static void save(User user, String password) throws IOException, EncryptionException {
+    public static void save(AppUser user, String password) throws IOException, EncryptionException {
         // Attempt to make users folder.
         File usersFolder = new File(USER_FILES_FOLDER);
         usersFolder.mkdir();
@@ -86,7 +86,7 @@ public class UserFileDAO {
         String filePath = String.format("%s/%s.%s", USER_FILES_FOLDER, user.getUsername(), USER_FILE_EXTENSION);
 
         // Attempt to write user to file.
-        ObjectFile<User> userFile = new ObjectFile<>(filePath, user);
+        ObjectFile<AppUser> userFile = new ObjectFile<>(filePath, user);
         userFile.writeObjectToFile();
 
         // Attempt to encrypt user file.

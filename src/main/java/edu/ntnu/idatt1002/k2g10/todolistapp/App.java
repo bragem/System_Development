@@ -7,6 +7,8 @@ import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import javax.persistence.Persistence;
+
 public class App extends Application {
     private static final String WINDOW_TITLE = "Todo list application";
     private static final int WINDOW_MIN_WIDTH = 1200;
@@ -23,6 +25,7 @@ public class App extends Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
+        Persistence.createEntityManagerFactory("pu-todo-derby").createEntityManager();
         Font.loadFont(getClass().getResourceAsStream("font/fontawesome.ttf"), 12);
 
         Session.setScene(new Scene(FXMLFile.load("login")));

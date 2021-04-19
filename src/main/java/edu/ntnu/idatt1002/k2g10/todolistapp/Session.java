@@ -1,6 +1,6 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp;
 
-import edu.ntnu.idatt1002.k2g10.todolistapp.models.User;
+import edu.ntnu.idatt1002.k2g10.todolistapp.models.AppUser;
 import edu.ntnu.idatt1002.k2g10.todolistapp.daos.UserFileDAO;
 import edu.ntnu.idatt1002.k2g10.todolistapp.utils.crypto.EncryptionException;
 import edu.ntnu.idatt1002.k2g10.todolistapp.utils.files.FXMLFile;
@@ -19,7 +19,7 @@ public class Session {
     private static Logger logger;
     private static Scene scene;
     private static Theme theme = Theme.LIGHT;
-    private static User activeUser;
+    private static AppUser activeUser;
     private static String activePassword;
 
     public static void save() throws IOException, EncryptionException {
@@ -57,11 +57,11 @@ public class Session {
         Session.getLogger().info("Loaded theme: " + theme.getDisplayName());
     }
 
-    public static User getActiveUser() {
+    public static AppUser getActiveUser() {
         return activeUser;
     }
 
-    public static void setActiveUser(User activeUser) {
+    public static void setActiveUser(AppUser activeUser) {
         Session.activeUser = activeUser;
     }
 
@@ -105,7 +105,7 @@ public class Session {
                     @Override
                     public String format(LogRecord record) {
                         return String.format("[%s::%s] %s: %s%n",
-                                record.getSourceClassName().replace("edu.ntnu.idatt1002.k2g10.", ""),
+                                record.getSourceClassName().replace("edu.ntnu.idatt1002.k2g10.todolistapp", ""),
                                 record.getSourceMethodName(), record.getLevel(), record.getMessage());
                     }
                 });

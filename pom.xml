@@ -51,7 +51,11 @@
             <artifactId>hibernate-core</artifactId>
             <version>5.4.21.Final</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>7.0.0.Final</version>
+        </dependency>
 
         <!-- JUnit - Testing - Documentation: https://junit.org/junit5/docs/current/user-guide/ -->
         <dependency>
@@ -65,11 +69,6 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <version>5.7.0</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.main.extras</groupId>
-            <artifactId>glassfish-embedded-all</artifactId>
-            <version>5.1.0</version>
         </dependency>
     </dependencies>
 

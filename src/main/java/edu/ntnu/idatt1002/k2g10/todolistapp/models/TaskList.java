@@ -5,6 +5,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import edu.ntnu.idatt1002.k2g10.todolistapp.exceptions.DuplicateTaskException;
+import jakarta.validation.constraints.NotNull;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 /**
- * TaskList is contained in {@link User}
+ * TaskList is contained in {@link AppUser}
  * 
  * @author hasanro, trthingnes, bragemi, andetel
  */
@@ -22,17 +23,20 @@ public class TaskList implements Serializable {
     @GeneratedValue
     private Long id;
 
+    @NotNull
     @OneToMany
-    private final ArrayList<Task> tasks;
+    private final List<Task> tasks;
+
+    @NotNull
     @OneToMany
-    private final HashSet<Category> categories;
+    private final List<Category> categories;
 
     /**
      * Constructor of TaskList class
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
-        this.categories = new HashSet<>();
+        this.categories = new ArrayList<>();
     }
 
     public void setId(Long id) {
@@ -43,11 +47,11 @@ public class TaskList implements Serializable {
         return id;
     }
 
-    public ArrayList<Task> getTasks() {
+    public List<Task> getTasks() {
         return tasks;
     }
 
-    public HashSet<Category> getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 
@@ -189,9 +193,9 @@ public class TaskList implements Serializable {
     public ArrayList<Task> sortByPriority() {
         ArrayList<Task> sortedList = new ArrayList<>(tasks);
 
-        sortedList.sort((task1, task2) -> {
-            return Integer.compare(task2.getPriority().ordinal(), task1.getPriority().ordinal());
-        });
+        sortedList.sort((task1, task2) ->
+                Integer.compare(task2.getPriority().ordinal(), task1.getPriority().ordinal())
+        );
 
         return sortedList;
     }

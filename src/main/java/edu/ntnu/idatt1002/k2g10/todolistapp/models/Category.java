@@ -1,5 +1,8 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.models;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,7 +19,11 @@ public class Category implements Serializable {
     @Id
     @GeneratedValue
     private long id;
+
+    @NotBlank
     private String title;
+
+    @NotBlank
     private char icon;
 
     /**
@@ -33,7 +40,6 @@ public class Category implements Serializable {
     }
 
     public Category() {
-
     }
 
     public void setId(Long id) {
@@ -48,12 +54,12 @@ public class Category implements Serializable {
         return title;
     }
 
-    public char getIcon() {
-        return icon;
-    }
-
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public char getIcon() {
+        return icon;
     }
 
     public void setIcon(char icon) {

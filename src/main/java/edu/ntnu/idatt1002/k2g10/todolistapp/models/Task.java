@@ -1,5 +1,8 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.models;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -15,13 +18,26 @@ public class Task implements Serializable {
     @Id
     @GeneratedValue
     private long id;
+
+    @NotBlank
+    @NotNull
     private String title;
+
+    @NotNull
     private String description;
+
     private LocalDate startTime;
+
+    @NotNull
     private LocalDate endTime;
+
+    @NotNull
     private Priority priority;
+
     @ManyToOne
     private Category category;
+
+    @NotNull
     private boolean completed = false;
 
     /**
@@ -65,16 +81,10 @@ public class Task implements Serializable {
      *            Task priority
      */
     public Task(String title, String description, LocalDate startTime, LocalDate endTime, Priority priority) {
-        this.title = title;
-        this.description = description;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.priority = priority;
-        this.category = null;
+        new Task(title, description, startTime, endTime, priority, null);
     }
 
     public Task() {
-
     }
 
     public void setId(Long id) {
