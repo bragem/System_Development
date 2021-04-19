@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.k2g10.todolistapp.controllers;
 
 import com.jfoenix.controls.*;
 import edu.ntnu.idatt1002.k2g10.todolistapp.Session;
+import edu.ntnu.idatt1002.k2g10.todolistapp.factories.DialogFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.factories.FXMLLoaderFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.Category;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.Priority;
@@ -15,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -94,6 +96,13 @@ public class TaskDetailsController {
         task.setEndTime(endDate.getValue());
 
         parentController.refreshAndFilterTaskList();
+
+        //Saves user to DB.
+        try {
+            Session.save();
+        } catch (SQLException e) {
+            DialogFactory.getOKDialog("Database save failed", "Could not save to database: " + e.getMessage()).show();
+        }
     }
 
     /**
