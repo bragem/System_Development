@@ -21,11 +21,11 @@ public class TaskList implements Serializable {
     private Long id;
 
     @NotNull
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private final List<Task> tasks;
 
     @NotNull
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private final List<Category> categories;
 
     /**

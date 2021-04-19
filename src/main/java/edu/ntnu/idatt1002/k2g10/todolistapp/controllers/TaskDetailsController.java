@@ -2,12 +2,13 @@ package edu.ntnu.idatt1002.k2g10.todolistapp.controllers;
 
 import com.jfoenix.controls.*;
 import edu.ntnu.idatt1002.k2g10.todolistapp.Session;
+import edu.ntnu.idatt1002.k2g10.todolistapp.factories.FXMLLoaderFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.Category;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.Priority;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.Task;
-import edu.ntnu.idatt1002.k2g10.todolistapp.utils.files.FXMLFile;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -57,7 +58,9 @@ public class TaskDetailsController {
      *             If {@link TaskDetailsController} fails to load.
      */
     public TaskDetailsController(Task task, TaskViewController parentController) throws IOException {
-        FXMLFile.load("task-details", this);
+        FXMLLoader loader = FXMLLoaderFactory.getFXMLLoader("task-details");
+        loader.setController(this);
+        loader.load();
 
         this.parentController = parentController;
         this.task = task;

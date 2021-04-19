@@ -1,7 +1,8 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp;
 
-import edu.ntnu.idatt1002.k2g10.todolistapp.utils.files.FXMLFile;
+import edu.ntnu.idatt1002.k2g10.todolistapp.factories.FXMLLoaderFactory;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.text.Font;
@@ -25,7 +26,8 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         Font.loadFont(getClass().getResourceAsStream("font/fontawesome.ttf"), 12);
 
-        Session.setScene(new Scene(FXMLFile.load("login")));
+        FXMLLoader loader = FXMLLoaderFactory.getFXMLLoader("login");
+        Session.setScene(new Scene(loader.load()));
         Session.setTheme(Theme.LIGHT);
         stage.setScene(Session.getScene());
 

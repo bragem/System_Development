@@ -33,7 +33,7 @@ public class Task implements Serializable {
     @NotNull
     private Priority priority;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Category category;
 
     @NotNull

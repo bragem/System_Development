@@ -1,8 +1,9 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp;
 
 import edu.ntnu.idatt1002.k2g10.todolistapp.daos.UserDAO;
+import edu.ntnu.idatt1002.k2g10.todolistapp.factories.FXMLLoaderFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.User;
-import edu.ntnu.idatt1002.k2g10.todolistapp.utils.files.FXMLFile;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 
 import javax.persistence.EntityManager;
@@ -30,7 +31,8 @@ public class Session {
     }
 
     public static void setLocation(String fxml) throws IOException {
-        scene.setRoot(FXMLFile.load(fxml));
+        FXMLLoader loader = FXMLLoaderFactory.getFXMLLoader(fxml);
+        scene.setRoot(loader.load());
     }
 
     public static Scene getScene() {

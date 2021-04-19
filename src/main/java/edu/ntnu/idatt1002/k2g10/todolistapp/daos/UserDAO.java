@@ -27,6 +27,7 @@ public class UserDAO implements DAO<User> {
             return Optional.empty();
         }
         catch (Exception e) {
+            e.printStackTrace();
             throw new SQLException(String.format("Unable to get user '%s': %s", username, e.getMessage()));
         }
     }
@@ -62,6 +63,7 @@ public class UserDAO implements DAO<User> {
             if(Objects.nonNull(transaction)) {
                 transaction.rollback();
             }
+            e.printStackTrace();
             throw new SQLException(String.format("Unable to update user '%s': %s", user.getUsername(), e.getMessage()));
         }
     }
