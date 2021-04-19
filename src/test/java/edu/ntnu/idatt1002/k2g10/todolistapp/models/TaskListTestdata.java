@@ -1,7 +1,5 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.models;
 
-import edu.ntnu.idatt1002.k2g10.todolistapp.exceptions.DuplicateTaskException;
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -21,20 +19,16 @@ public final class TaskListTestdata {
 
         LocalDate today = LocalDate.now();
 
-        Task task1 = new Task("aaaTask1", "test task", today, today.plus(4, ChronoUnit.DAYS), Priority.NONE, testC1);
-        Task task2 = new Task("task2", "test task", today, today.plus(3, ChronoUnit.DAYS), Priority.HIGH, testC2);
-        Task task3 = new Task("task3", "test task", today, today.plus(5, ChronoUnit.DAYS), Priority.LOW, testC3);
-        Task task4 = new Task("task4", "test task", today, today.plus(9, ChronoUnit.DAYS), Priority.MEDIUM);
-        Task task5 = new Task("task5", "test task", today, today.plus(2, ChronoUnit.DAYS), Priority.NONE);
-        try {
-            tasks.addTask(task1);
-            tasks.addTask(task2);
-            tasks.addTask(task3);
-            tasks.addTask(task4);
-            tasks.addTask(task5);
-        } catch (DuplicateTaskException e) {
-            e.printStackTrace();
-        }
+        Task task1 = new Task("aaaTask1", "test task", today, today.plusDays(2), Priority.NONE, testC1);
+        Task task2 = new Task("task2", "test task", today, today.plusDays(3), Priority.HIGH, testC2);
+        Task task3 = new Task("task3", "test task", today, today.plusDays(5), Priority.LOW, testC3);
+        Task task4 = new Task("task4", "test task", today, today.plusDays(9), Priority.MEDIUM);
+        Task task5 = new Task("task5", "test task", today, today.plusDays(1), Priority.NONE);
+        tasks.addTask(task1);
+        tasks.addTask(task2);
+        tasks.addTask(task3);
+        tasks.addTask(task4);
+        tasks.addTask(task5);
         return tasks;
     }
 }

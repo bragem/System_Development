@@ -4,14 +4,11 @@ import com.jfoenix.controls.JFXTextField;
 import edu.ntnu.idatt1002.k2g10.todolistapp.Session;
 import edu.ntnu.idatt1002.k2g10.todolistapp.factories.DialogFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.factories.PopupWindowFactory;
-import edu.ntnu.idatt1002.k2g10.todolistapp.factories.TableColumnFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.Task;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -34,7 +31,7 @@ public class TaskViewController {
     @FXML
     private ListView<String> categoryList;
     @FXML
-    private TableView<Task> taskList;
+    private VBox taskList;
     @FXML
     private Label usernameLabel;
     @FXML
@@ -42,6 +39,7 @@ public class TaskViewController {
     @FXML
     private VBox taskDetailPanel;
 
+    private TaskDetailsController activeTaskDetailsBox;
     private final List<Task> displayedTasks = new ArrayList<>();
     private final List<String> displayedCategories = new ArrayList<>();
 
@@ -58,17 +56,6 @@ public class TaskViewController {
         usernameLabel.setText(Session.getActiveUser().getUsername());
         emailLabel.setText(Session.getActiveUser().getEmail());
 
-        // Initialize task list
-        TableColumnFactory<Task, String> columnFactory = new TableColumnFactory<>();
-        TableColumn<Task, String> titleColumn = columnFactory.getTableColumn("Title", "title");
-        TableColumn<Task, String> priorityColumn = columnFactory.getTableColumn("Priority", "priority");
-        TableColumn<Task, String> categoryColumn = columnFactory.getTableColumn("Category", "category");
-        TableColumn<Task, String> startColumn = columnFactory.getTableColumn("Start Date", "startTime");
-        TableColumn<Task, String> endColumn = columnFactory.getTableColumn("End Date", "endTime");
-        taskList.getColumns().addAll(List.of(titleColumn, priorityColumn, categoryColumn, startColumn, endColumn));
-
-        // Link task list table to the task list.
-        taskList.getSelectionModel().selectedItemProperty().addListener(task -> showTaskDetails());
         refreshAndFilterTaskList();
 
         // Initialize view mode list.
@@ -93,7 +80,6 @@ public class TaskViewController {
             popupWindow.setTitle("Add new task");
             popupWindow.showAndWait();
             refreshAndFilterTaskList();
-            taskList.refresh();
         } catch (IOException e) {
             DialogFactory.getOKDialog("Add task failed", "Unable to open add task window.").show();
         }
@@ -159,8 +145,17 @@ public class TaskViewController {
 
         displayedTasks.clear();
         displayedTasks.addAll(tasksToDisplay);
-        taskList.setItems(FXCollections.observableList(displayedTasks));
-        taskList.refresh();
+
+        taskList.getChildren().clear();
+        for (Task task : displayedTasks) {
+            try {
+                TaskBoxController taskbox = new TaskBoxController(task, this);
+                taskList.getChildren().add(taskbox.getRootContainer());
+            } catch (IOException e) {
+                DialogFactory.getOKDialog("Task box insertion failed", "Could not insert taskbox.\n" + e.getMessage())
+                        .show();
+            }
+        }
     }
 
     /**
@@ -172,7 +167,7 @@ public class TaskViewController {
             Stage popupWindow = PopupWindowFactory.getPopupWindow("add-category");
             popupWindow.showAndWait();
             refreshCategoryList();
-            showTaskDetails();
+            activeTaskDetailsBox.updateLabels();
         } catch (IOException e) {
             DialogFactory.getOKDialog("Add category failed", "Unable to open add category window.").show();
         }
@@ -188,6 +183,7 @@ public class TaskViewController {
                 .map(c -> String.format("%s %s", c.getIcon(), c.getTitle())).sorted().collect(Collectors.toList()));
 
         categoryList.setItems(FXCollections.observableList(displayedCategories));
+        categoryList.refresh();
     }
 
     /**
@@ -201,15 +197,15 @@ public class TaskViewController {
     /**
      * Shows task details in the right side of the screen.
      *
-     * This method runs on task list selection.
+     * @param selectedTask
+     *            Selected task.
      */
-    private void showTaskDetails() {
-        Task selectedTask = taskList.getSelectionModel().getSelectedItem();
-
+    protected void showTaskDetails(Task selectedTask) {
         try {
             Objects.requireNonNull(selectedTask);
             taskDetailPanel.getChildren().clear();
-            taskDetailPanel.getChildren().add(new TaskDetailsController(selectedTask, this).getRootContainer());
+            activeTaskDetailsBox = new TaskDetailsController(selectedTask, this);
+            taskDetailPanel.getChildren().add(activeTaskDetailsBox.getRootContainer());
         } catch (IOException e) {
             DialogFactory.getOKDialog("Task detail failed", "Failed to show detailed task view.").show();
         } catch (NullPointerException ignored) {

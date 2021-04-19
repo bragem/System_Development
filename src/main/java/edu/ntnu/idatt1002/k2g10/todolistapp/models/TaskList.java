@@ -114,7 +114,6 @@ public class TaskList implements Serializable {
      */
     public ArrayList<Task> sortByEndDate() {
         ArrayList<Task> sortedList = new ArrayList<>(tasks);
-
         sortedList.sort(Comparator.comparing(Task::getEndTime));
         return sortedList;
     }

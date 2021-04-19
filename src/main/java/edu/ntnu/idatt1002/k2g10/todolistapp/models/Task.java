@@ -80,7 +80,12 @@ public class Task implements Serializable {
      *            Task priority
      */
     public Task(String title, String description, LocalDate startTime, LocalDate endTime, Priority priority) {
-        new Task(title, description, startTime, endTime, priority, null);
+        this.title = title;
+        this.description = description;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.priority = priority;
+        this.category = null;
     }
 
     public Task() {

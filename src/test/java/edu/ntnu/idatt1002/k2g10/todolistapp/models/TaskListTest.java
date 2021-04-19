@@ -1,6 +1,5 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.models;
 
-import edu.ntnu.idatt1002.k2g10.todolistapp.exceptions.DuplicateTaskException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
@@ -54,38 +53,17 @@ class TaskListTest {
     }
 
     @Test
-    @DisplayName("Adding an already existing task throws DuplicateTaskException")
-    void addingAnExistingTaskThrowsDuplicateTaskException() {
-        TaskList tasks = TaskListTestdata.fillTasklistWithData(new TaskList());
-        Task existingTask = tasks.getTasks().get(0);
-
-        assertThrows(DuplicateTaskException.class, () -> tasks.addTask(existingTask));
-    }
-
-    @Test
     @DisplayName("Adding a non-existent task when supposed to")
     void addingNonExistingTaskWhenSupposedTo() {
         TaskList tasks = TaskListTestdata.fillTasklistWithData(new TaskList());
         int sizeBefore = tasks.getTasks().size();
         Task newTask = new Task("tfe", "efef", tasks.getTasks().get(0).getStartTime(),
                 tasks.getTasks().get(0).getEndTime(), tasks.getTasks().get(0).getPriority());
-        try {
-            tasks.addTask(newTask);
-        } catch (DuplicateTaskException e) {
-            e.printStackTrace();
-        }
+        tasks.addTask(newTask);
+
         int sizeAfter = tasks.getTasks().size();
         assertEquals(sizeBefore + 1, sizeAfter);
 
-    }
-
-    @Test
-    @DisplayName("Adding an already existing category")
-    void addingAnAlreadyExistingCategory() {
-        TaskList tasks = TaskListTestdata.fillTasklistWithData(new TaskList());
-        Category category = tasks.getTasks().get(0).getCategory();
-        tasks.addCategory(category);
-        assertFalse(tasks.addCategory(category));
     }
 
     @Test
