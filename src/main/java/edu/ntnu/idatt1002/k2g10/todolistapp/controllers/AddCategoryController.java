@@ -6,13 +6,13 @@ import com.jfoenix.controls.JFXTextField;
 import edu.ntnu.idatt1002.k2g10.todolistapp.Session;
 import edu.ntnu.idatt1002.k2g10.todolistapp.factories.DialogFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.Category;
-import edu.ntnu.idatt1002.k2g10.todolistapp.utils.crypto.EncryptionException;
 import edu.ntnu.idatt1002.k2g10.todolistapp.utils.icons.FontAwesomeIcon;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * @author andetel
@@ -42,7 +42,7 @@ public class AddCategoryController {
             Session.getActiveUser().getTaskList().addCategory(newCategory);
             Session.save(); // Saves user data.
             stage.close();
-        } catch (IOException | EncryptionException e) {
+        } catch (SQLException e) {
             DialogFactory.getOKDialog("Category add failed", "Unable to add category.\n(" + e.getMessage() + ")")
                     .show();
         }

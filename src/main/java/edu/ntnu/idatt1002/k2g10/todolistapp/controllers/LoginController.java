@@ -4,18 +4,22 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import edu.ntnu.idatt1002.k2g10.todolistapp.Session;
 import edu.ntnu.idatt1002.k2g10.todolistapp.Theme;
+import edu.ntnu.idatt1002.k2g10.todolistapp.daos.UserDAO;
 import edu.ntnu.idatt1002.k2g10.todolistapp.exceptions.DuplicateTaskException;
+import edu.ntnu.idatt1002.k2g10.todolistapp.exceptions.IncorrectPasswordException;
 import edu.ntnu.idatt1002.k2g10.todolistapp.factories.DialogFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.*;
-import edu.ntnu.idatt1002.k2g10.todolistapp.daos.UserFileDAO;
-import edu.ntnu.idatt1002.k2g10.todolistapp.utils.crypto.EncryptionException;
-import edu.ntnu.idatt1002.k2g10.todolistapp.utils.crypto.IncorrectPasswordException;
+import edu.ntnu.idatt1002.k2g10.todolistapp.utils.crypto.PasswordHashAlgorithm;
 import edu.ntnu.idatt1002.k2g10.todolistapp.utils.icons.FontAwesomeIcon;
 import javafx.fxml.FXML;
+
+import javax.persistence.EntityNotFoundException;
 
 /**
  * Controller for the Login view.
@@ -50,7 +54,7 @@ public class LoginController {
         // Allow login without username and password.
         if (usernameField.getText().isBlank() && passwordField.getText().isBlank()) {
             try {
-                User johndoe = new User("johndoe", "John", "Doe", "johdoe@stud.ntnu.no");
+                User johndoe = new User("johndoe", "John", "Doe", "johdoe@stud.ntnu.no", "password");
 
                 Category school = new Category("School", FontAwesomeIcon.BOOK.getChar());
                 Category work = new Category("Work", FontAwesomeIcon.BRIEFCASE.getChar());
@@ -72,7 +76,6 @@ public class LoginController {
                         freetime));
 
                 Session.setActiveUser(johndoe);
-                Session.setActivePassword("password");
                 Session.setLocation("taskview");
             } catch (IOException | DuplicateTaskException e) {
                 e.printStackTrace();
@@ -85,19 +88,27 @@ public class LoginController {
         try {
             String username = usernameField.getText();
             String password = passwordField.getText();
-            User user = UserFileDAO.load(username, password);
+            UserDAO userDAO = new UserDAO(Session.getEntityManager());
+            Optional<User> optionalUser = userDAO.get(username);
+            if(optionalUser.isEmpty()) {
+                throw new EntityNotFoundException("User does not exist.");
+            }
+            User user = optionalUser.get();
+            if(!PasswordHashAlgorithm.PBKDF2.verifyHash(password, user.getPasswordSalt(), user.getPasswordHash())) {
+                throw new IncorrectPasswordException("Incorrect password for user.");
+            }
+
             Session.setActiveUser(user);
-            Session.setActivePassword(password);
             Session.getLogger().info("Logged in as user " + user.getUsername());
 
-            Session.setLocation("upcoming");
-        } catch (EncryptionException | IOException e) {
+            Session.setLocation("taskview");
+        } catch (EntityNotFoundException | IncorrectPasswordException e) {
+            Session.getLogger().warning(e.getMessage());
+            DialogFactory.getOKDialog("Login failed", "Incorrect username or password.").show();
+        } catch (SQLException | IOException e) {
             Session.getLogger().severe(e.getMessage());
             DialogFactory.getOKDialog("Login failed",
                     "Unable to log in because of an internal error. (" + e.getMessage() + ")").show();
-        } catch (IncorrectPasswordException e) {
-            Session.getLogger().warning(e.getMessage());
-            DialogFactory.getOKDialog("Login failed", "Incorrect password for the given user.").show();
         }
 
     }

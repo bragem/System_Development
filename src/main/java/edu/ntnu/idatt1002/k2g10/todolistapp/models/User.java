@@ -1,5 +1,8 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.models;
 
+import edu.ntnu.idatt1002.k2g10.todolistapp.utils.crypto.HashException;
+import edu.ntnu.idatt1002.k2g10.todolistapp.utils.crypto.PasswordHashAlgorithm;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -11,13 +14,14 @@ import java.io.Serializable;
  * @author hasanro, Bragemi, trthingnes
  */
 @Entity
-@Table(name="APP_USER")
+@Table(name = "APP_USER")
 public class User implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
 
     @NotBlank
+    @Column(unique = true)
     private String username;
 
     @NotBlank
@@ -27,6 +31,7 @@ public class User implements Serializable {
     private String passwordSalt;
 
     @Email
+    @Column(unique = true)
     private String email;
 
     @NotBlank
@@ -35,7 +40,7 @@ public class User implements Serializable {
     @NotBlank
     private String lastname;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private final TaskList taskList = new TaskList();
 
     /**
@@ -50,11 +55,15 @@ public class User implements Serializable {
      * @param email
      *            email address of user
      */
-    public User(String username, String firstname, String lastname, String email) {
+    public User(String username, String firstname, String lastname, String email, String password) {
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
+        this.passwordSalt = PasswordHashAlgorithm.PBKDF2.generateSalt();
+        try {
+            this.passwordHash = PasswordHashAlgorithm.PBKDF2.getSaltedHash(password, passwordSalt);
+        } catch (HashException ignored) {/* This will throw SQL exception in DAO anyway. */}
     }
 
     public User() {

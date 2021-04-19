@@ -19,12 +19,12 @@ public class Task implements Serializable {
     private long id;
 
     @NotBlank
-    @NotNull
     private String title;
 
     @NotNull
     private String description;
 
+    @NotNull
     private LocalDate startTime;
 
     @NotNull

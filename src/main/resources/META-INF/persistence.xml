@@ -7,7 +7,6 @@
         <class>edu.ntnu.idatt1002.k2g10.todolistapp.models.TaskList</class>
         <class>edu.ntnu.idatt1002.k2g10.todolistapp.models.Task</class>
         <class>edu.ntnu.idatt1002.k2g10.todolistapp.models.Category</class>
-        <class>edu.ntnu.idatt1002.k2g10.todolistapp.models.Priority</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.apache.derby.iapi.jdbc.AutoloadedDriver" />

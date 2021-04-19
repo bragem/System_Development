@@ -7,12 +7,12 @@ import edu.ntnu.idatt1002.k2g10.todolistapp.factories.DialogFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.Category;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.Priority;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.Task;
-import edu.ntnu.idatt1002.k2g10.todolistapp.utils.crypto.EncryptionException;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Locale;
@@ -67,7 +67,7 @@ public class AddTaskController {
             Session.getActiveUser().getTaskList().addTask(newTask);
             Session.save();
             stage.close();
-        } catch (DuplicateTaskException | EncryptionException | IOException e) {
+        } catch (DuplicateTaskException | SQLException e) {
             DialogFactory.getOKDialog("Task add failed", "Unable to add task.\n(" + e.getMessage() + ")").show();
         }
     }

@@ -1,13 +1,15 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp;
 
+import edu.ntnu.idatt1002.k2g10.todolistapp.daos.UserDAO;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.User;
-import edu.ntnu.idatt1002.k2g10.todolistapp.daos.UserFileDAO;
-import edu.ntnu.idatt1002.k2g10.todolistapp.utils.crypto.EncryptionException;
 import edu.ntnu.idatt1002.k2g10.todolistapp.utils.files.FXMLFile;
 import javafx.scene.Scene;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.logging.*;
@@ -16,14 +18,15 @@ public class Session {
     private Session() {
     }
 
+    private static final EntityManager em = Persistence.createEntityManagerFactory("pu-todo-derby").createEntityManager();
     private static Logger logger;
     private static Scene scene;
     private static Theme theme = Theme.LIGHT;
     private static User activeUser;
-    private static String activePassword;
 
-    public static void save() throws IOException, EncryptionException {
-        UserFileDAO.save(activeUser, activePassword);
+    public static void save() throws SQLException {
+        UserDAO userDAO = new UserDAO(em);
+        userDAO.update(activeUser);
     }
 
     public static void setLocation(String fxml) throws IOException {
@@ -63,14 +66,6 @@ public class Session {
 
     public static void setActiveUser(User activeUser) {
         Session.activeUser = activeUser;
-    }
-
-    public static String getActivePassword() {
-        return activePassword;
-    }
-
-    public static void setActivePassword(String activePassword) {
-        Session.activePassword = activePassword;
     }
 
     /**
@@ -118,5 +113,9 @@ public class Session {
         }
 
         return logger;
+    }
+
+    public static EntityManager getEntityManager() {
+        return em;
     }
 }

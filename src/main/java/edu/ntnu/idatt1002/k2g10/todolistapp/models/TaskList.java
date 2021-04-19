@@ -6,10 +6,7 @@ import java.util.stream.Collectors;
 
 import edu.ntnu.idatt1002.k2g10.todolistapp.exceptions.DuplicateTaskException;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -193,9 +190,8 @@ public class TaskList implements Serializable {
     public ArrayList<Task> sortByPriority() {
         ArrayList<Task> sortedList = new ArrayList<>(tasks);
 
-        sortedList.sort((task1, task2) ->
-                Integer.compare(task2.getPriority().ordinal(), task1.getPriority().ordinal())
-        );
+        sortedList
+                .sort((task1, task2) -> Integer.compare(task2.getPriority().ordinal(), task1.getPriority().ordinal()));
 
         return sortedList;
     }

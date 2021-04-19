@@ -1,4 +1,4 @@
-package edu.ntnu.idatt1002.k2g10.todolistapp.utils.crypto;
+package edu.ntnu.idatt1002.k2g10.todolistapp.exceptions;
 
 public class IncorrectPasswordException extends Exception {
     public IncorrectPasswordException() {

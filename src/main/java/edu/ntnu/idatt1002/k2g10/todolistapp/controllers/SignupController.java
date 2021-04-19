@@ -5,14 +5,13 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import edu.ntnu.idatt1002.k2g10.todolistapp.Session;
 import edu.ntnu.idatt1002.k2g10.todolistapp.Theme;
+import edu.ntnu.idatt1002.k2g10.todolistapp.daos.UserDAO;
 import edu.ntnu.idatt1002.k2g10.todolistapp.factories.DialogFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.User;
-import edu.ntnu.idatt1002.k2g10.todolistapp.daos.UserFileDAO;
-import edu.ntnu.idatt1002.k2g10.todolistapp.utils.crypto.EncryptionException;
 import javafx.fxml.FXML;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.sql.SQLException;
 import java.util.Objects;
 
 /**
@@ -77,11 +76,6 @@ public class SignupController {
             if (!username.matches("([0-9A-Za-zæøåÆØÅ\\-_.])+")) {
                 throw new IllegalArgumentException("The username contains invalid characters.");
             }
-
-            String[] usernames = UserFileDAO.getAllUsernames();
-            if (Arrays.asList(usernames).contains(username)) {
-                throw new IllegalArgumentException("The username is already taken.");
-            }
         } catch (IllegalArgumentException e) {
             DialogFactory.getOKDialog("Registration failed", e.getMessage()).show();
             Session.getLogger().info("Could not register user: " + e.getMessage());
@@ -89,20 +83,20 @@ public class SignupController {
         }
 
         // Registration process
-        User newUser = new User(username, firstname, lastname, email);
+        User newUser = new User(username, firstname, lastname, email, password);
         try {
-            UserFileDAO.save(newUser, password);
-        } catch (IOException | EncryptionException e) {
+            UserDAO userDAO = new UserDAO(Session.getEntityManager());
+            userDAO.create(newUser);
+        } catch (SQLException e) {
             DialogFactory.getOKDialog("Registration failed", e.getMessage()).show();
-            Session.getLogger().severe("Unable to save user to file: " + e.getMessage());
+            Session.getLogger().severe("Registration failed: " + e.getMessage());
             return;
         }
 
         // Login process
         Session.setActiveUser(newUser);
-        Session.setActivePassword(password);
         try {
-            Session.setLocation("upcoming");
+            Session.setLocation("taskview");
         } catch (IOException e) {
             DialogFactory
                     .getOKDialog("Registration successful", "Registration succeeded but we're unable to take you to "
