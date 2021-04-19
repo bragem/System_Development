@@ -1,9 +1,8 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.models;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -12,7 +11,8 @@ import java.io.Serializable;
  * @author hasanro, Bragemi, trthingnes
  */
 @Entity
-public class AppUser implements Serializable {
+@Table(name="APP_USER")
+public class User implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
@@ -50,14 +50,14 @@ public class AppUser implements Serializable {
      * @param email
      *            email address of user
      */
-    public AppUser(String username, String firstname, String lastname, String email) {
+    public User(String username, String firstname, String lastname, String email) {
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
     }
 
-    public AppUser() {
+    public User() {
 
     }
 

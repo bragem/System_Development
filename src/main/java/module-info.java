@@ -3,7 +3,7 @@ module TodoListApp {
     requires java.persistence;
     requires java.sql;
     requires org.hibernate.orm.core;
-    requires jakarta.validation;
+    requires java.validation;
     requires javafx.fxml;
     requires javafx.controls;
     requires com.jfoenix;

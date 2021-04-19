@@ -1,9 +1,8 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.models;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 import java.time.LocalDate;

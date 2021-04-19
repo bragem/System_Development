@@ -5,15 +5,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import edu.ntnu.idatt1002.k2g10.todolistapp.exceptions.DuplicateTaskException;
-import jakarta.validation.constraints.NotNull;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 /**
- * TaskList is contained in {@link AppUser}
+ * TaskList is contained in {@link User}
  * 
  * @author hasanro, trthingnes, bragemi, andetel
  */

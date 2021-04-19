@@ -6,7 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import edu.ntnu.idatt1002.k2g10.todolistapp.Session;
 import edu.ntnu.idatt1002.k2g10.todolistapp.Theme;
 import edu.ntnu.idatt1002.k2g10.todolistapp.factories.DialogFactory;
-import edu.ntnu.idatt1002.k2g10.todolistapp.models.AppUser;
+import edu.ntnu.idatt1002.k2g10.todolistapp.models.User;
 import edu.ntnu.idatt1002.k2g10.todolistapp.daos.UserFileDAO;
 import edu.ntnu.idatt1002.k2g10.todolistapp.utils.crypto.EncryptionException;
 import javafx.fxml.FXML;
@@ -89,7 +89,7 @@ public class SignupController {
         }
 
         // Registration process
-        AppUser newUser = new AppUser(username, firstname, lastname, email);
+        User newUser = new User(username, firstname, lastname, email);
         try {
             UserFileDAO.save(newUser, password);
         } catch (IOException | EncryptionException e) {
