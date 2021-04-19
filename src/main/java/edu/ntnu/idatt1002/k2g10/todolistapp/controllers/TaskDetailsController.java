@@ -97,7 +97,7 @@ public class TaskDetailsController {
 
         parentController.refreshAndFilterTaskList();
 
-        //Saves user to DB.
+        // Saves user to DB.
         try {
             Session.save();
         } catch (SQLException e) {
