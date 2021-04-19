@@ -8,7 +8,6 @@ import edu.ntnu.idatt1002.k2g10.models.Category;
 import edu.ntnu.idatt1002.k2g10.utils.crypto.EncryptionException;
 import edu.ntnu.idatt1002.k2g10.utils.icons.FontAwesomeIcon;
 import javafx.fxml.FXML;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -29,6 +28,23 @@ public class AddCategory {
         for (FontAwesomeIcon icon : FontAwesomeIcon.values()) {
             Label label = new Label(icon.toString());
             iconPicker.getItems().add(label);
+        }
+        fillColors();
+    }
+
+    /**
+     * Fills the colorPicker with desired colors
+     */
+    public void fillColors() {
+        String[] colors = {"#33abae", "#f79f3f", "#ff6c47", "#bd4583", "#5d5ca2"};
+
+        colorPicker.getItems().clear();
+        for (String cl: colors) {
+            Label label = new Label();
+            label.setStyle("-fx-background-color: " + cl + ";");
+            label.setPrefHeight(30);
+            label.setPrefWidth(100);
+            colorPicker.getItems().add(label);
         }
     }
 
