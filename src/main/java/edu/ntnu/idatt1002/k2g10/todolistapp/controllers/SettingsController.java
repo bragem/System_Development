@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.controllers;
 
 import com.jfoenix.controls.JFXComboBox;
+import edu.ntnu.idatt1002.k2g10.todolistapp.App;
 import edu.ntnu.idatt1002.k2g10.todolistapp.Session;
 import edu.ntnu.idatt1002.k2g10.todolistapp.Theme;
 import javafx.fxml.FXML;
@@ -35,7 +36,8 @@ public class SettingsController {
         Session.setTheme(newTheme);
 
         scene.getStylesheets().clear();
-        scene.getStylesheets().add(String.format("css/%s.css", Session.getTheme().getFileName()));
+        String path = String.format("css/%s.css", Session.getTheme().getFileName());
+        scene.getStylesheets().add(App.class.getResource(path).toString());
 
         themePicker.getSelectionModel().select(newTheme.getDisplayName());
     }

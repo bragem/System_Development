@@ -9,7 +9,8 @@ module TodoListApp {
     requires com.jfoenix;
 
     opens edu.ntnu.idatt1002.k2g10.todolistapp.models;
-    opens edu.ntnu.idatt1002.k2g10.todolistapp.controllers to javafx.fxml;
+    opens edu.ntnu.idatt1002.k2g10.todolistapp.controllers;
+    opens edu.ntnu.idatt1002.k2g10.todolistapp.utils.crypto;
 
     exports edu.ntnu.idatt1002.k2g10.todolistapp;
 }

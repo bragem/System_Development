@@ -9,7 +9,17 @@ import java.util.Locale;
  * @author hasanro, trthingnes, bragemi
  */
 public enum Priority implements Serializable {
-    NONE, LOW, MEDIUM, HIGH;
+    NONE("gray"), LOW("green"), MEDIUM("orange"), HIGH("red");
+
+    String color;
+
+    Priority(String color) {
+        this.color = color;
+    }
+
+    public String getColor() {
+        return color;
+    }
 
     /**
      * Get string version of priority.

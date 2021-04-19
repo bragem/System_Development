@@ -43,14 +43,17 @@
                         </ImageView>
                         <JFXComboBox fx:id="categoryDropdown" promptText="Category" styleClass="selectfield">
                            <HBox.margin>
-                              <Insets left="10.0" />
+                              <Insets left="10.0" top="5.0" />
                            </HBox.margin>
                         </JFXComboBox>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <JFXComboBox fx:id="priorityDropdown" promptText="Priority" styleClass="selectfield" />
+                        <JFXComboBox fx:id="priorityDropdown" promptText="Priority" styleClass="selectfield">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin></JFXComboBox>
                      </children>
                   </HBox>
                </children>
