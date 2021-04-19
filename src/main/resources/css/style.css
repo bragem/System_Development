@@ -2,18 +2,16 @@
     -fx-font-family: "FontAwesome Regular";
 }
 
-* {
-    -fx-font-family: Arial;
-}
-
 .bg {
     -fx-background-color: -background-color;
 }
 
 .button {
-    -fx-border-color: -border-color;
     -fx-background-color: -button-background-color;
     -fx-border-width: 1px;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
 }
 
 .splash-img {
@@ -26,15 +24,12 @@
 }
 
 .selectfield {
-    -fx-border-color: -border-color;
     -jfx-focus-color: -border-color;
     -jfx-unfocus-color: -background-color;
 }
 
 .selectfield .combo-box-popup .list-cell {
     -fx-background-color: -dropdown-background-color;
-    -fx-border-color: -border-color;
-    -fx-border-width: 1px;
     -fx-text-fill: -fill-color;
 }
 
@@ -46,7 +41,6 @@
 .textfield {
     -fx-text-fill: -fill-color;
     -fx-background-color: -textfield-background-color;
-    -fx-border-color: -border-color;
     -jfx-focus-color: -border-color;
     -jfx-unfocus-color: -unfocus-color;
 }
@@ -71,21 +65,15 @@
 
 .right-menu {
     -fx-background-color: -menu-background-color;
-    -fx-border-width: 0px 0px 0px 1px;
-    -fx-border-color: -fill-color;
 }
 
 .left-menu {
     -fx-background-color: -menu-background-color;
-    -fx-border-width: 0px 1px 0px 0px;
-    -fx-border-color: -fill-color;
 }
 
 .menu-option {
     -fx-pref-width: 999999;
     -fx-text-alignment: center;
-    -fx-border-width: 1px 1px 1px 1px;
-    -fx-border-color: -fill-color;
 }
 
 .menu-option .selected-menu-option {
@@ -94,13 +82,14 @@
 
 .left-menu .user-menu {
     -fx-background-color: -user-menu-background-color;
-    -fx-border-width: 1px 0px 0px 0px;
-    -fx-border-color: -fill-color;
 }
 
 .taskbox {
-    -fx-border-width: 0px 0px 1px 0px;
-    -fx-border-color: -fill-color;
+    -fx-background-color: none;
+}
+
+.taskbox:hover {
+    -fx-effect: dropshadow(two-pass-box, #000000, 50, 0, 0, 10);
 }
 
 .taskbox .check-box {
@@ -109,4 +98,8 @@
 
 .right-menu .check-box {
     -jfx-unchecked-color: -fill-color;
+}
+
+.combobox {
+    -fx-background-color: -textfield-background-color;
 }

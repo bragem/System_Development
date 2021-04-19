@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -41,16 +42,24 @@
                               <Insets />
                            </HBox.margin>
                         </ImageView>
-                        <JFXComboBox fx:id="categoryDropdown" promptText="Category" styleClass="selectfield">
+                        <JFXComboBox fx:id="categoryDropdown" promptText="Category">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
+                           <styleClass>
+                              <String fx:value="selectfield" />
+                              <String fx:value="combobox" />
+                           </styleClass>
                         </JFXComboBox>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <JFXComboBox fx:id="priorityDropdown" promptText="Priority" styleClass="selectfield" />
+                        <JFXComboBox fx:id="priorityDropdown" promptText="Priority">
+                           <styleClass>
+                              <String fx:value="selectfield" />
+                              <String fx:value="combobox" />
+                           </styleClass></JFXComboBox>
                      </children>
                   </HBox>
                </children>

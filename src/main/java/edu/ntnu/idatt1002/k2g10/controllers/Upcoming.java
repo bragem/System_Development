@@ -192,6 +192,7 @@ public class Upcoming implements TaskListController {
 
         for (Task task : tasks) {
             TaskBox taskBox = new TaskBox(task, this);
+            taskBox.getStyleClass().add("taskbox");
             taskList.getChildren().add(taskBox.getContainer());
         }
     }

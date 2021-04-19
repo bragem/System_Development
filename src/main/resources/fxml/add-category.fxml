@@ -24,6 +24,7 @@
                            </HBox.margin>
                            <styleClass>
                               <String fx:value="selectfield" />
+                              <String fx:value="combobox" />
                               <String fx:value="icon" />
                            </styleClass>
                         </JFXComboBox>
@@ -34,6 +35,7 @@
                         <JFXComboBox fx:id="colorPicker" promptText="Color" unFocusColor="BLACK">
                            <styleClass>
                               <String fx:value="selectfield" />
+                              <String fx:value="combobox" />
                               <String fx:value="icon" />
                            </styleClass>
                         </JFXComboBox>
