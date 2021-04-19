@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+    <persistence-unit name="pu-todo-derby">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <class>edu.ntnu.idatt1002.k2g10.todolistapp.models.AppUser</class>
+        <class>edu.ntnu.idatt1002.k2g10.todolistapp.models.TaskList</class>
+        <class>edu.ntnu.idatt1002.k2g10.todolistapp.models.Task</class>
+        <class>edu.ntnu.idatt1002.k2g10.todolistapp.models.Category</class>
+
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.apache.derby.iapi.jdbc.AutoloadedDriver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:derby:todolistapp_db;create=true" />
+            <property name="javax.persistence.jdbc.user" value="root" />
+            <property name="javax.persistence.jdbc.password" value="j1Ey83CSVSFVkV" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyTenSevenDialect" />
+            <property name="javax.persistence.schema-generation.database.action" value="create" />
+        </properties>
+    </persistence-unit>
+</persistence>
