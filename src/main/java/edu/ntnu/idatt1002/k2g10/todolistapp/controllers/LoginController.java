@@ -55,10 +55,10 @@ public class LoginController {
             try {
                 User johndoe = new User("johndoe", "John", "Doe", "johdoe@stud.ntnu.no", "password");
 
-                Category school = new Category("School", FontAwesomeIcon.BOOK.getChar());
-                Category work = new Category("Work", FontAwesomeIcon.BRIEFCASE.getChar());
-                Category shopping = new Category("Shopping", FontAwesomeIcon.SHOPPING_CART.getChar());
-                Category freetime = new Category("Free time", FontAwesomeIcon.USER.getChar());
+                Category school = new Category("School", FontAwesomeIcon.BOOK.getChar(), "#ffffff");
+                Category work = new Category("Work", FontAwesomeIcon.BRIEFCASE.getChar(), "#ffffff");
+                Category shopping = new Category("Shopping", FontAwesomeIcon.SHOPPING_CART.getChar(), "#ffffff");
+                Category freetime = new Category("Free time", FontAwesomeIcon.USER.getChar(), "#ffffff");
                 johndoe.getTaskList().addCategory(school);
                 johndoe.getTaskList().addCategory(work);
                 johndoe.getTaskList().addCategory(shopping);

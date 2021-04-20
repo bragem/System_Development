@@ -50,10 +50,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <JFXComboBox fx:id="priorityDropdown" promptText="Priority" styleClass="selectfield">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin></JFXComboBox>
+                        <JFXComboBox fx:id="priorityDropdown" promptText="Priority" styleClass="selectfield" />
                      </children>
                   </HBox>
                </children>
