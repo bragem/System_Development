@@ -8,50 +8,57 @@
 
 <HBox fx:id="container" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="600.0" onMouseClicked="#showTaskDetails" prefHeight="50.0" prefWidth="0.0" styleClass="taskbox" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-            <children>
-                <JFXCheckBox fx:id="completedBox" onMouseClicked="#saveTaskCompletedStatus" prefHeight="18.0" prefWidth="15.0" text=" ">
-                    <HBox.margin>
-                        <Insets left="20.0" />
-                    </HBox.margin>
-                </JFXCheckBox>
-                <Label id="taskTitle" fx:id="titleLabel" text="TASK TITLE">
-                    <font>
-                        <Font size="21.0" />
-                    </font>
-                    <HBox.margin>
-                        <Insets left="10.0" />
-                    </HBox.margin>
-                </Label>
-            </children>
-        </HBox>
-        <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-            <children>
-            <Label fx:id="dateLabel" text="DATE">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <HBox.margin>
-                  <Insets right="20.0" />
-               </HBox.margin>
-            </Label>
-                <Label fx:id="priorityLabel" text="">
-                    <font>
+      <HBox styleClass="taskbox-design" prefHeight="50.0" prefWidth="782.0">
+         <children>
+              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="487.0" HBox.hgrow="ALWAYS">
+                  <children>
+                      <JFXCheckBox fx:id="completedBox" onMouseClicked="#saveTaskCompletedStatus" prefHeight="18.0" prefWidth="15.0" text=" ">
+                          <HBox.margin>
+                              <Insets left="20.0" />
+                          </HBox.margin>
+                      </JFXCheckBox>
+                      <Label id="taskTitle" fx:id="titleLabel" text="TASK TITLE">
+                          <font>
+                              <Font size="21.0" />
+                          </font>
+                          <HBox.margin>
+                              <Insets left="10.0" />
+                          </HBox.margin>
+                      </Label>
+                  </children>
+              </HBox>
+              <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
+                  <children>
+                  <Label fx:id="dateLabel" text="DATE">
+                     <font>
                         <Font size="14.0" />
-                    </font>
-                    <HBox.margin>
+                     </font>
+                     <HBox.margin>
                         <Insets right="20.0" />
-                    </HBox.margin>
-                </Label>
-                <Label fx:id="categoryLabel" styleClass="icon" text="CATEGORY">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                    <HBox.margin>
-                        <Insets right="20.0" />
-                    </HBox.margin>
-                </Label>
-            </children>
-        </HBox>
+                     </HBox.margin>
+                  </Label>
+                      <Label fx:id="priorityLabel" text="">
+                          <font>
+                              <Font size="14.0" />
+                          </font>
+                          <HBox.margin>
+                              <Insets right="20.0" />
+                          </HBox.margin>
+                      </Label>
+                      <Label fx:id="categoryLabel" styleClass="icon" text="CATEGORY">
+                          <font>
+                              <Font size="14.0" />
+                          </font>
+                          <HBox.margin>
+                              <Insets right="20.0" />
+                          </HBox.margin>
+                      </Label>
+                  </children>
+              </HBox>
+         </children>
+         <HBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </HBox.margin>
+      </HBox>
     </children>
 </HBox>

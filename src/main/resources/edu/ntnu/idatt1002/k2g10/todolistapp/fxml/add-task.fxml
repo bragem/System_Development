@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="bg" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2g10.todolistapp.controllers.AddTaskController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="bg" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2g10.todolistapp.controllers.AddTaskController">
    <children>
       <GridPane layoutX="25.0" layoutY="37.0" prefHeight="327.0" prefWidth="550.0">
         <columnConstraints>
@@ -71,15 +71,11 @@
             <JFXComboBox fx:id="categoryDropdown" labelFloat="true" GridPane.columnIndex="4" GridPane.rowIndex="4">
                <styleClass>
                   <String fx:value="selectfield" />
-                  <String fx:value="combobox" />
                </styleClass></JFXComboBox>
             <JFXComboBox fx:id="priorityDropdown" labelFloat="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <styleClass>
                   <String fx:value="selectfield" />
-                  <String fx:value="combobox" />
                </styleClass></JFXComboBox>
-            <!--<JFXDatePicker fx:id="startDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="6" />-->
-            <!--<JFXDatePicker fx:id="endDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="8" />-->
             <JFXTextArea fx:id="descriptionField" styleClass="textfield" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets />
@@ -89,8 +85,8 @@
                   <Font size="14.0" />
                </font>
             </JFXButton>
-            <DatePicker fx:id="startDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <DatePicker fx:id="endDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <DatePicker fx:id="startDatePicker" styleClass="startDate" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <DatePicker fx:id="endDatePicker" styleClass="endDate" GridPane.columnIndex="1" GridPane.rowIndex="8" />
          </children>
       </GridPane>
    </children>

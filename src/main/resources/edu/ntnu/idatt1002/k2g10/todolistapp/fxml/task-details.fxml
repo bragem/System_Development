@@ -41,7 +41,7 @@
                               <Insets />
                            </HBox.margin>
                         </ImageView>
-                        <JFXComboBox fx:id="categoryDropdown" promptText="Category" styleClass="selectfield">
+                        <JFXComboBox fx:id="categoryDropdown" promptText="Category" styleClass="search-filter-box">
                            <HBox.margin>
                               <Insets left="10.0" top="5.0" />
                            </HBox.margin>
@@ -50,7 +50,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <JFXComboBox fx:id="priorityDropdown" promptText="Priority" styleClass="selectfield" />
+                        <JFXComboBox fx:id="priorityDropdown" promptText="Priority" styleClass="search-filter-box" />
                      </children>
                   </HBox>
                </children>

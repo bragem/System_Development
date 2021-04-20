@@ -71,6 +71,8 @@ public class TaskViewController {
         // Make detail panel grow to fill right menu.
         taskDetailPanel.setPrefHeight(Double.MAX_VALUE);
 
+        addFilters();
+
     }
 
     /**
@@ -168,6 +170,7 @@ public class TaskViewController {
     public void showAddCategory() {
         try {
             Stage popupWindow = PopupWindowFactory.getPopupWindow("add-category");
+            popupWindow.setTitle("Add new category");
             popupWindow.showAndWait();
             refreshCategoryList();
             activeTaskDetailsBox.updateLabels();
