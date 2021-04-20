@@ -1,5 +1,16 @@
-*{
+* {
+    -background-color: whitesmoke;
+    -textfield-background-color: -background-color;
+    -dropdown-background-color: -background-color;
+    -button-background-color: -background-color;
     -menu-background-color: linear-gradient(to bottom, whitesmoke, #1dbbdd11);
-    -table-gradient: linear-gradient(to bottom, whitesmoke, #1dbbdd11);
+    -user-menu-background-color: #1dbbdd11;
+    -border-color: black;
+    -fill-color: black;
+    -prompt-color: #969696;
+    -unfocus-color: #a0a0a0;
 }
 
+.splash-img {
+    -fx-background-image: url("../img/light/splash.jpg");
+}

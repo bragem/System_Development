@@ -1,12 +1,13 @@
 * {
-    -background-color: #161616;
+    -background-color: #222222;
     -textfield-background-color: -background-color;
     -dropdown-background-color: -background-color;
-    -button-background-color: #f700ff;
-    -menu-background-color: #444444;
-    -user-menu-background-color: #282828;
+    -button-background-color: -background-color;
+    -menu-background-color: #222222;
+    -user-menu-background-color: #444444;
     -border-color: #f700ff;
     -fill-color: #ffff00;
+    -prompt-color: #ffff00;
     -unfocus-color: #a0a0a0;
 }
 
