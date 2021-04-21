@@ -10,7 +10,7 @@
 
     <properties>
         <maven.compiler.release>11</maven.compiler.release>
-        <project.mainClass>edu.ntnu.idatt1002.k2g10.todolistapp.App</project.mainClass>
+        <project.mainClass>TodoListApp/edu.ntnu.idatt1002.k2g10.todolistapp.App</project.mainClass>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javafx.version>15.0.1</javafx.version>
     </properties>
@@ -113,7 +113,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.2.0</version>
                 <configuration>
                     <source>11</source>
                     <reportOutputDirectory>public/javadoc</reportOutputDirectory>

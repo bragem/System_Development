@@ -3,7 +3,7 @@
     <persistence-unit name="pu-todo-derby">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <class>edu.ntnu.idatt1002.k2g10.todolistapp.models.AppUser</class>
+        <class>edu.ntnu.idatt1002.k2g10.todolistapp.models.User</class>
         <class>edu.ntnu.idatt1002.k2g10.todolistapp.models.TaskList</class>
         <class>edu.ntnu.idatt1002.k2g10.todolistapp.models.Task</class>
         <class>edu.ntnu.idatt1002.k2g10.todolistapp.models.Category</class>
