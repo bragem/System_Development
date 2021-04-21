@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXTextField;
 import edu.ntnu.idatt1002.k2g10.todolistapp.Session;
 import edu.ntnu.idatt1002.k2g10.todolistapp.factories.DialogFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.factories.PopupWindowFactory;
+import edu.ntnu.idatt1002.k2g10.todolistapp.models.Category;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.Task;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -29,7 +30,7 @@ public class TaskViewController {
     @FXML
     private ListView<TaskViewMode> viewModeList;
     @FXML
-    private ListView<String> categoryList;
+    private ListView<Category> categoryList;
     @FXML
     private VBox taskList;
     @FXML
@@ -41,9 +42,10 @@ public class TaskViewController {
 
     private TaskDetailsController activeTaskDetailsBox;
     private final List<Task> displayedTasks = new ArrayList<>();
-    private final List<String> displayedCategories = new ArrayList<>();
+    private final List<Category> displayedCategories = new ArrayList<>();
 
     private TaskViewMode viewMode = TaskViewMode.OVERVIEW;
+    private Category categoryFilter = null;
 
     /**
      * Initializes task and category lists and user info labels.
@@ -63,6 +65,7 @@ public class TaskViewController {
         viewModeList.getSelectionModel().selectedItemProperty().addListener(mode -> changeTaskViewMode());
 
         // Link category list view to category list.
+        categoryList.getSelectionModel().selectedItemProperty().addListener(category -> changeCategoryViewMode());
         refreshCategoryList();
 
         // Make detail panel grow to fill right menu.
@@ -93,17 +96,21 @@ public class TaskViewController {
         String query = searchField.getText().toLowerCase(Locale.ROOT);
         List<Task> tasksToDisplay = new ArrayList<>(Session.getActiveUser().getTaskList().getTasks());
 
+        // Filter by view mode.
         switch (viewMode) {
         case OVERVIEW: {
+            tasksToDisplay = tasksToDisplay.stream().filter(task -> !task.getCompleted()).collect(Collectors.toList());
             break;
         }
 
         case UPCOMING: {
+            tasksToDisplay = tasksToDisplay.stream().filter(task -> !task.getCompleted()).collect(Collectors.toList());
             tasksToDisplay.sort(Comparator.comparing(Task::getEndTime));
             break;
         }
 
         case DAY: {
+            tasksToDisplay = tasksToDisplay.stream().filter(task -> !task.getCompleted()).collect(Collectors.toList());
             tasksToDisplay = tasksToDisplay.stream().filter(task -> task.getStartTime()
                     .datesUntil(task.getEndTime().plusDays(1)).anyMatch(date -> date.equals(LocalDate.now())))
                     .collect(Collectors.toList());
@@ -111,6 +118,7 @@ public class TaskViewController {
         }
 
         case WEEK: {
+            tasksToDisplay = tasksToDisplay.stream().filter(task -> !task.getCompleted()).collect(Collectors.toList());
             List<LocalDate> nextWeekDates = LocalDate.now().datesUntil(LocalDate.now().plusDays(8))
                     .collect(Collectors.toList());
 
@@ -121,6 +129,7 @@ public class TaskViewController {
         }
 
         case MONTH: {
+            tasksToDisplay = tasksToDisplay.stream().filter(task -> !task.getCompleted()).collect(Collectors.toList());
             List<LocalDate> nextMonthDates = LocalDate.now().datesUntil(LocalDate.now().plusMonths(1).plusDays(1))
                     .collect(Collectors.toList());
 
@@ -130,11 +139,22 @@ public class TaskViewController {
             break;
         }
 
+        case COMPLETED: {
+            tasksToDisplay = tasksToDisplay.stream().filter(Task::getCompleted).collect(Collectors.toList());
+            break;
+        }
+
         default: {
             Session.getLogger().log(Level.INFO, "The view mode {} has not been implemented yet.", viewMode);
         }
         }
 
+        // Filter by selected category.
+        tasksToDisplay = tasksToDisplay.stream()
+                .filter(task -> Objects.isNull(categoryFilter) || task.getCategory() == categoryFilter)
+                .collect(Collectors.toList());
+
+        // Filter by search
         if (!query.isBlank()) {
             tasksToDisplay = tasksToDisplay.stream()
                     .filter(task -> task.getTitle().toLowerCase(Locale.ROOT).contains(query)
@@ -175,12 +195,21 @@ public class TaskViewController {
     }
 
     /**
+     * Changes the category filter and refreshes the task list.
+     */
+    @FXML
+    void changeCategoryViewMode() {
+        categoryFilter = categoryList.getSelectionModel().getSelectedItem();
+
+        refreshAndFilterTaskList();
+    }
+
+    /**
      * Refreshes the category list.
      */
     private void refreshCategoryList() {
         displayedCategories.clear();
-        displayedCategories.addAll(Session.getActiveUser().getTaskList().getCategories().stream()
-                .map(c -> String.format("%s %s", c.getIcon(), c.getTitle())).sorted().collect(Collectors.toList()));
+        displayedCategories.addAll(Session.getActiveUser().getTaskList().getCategories());
 
         categoryList.setItems(FXCollections.observableList(displayedCategories));
         categoryList.refresh();
@@ -191,6 +220,10 @@ public class TaskViewController {
      */
     private void changeTaskViewMode() {
         viewMode = viewModeList.getSelectionModel().getSelectedItem();
+
+        // Reset category filter
+        categoryFilter = null;
+
         refreshAndFilterTaskList();
     }
 
@@ -238,6 +271,6 @@ public class TaskViewController {
     }
 
     enum TaskViewMode {
-        OVERVIEW, UPCOMING, DAY, WEEK, MONTH
+        OVERVIEW, UPCOMING, DAY, WEEK, MONTH, COMPLETED
     }
 }

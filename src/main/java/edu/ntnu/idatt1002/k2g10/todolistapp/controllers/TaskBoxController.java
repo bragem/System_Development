@@ -75,6 +75,7 @@ public class TaskBoxController {
     public void saveTaskCompletedStatus(Event event) {
         task.setCompleted(completedBox.selectedProperty().get());
         parentController.showTaskDetails(task);
+        parentController.refreshAndFilterTaskList();
     }
 
     /**
