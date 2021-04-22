@@ -13,14 +13,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 /**
@@ -32,7 +31,7 @@ public class TaskDetailsController {
     @FXML
     private VBox container;
     @FXML
-    private Label titleLabel;
+    private JFXTextField titleField;
     @FXML
     private JFXTextArea descriptionArea;
     @FXML
@@ -40,9 +39,11 @@ public class TaskDetailsController {
     @FXML
     private JFXComboBox<String> categoryDropdown;
     @FXML
+    private Label categoryIconLabel;
+    @FXML
     private JFXComboBox<String> priorityDropdown;
     @FXML
-    private Label iconLabel;
+    private Label priorityIconLabel;
     @FXML
     private DatePicker startDate;
     @FXML
@@ -62,13 +63,21 @@ public class TaskDetailsController {
      *             If {@link TaskDetailsController} fails to load.
      */
     public TaskDetailsController(Task task, TaskViewController parentController) throws IOException {
+        this.parentController = parentController;
+        this.task = task;
+
         FXMLLoader loader = FXMLLoaderFactory.getFXMLLoader("task-details");
         loader.setController(this);
         loader.load();
+    }
 
-        this.parentController = parentController;
-        this.task = task;
+    @FXML
+    public void initialize() {
         updateLabels();
+
+        // Set handler functions for changes in combo boxes
+        categoryDropdown.getSelectionModel().selectedItemProperty().addListener(c -> updateIcons());
+        priorityDropdown.getSelectionModel().selectedItemProperty().addListener(c -> updateIcons());
 
         // Set checkbox ID to task title.
         completedBox.setId(task.getTitle());
@@ -79,15 +88,14 @@ public class TaskDetailsController {
      */
     @FXML
     public void saveTaskChanges() {
-
-        task.setTitle(titleLabel.getText());
+        task.setTitle(titleField.getText());
         task.setDescription(descriptionArea.getText());
 
         Category category = Session.getActiveUser().getTaskList().getCategories().stream()
                 .filter(c -> c.getTitle().equals(categoryDropdown.getSelectionModel().getSelectedItem())).findAny()
                 .orElse(task.getCategory());
         task.setCategory(category);
-        iconLabel.setText(String.valueOf(task.getCategory().getIcon()));
+        categoryIconLabel.setText(String.valueOf(task.getCategory().getIcon()));
 
         Priority priority = Arrays.stream(Priority.values())
                 .filter(p -> p.toString().equals(priorityDropdown.getSelectionModel().getSelectedItem())).findAny()
@@ -123,7 +131,7 @@ public class TaskDetailsController {
      * Update labels with latest information from {@link Task}.
      */
     public void updateLabels() {
-        titleLabel.setText(task.getTitle());
+        titleField.setText(task.getTitle());
         descriptionArea.setText(task.getDescription());
         completedBox.selectedProperty().set(task.getCompleted());
 
@@ -131,15 +139,31 @@ public class TaskDetailsController {
                 .map(Category::getTitle).collect(Collectors.toList());
         categoryDropdown.getItems().addAll(categoryNames);
         categoryDropdown.getSelectionModel().select(task.getCategory().getTitle());
-        iconLabel.setText(String.valueOf(task.getCategory().getIcon()));
 
         List<String> priorityNames = Arrays.stream(Priority.values()).map(Priority::toString)
                 .collect(Collectors.toList());
         priorityDropdown.getItems().addAll(priorityNames);
         priorityDropdown.getSelectionModel().select(task.getPriority().toString());
 
+        // Update icons to match selected item.
+        updateIcons();
+
         startDate.setValue(task.getStartTime());
         endDate.setValue(task.getEndTime());
+    }
+
+    /**
+     * Updated the category icon with the icon for the selected category.
+     */
+    private void updateIcons() {
+        Category category = Session.getActiveUser().getTaskList().getCategories().stream()
+                .filter(c -> c.getTitle().equals(categoryDropdown.getSelectionModel().getSelectedItem())).findAny()
+                .orElse(task.getCategory());
+        categoryIconLabel.setText(String.valueOf(category.getIcon()));
+
+        Priority priority = Priority
+                .valueOf(priorityDropdown.getSelectionModel().getSelectedItem().toUpperCase(Locale.ROOT));
+        priorityIconLabel.setStyle(String.format("-fx-text-fill: %s !important", priority.getColor()));
     }
 
     /**

@@ -189,7 +189,9 @@ public class TaskViewController {
             popupWindow.setTitle("Add new category");
             popupWindow.showAndWait();
             refreshCategoryList();
-            activeTaskDetailsBox.updateLabels();
+            if (Objects.nonNull(activeTaskDetailsBox)) {
+                activeTaskDetailsBox.updateLabels();
+            }
         } catch (IOException e) {
             DialogFactory.getOKDialog("Add category failed", "Unable to open add category window.").show();
         }
@@ -243,6 +245,7 @@ public class TaskViewController {
             taskDetailPanel.getChildren().add(activeTaskDetailsBox.getRootContainer());
         } catch (IOException e) {
             DialogFactory.getOKDialog("Task detail failed", "Failed to show detailed task view.").show();
+            e.printStackTrace();
         } catch (NullPointerException ignored) {
         }
     }
