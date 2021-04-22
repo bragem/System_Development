@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
@@ -113,10 +114,14 @@
                         </Hyperlink>
                      </children>
                         </HBox>
-                  <JFXComboBox fx:id="themePicker" labelFloat="true" onAction="#changeTheme" styleClass="selectfield" GridPane.rowIndex="8">
+                  <JFXComboBox fx:id="themePicker" labelFloat="true" onAction="#changeTheme" GridPane.rowIndex="8">
                      <GridPane.margin>
                         <Insets />
-                     </GridPane.margin></JFXComboBox>
+                     </GridPane.margin>
+                     <styleClass>
+                        <String fx:value="selectfield" />
+                        <String fx:value="combobox" />
+                     </styleClass></JFXComboBox>
                   <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" GridPane.valignment="TOP">
                      <image>
                         <Image url="@../img/icon.png" />

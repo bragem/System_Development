@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.controllers;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import edu.ntnu.idatt1002.k2g10.todolistapp.Session;
 import edu.ntnu.idatt1002.k2g10.todolistapp.factories.DialogFactory;
@@ -185,6 +186,7 @@ public class TaskViewController {
     public void showAddCategory() {
         try {
             Stage popupWindow = PopupWindowFactory.getPopupWindow("add-category");
+            popupWindow.setTitle("Add new category");
             popupWindow.showAndWait();
             refreshCategoryList();
             activeTaskDetailsBox.updateLabels();

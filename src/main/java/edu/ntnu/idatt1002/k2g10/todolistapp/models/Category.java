@@ -20,6 +20,7 @@ public class Category implements Serializable {
 
     @NotBlank
     private String title;
+    private String color;
 
     @NotBlank
     private char icon;
@@ -32,8 +33,9 @@ public class Category implements Serializable {
      * @param icon
      *            Category symbol/emoji to display
      */
-    public Category(String title, char icon) {
+    public Category(String title, char icon, String color) {
         this.title = title;
+        this.color = color;
         this.icon = icon;
     }
 
@@ -51,6 +53,14 @@ public class Category implements Serializable {
         return id;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public char getIcon() {
+        return icon;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -59,12 +69,12 @@ public class Category implements Serializable {
         return title;
     }
 
-    public void setIcon(char icon) {
-        this.icon = icon;
+    public void setColor(String color) {
+        this.color = color;
     }
 
-    public char getIcon() {
-        return icon;
+    public void setIcon(char icon) {
+        this.icon = icon;
     }
 
     @Override

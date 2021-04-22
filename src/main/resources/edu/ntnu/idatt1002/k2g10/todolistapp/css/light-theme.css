@@ -1,13 +1,15 @@
 * {
-    -background-color: whitesmoke;
-    -textfield-background-color: -background-color;
-    -dropdown-background-color: -background-color;
-    -button-background-color: -background-color;
-    -menu-background-color: #DADADA;
-    -user-menu-background-color: #1dbbdd11;
+    -background-color: #c9eaff;
+    -selectfield-background-color: #ffffff;
+    -textfield-background-color: #ffffff;
+    -dropdown-background-color: #ffffff;
+    -button-background-color: #7292a6;
+    -menu-background-color: #a4d1ed;
+    -user-menu-background-color: #b7b7b7;
     -border-color: black;
     -fill-color: black;
     -prompt-color: #969696;
+    -button-text-color: #ffffff;
     -unfocus-color: #a0a0a0;
 }
 
