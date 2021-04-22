@@ -257,7 +257,10 @@ public class TaskViewController {
     public void showSettings() {
         try {
             Stage popupWindow = PopupWindowFactory.getPopupWindow("settings");
-            popupWindow.show();
+            popupWindow.showAndWait();
+            usernameLabel.setText(Session.getActiveUser().getUsername());
+            emailLabel.setText(Session.getActiveUser().getEmail());
+            refreshAndFilterTaskList();
         } catch (IOException e) {
             DialogFactory.getOKDialog("Open settings failed", "Unable to open add settings window.").show();
         }

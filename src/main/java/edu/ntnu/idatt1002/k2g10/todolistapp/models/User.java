@@ -75,6 +75,10 @@ public class User implements Serializable {
         return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getFirstname() {
         return firstname;
     }
@@ -109,6 +113,19 @@ public class User implements Serializable {
 
     public Long getId() {
         return id;
+    }
+
+    public void setPassword(String password) {
+        this.passwordSalt = PasswordHashAlgorithm.PBKDF2.generateSalt();
+        try {
+            this.passwordHash = PasswordHashAlgorithm.PBKDF2.getSaltedHash(password, passwordSalt);
+        } catch (HashException ignored) {
+            /* This will throw SQL exception in DAO anyway. */
+        }
+    }
+
+    public boolean verifyPassword(String password) {
+        return PasswordHashAlgorithm.PBKDF2.verifyHash(password, passwordSalt, passwordHash);
     }
 
     public String getPasswordHash() {
