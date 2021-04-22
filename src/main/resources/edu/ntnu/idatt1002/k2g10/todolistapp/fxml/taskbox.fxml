@@ -8,7 +8,7 @@
 
 <HBox fx:id="container" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="600.0" onMouseClicked="#showTaskDetails" prefHeight="50.0" prefWidth="0.0" styleClass="taskbox" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-      <HBox styleClass="taskbox-design" prefHeight="50.0" prefWidth="782.0">
+      <HBox prefHeight="50.0" prefWidth="782.0" styleClass="taskbox-design">
          <children>
               <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="487.0" HBox.hgrow="ALWAYS">
                   <children>

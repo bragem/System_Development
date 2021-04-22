@@ -25,7 +25,6 @@ public class AddCategoryController {
     @FXML
     private JFXComboBox colorPicker;
 
-
     public void initialize() {
         for (FontAwesomeIcon icon : FontAwesomeIcon.values()) {
             Label label = new Label(icon.toString());
@@ -38,12 +37,12 @@ public class AddCategoryController {
      * Fills the colorPicker with desired colors
      */
     public void fillColors() {
-        String[] colors = {"#33abae", "#f79f3f", "#ff6c47", "#bd4583", "#5d5ca2"};
+        String[] colors = { "#33abae", "#f79f3f", "#ff6c47", "#bd4583", "#5d5ca2" };
 
         colorPicker.getItems().clear();
-        for (String cl: colors) {
+        for (String cl : colors) {
             Label label = new Label();
-            label.setStyle("-fx-background-color: " + cl + ";");
+            label.setStyle("-fx-background-color: " + cl + "!important;");
             label.setPrefHeight(30);
             label.setPrefWidth(100);
             colorPicker.getItems().add(label);
@@ -60,7 +59,6 @@ public class AddCategoryController {
 
         colorPicker.setStyle("-fx-background-color: " + color + ";");
     }
-
 
     public void onSubmit() {
         // Get current stage from a field
