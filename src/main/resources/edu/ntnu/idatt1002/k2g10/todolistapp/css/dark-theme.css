@@ -7,15 +7,8 @@
     -user-menu-background-color: #222222;
     -border-color: whitesmoke;
     -fill-color: whitesmoke;
+    -prompt-color: whitesmoke;
     -unfocus-color: #a0a0a0;
-    -listview-background-color: #444444;
-    -table-background-color: #222222;
-    -table-header-color: transparent;
-    -table-corner-color: #444444;
-    -table-gradient: linear-gradient(to top, #444444, #222222);
-    -odd-cell-color: #404040;
-    -even-cell-color: #444444;
-    -list-view-color: #444444;
 
 }
 

@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public enum Theme {
     LIGHT("Light theme", "light-theme"), DARK("Dark theme", "dark-theme"),
-    CONTRAST("High contrast theme", "contrast-theme");
+    CONTRAST("High contrast theme", "contrast-theme"), PASTEL("Pastel theme", "pastel-theme");
 
     private final String displayName;
     private final String fileName;
