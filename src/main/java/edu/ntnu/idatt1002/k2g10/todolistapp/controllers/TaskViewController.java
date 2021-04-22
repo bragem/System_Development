@@ -28,8 +28,6 @@ public class TaskViewController {
     @FXML
     private JFXTextField searchField;
     @FXML
-    private JFXComboBox filterBox;
-    @FXML
     private ListView<TaskViewMode> viewModeList;
     @FXML
     private ListView<String> categoryList;
