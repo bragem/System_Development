@@ -17,7 +17,7 @@
                               <Insets left="20.0" />
                           </HBox.margin>
                       </JFXCheckBox>
-                      <Label id="taskTitle" fx:id="titleLabel" text="TASK TITLE">
+                      <Label id="taskTitle" fx:id="titleLabel" style="-fx-font-size: 21px;" text="TASK TITLE">
                           <font>
                               <Font size="21.0" />
                           </font>
@@ -29,7 +29,7 @@
               </HBox>
               <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
                   <children>
-                  <Label fx:id="dateLabel" text="DATE">
+                  <Label fx:id="dateLabel" style="-fx-font-size: 14px;" text="DATE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -37,7 +37,7 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </Label>
-                      <Label fx:id="priorityLabel" text="">
+                      <Label fx:id="priorityLabel" style="-fx-font-size: 14px;" text="">
                           <font>
                               <Font size="14.0" />
                           </font>
@@ -45,7 +45,7 @@
                               <Insets right="20.0" />
                           </HBox.margin>
                       </Label>
-                      <Label fx:id="categoryLabel" styleClass="icon" text="CATEGORY">
+                      <Label fx:id="categoryLabel" style="-fx-font-size: 14px;" styleClass="icon" text="CATEGORY">
                           <font>
                               <Font size="14.0" />
                           </font>
