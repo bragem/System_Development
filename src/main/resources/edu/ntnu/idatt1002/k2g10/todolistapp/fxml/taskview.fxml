@@ -112,7 +112,7 @@
                         <Insets right="20.0" />
                      </HBox.margin></JFXButton>
                   <JFXTextField id="searchfield" fx:id="searchField" onKeyTyped="#refreshAndFilterTaskList" prefHeight="25.0" prefWidth="289.0" promptText="Search" styleClass="search-filter-box" HBox.hgrow="ALWAYS" />
-                  <JFXComboBox id="filter" fx:id="filterBox" minWidth="-Infinity" onAction="#filterTasks" promptText="Filter" styleClass="selectfield" HBox.hgrow="ALWAYS">
+                  <JFXComboBox id="filter" fx:id="filterBox" minWidth="-Infinity" promptText="Filter" styleClass="selectfield" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>

@@ -12,6 +12,7 @@
 
 .button {
     -fx-background-color: -button-background-color;
+    -fx-text-fill: -button-text-color;
 }
 
 .splash-img {
