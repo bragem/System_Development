@@ -71,8 +71,6 @@ public class TaskViewController {
         // Make detail panel grow to fill right menu.
         taskDetailPanel.setPrefHeight(Double.MAX_VALUE);
 
-        addFilters();
-
     }
 
     /**
@@ -246,68 +244,4 @@ public class TaskViewController {
     enum TaskViewMode {
         OVERVIEW, UPCOMING, DAY, WEEK, MONTH
     }
-
-    /**
-     * Fills the desired filters into the filterBox in the GUI
-     */
-    public void addFilters() {
-        filterBox.getItems().clear();
-        String[] filters = { "Name (A - Z)", "Name (Z - A)", "Category (A - Z)", "Category (Z - A)",
-                "Priority (High - Low)", "Priority (Low - High)" };
-        filterBox.getItems().addAll(filters);
-    }
-
-    /**
-     * Filters the tasks by the chosen filter
-     *
-     * @throws IOException
-     *
-     * @author andetel
-     */
-    public void filterTasks() throws IOException {
-
-        if (filterBox.getValue() != null) {
-
-            taskList.getChildren().clear();
-            if (filterBox.getValue().toString().equals("Priority (High - Low)")) {
-                for (Task task : Session.getActiveUser().getTaskList().sortByPriority()) {
-                    TaskBoxController taskBoxController = new TaskBoxController(task, this);
-                    taskList.getChildren().add(taskBoxController.getRootContainer());
-                }
-            } else if (filterBox.getValue().toString().equals("Priority (Low - High)")) {
-                ArrayList<Task> prioritySorted = Session.getActiveUser().getTaskList().sortByPriority();
-                Collections.reverse(prioritySorted);
-                for (Task task : prioritySorted) {
-                    TaskBoxController taskBoxController = new TaskBoxController(task, this);
-                    taskList.getChildren().add(taskBoxController.getRootContainer());
-                }
-            } else if (filterBox.getValue().toString().equals("Category (A - Z)")) {
-                for (Task task : Session.getActiveUser().getTaskList().sortByCategory()) {
-                    TaskBoxController taskBoxController = new TaskBoxController(task, this);
-                    taskList.getChildren().add(taskBoxController.getRootContainer());
-                }
-            } else if (filterBox.getValue().toString().equals("Category (Z - A)")) {
-                ArrayList<Task> categorySorted = Session.getActiveUser().getTaskList().sortByCategory();
-                Collections.reverse(categorySorted);
-                for (Task task : categorySorted) {
-                    TaskBoxController taskBoxController = new TaskBoxController(task, this);
-                    taskList.getChildren().add(taskBoxController.getRootContainer());
-                }
-            } else if (filterBox.getValue().toString().equals("Name (A - Z)")) {
-                for (Task task : Session.getActiveUser().getTaskList().sortByName()) {
-                    TaskBoxController taskBoxController = new TaskBoxController(task, this);
-                    taskList.getChildren().add(taskBoxController.getRootContainer());
-                }
-            } else if (filterBox.getValue().toString().equals("Name (Z - A)")) {
-                ArrayList<Task> nameSorted = Session.getActiveUser().getTaskList().sortByName();
-                Collections.reverse(nameSorted);
-                for (Task task : nameSorted) {
-                    TaskBoxController taskBoxController = new TaskBoxController(task, this);
-                    taskList.getChildren().add(taskBoxController.getRootContainer());
-                }
-            }
-
-        }
-    }
-
 }
