@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp;
 
 import edu.ntnu.idatt1002.k2g10.todolistapp.daos.UserDAO;
+import edu.ntnu.idatt1002.k2g10.todolistapp.factories.DialogFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.factories.FXMLLoaderFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.User;
 import javafx.fxml.FXMLLoader;
@@ -52,6 +53,16 @@ public class Session {
     }
 
     public static void setTheme(Theme theme) {
+        // Save theme if logged in.
+        if (Objects.nonNull(activeUser)) {
+            activeUser.setTheme(theme);
+            try {
+                Session.save();
+            } catch (SQLException e) {
+                DialogFactory.getOKDialog("Theme change failed.", "Unable to save new theme to account.").show();
+            }
+        }
+
         // Remove old CSS.
         Session.scene.getStylesheets().clear();
 

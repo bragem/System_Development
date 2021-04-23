@@ -83,7 +83,7 @@ public class SignupController {
         }
 
         // Registration process
-        User newUser = new User(username, firstname, lastname, email, password);
+        User newUser = new User(username, firstname, lastname, email, password, Session.getTheme());
         try {
             UserDAO userDAO = new UserDAO(Session.getEntityManager());
             userDAO.create(newUser);

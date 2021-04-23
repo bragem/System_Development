@@ -1,11 +1,13 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.models;
 
+import edu.ntnu.idatt1002.k2g10.todolistapp.Theme;
 import edu.ntnu.idatt1002.k2g10.todolistapp.utils.crypto.HashException;
 import edu.ntnu.idatt1002.k2g10.todolistapp.utils.crypto.PasswordHashAlgorithm;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -43,6 +45,9 @@ public class User implements Serializable {
     @OneToOne(cascade = { CascadeType.ALL })
     private final TaskList taskList = new TaskList();
 
+    @NotNull
+    private Theme theme;
+
     /**
      * Constructor of User class
      * 
@@ -55,7 +60,7 @@ public class User implements Serializable {
      * @param email
      *            email address of user
      */
-    public User(String username, String firstname, String lastname, String email, String password) {
+    public User(String username, String firstname, String lastname, String email, String password, Theme theme) {
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -65,10 +70,19 @@ public class User implements Serializable {
             this.passwordHash = PasswordHashAlgorithm.PBKDF2.getSaltedHash(password, passwordSalt);
         } catch (HashException ignored) {
             /* This will throw SQL exception in DAO anyway. */}
+        this.theme = theme;
     }
 
     public User() {
 
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getUsername() {
@@ -107,14 +121,6 @@ public class User implements Serializable {
         return taskList;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
     public void setPassword(String password) {
         this.passwordSalt = PasswordHashAlgorithm.PBKDF2.generateSalt();
         try {
@@ -142,5 +148,13 @@ public class User implements Serializable {
 
     public void setPasswordSalt(String passwordSalt) {
         this.passwordSalt = passwordSalt;
+    }
+
+    public Theme getTheme() {
+        return theme;
+    }
+
+    public void setTheme(Theme theme) {
+        this.theme = theme;
     }
 }

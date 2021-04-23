@@ -53,7 +53,8 @@ public class LoginController {
         // Allow login without username and password.
         if (usernameField.getText().isBlank() && passwordField.getText().isBlank()) {
             try {
-                User johndoe = new User("johndoe", "John", "Doe", "johdoe@stud.ntnu.no", "password");
+                User johndoe = new User("johndoe", "John", "Doe", "johdoe@stud.ntnu.no", "password",
+                        Session.getTheme());
 
                 Category school = new Category("School", FontAwesomeIcon.BOOK.getChar(), "#ffffff");
                 Category work = new Category("Work", FontAwesomeIcon.BRIEFCASE.getChar(), "#ffffff");
@@ -97,6 +98,7 @@ public class LoginController {
                 throw new IncorrectPasswordException("Incorrect password for user.");
             }
 
+            Session.setTheme(user.getTheme());
             Session.setActiveUser(user);
             Session.getLogger().info("Logged in as user " + user.getUsername());
 

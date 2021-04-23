@@ -32,9 +32,6 @@ target
 out
 
 #Application files
-*.user
-*.encrypted
-*.keys
+public
 logs
-users
 *_db
