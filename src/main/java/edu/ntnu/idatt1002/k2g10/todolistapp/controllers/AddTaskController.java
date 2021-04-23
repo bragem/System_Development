@@ -62,8 +62,7 @@ public class AddTaskController {
 
         if ((endDate == null || endDate.isBefore(startDate))) {
             DialogFactory
-                    .getOKDialog("Task Not Added",
-                            "Start Date can not be set after End Date\n\nStart Date and or End Date can not be null")
+                    .getOKDialog("Task Not Added", "Start Date can not be set after End Date/\nEnd Date cannot be null")
                     .show();
             return;
         }

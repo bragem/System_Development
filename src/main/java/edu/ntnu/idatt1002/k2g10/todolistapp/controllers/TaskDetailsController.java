@@ -102,6 +102,11 @@ public class TaskDetailsController {
                 .orElse(task.getPriority());
         task.setPriority(priority);
 
+        if ((endDate == null || endDate.getValue().isBefore(startDate.getValue()))) {
+            DialogFactory.getOKDialog("Task Not Updated",
+                    "Start Date cannot be set after End Date/\nEnd Date cannot be null").show();
+            return;
+        }
         task.setStartTime(startDate.getValue());
         task.setEndTime(endDate.getValue());
 
