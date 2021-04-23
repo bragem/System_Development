@@ -1,14 +1,17 @@
 * {
     -background-color: #222222;
+    -selectfield-background-color: #ffffff;
     -textfield-background-color: -background-color;
     -dropdown-background-color: -background-color;
     -button-background-color: -background-color;
+    -button-text-color: #ffff00;
     -menu-background-color: #222222;
     -user-menu-background-color: #444444;
     -border-color: #f700ff;
     -fill-color: #ffff00;
     -prompt-color: #ffff00;
     -unfocus-color: #a0a0a0;
+    -datepicker-background-color: #444444
 }
 
 .splash-img {

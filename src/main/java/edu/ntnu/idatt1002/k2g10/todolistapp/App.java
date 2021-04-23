@@ -25,6 +25,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Font.loadFont(getClass().getResourceAsStream("font/fontawesome.ttf"), 12);
+        Font.loadFont(getClass().getResourceAsStream("font/BebasNeue-Regular.ttf"), 12);
 
         FXMLLoader loader = FXMLLoaderFactory.getFXMLLoader("login");
         Session.setScene(new Scene(loader.load()));
@@ -33,10 +34,10 @@ public class App extends Application {
 
         // Add settings
         stage.setTitle(WINDOW_TITLE);
-        stage.setMinWidth(WINDOW_MIN_WIDTH);
-        stage.setMinHeight(WINDOW_MIN_HEIGHT);
         stage.getIcons().add(new Image(App.class.getResource("img/icon.png").toString()));
         stage.show();
+        stage.setMinWidth(WINDOW_MIN_WIDTH);
+        stage.setMinHeight(WINDOW_MIN_HEIGHT);
     }
 
     public static void main(String[] args) {

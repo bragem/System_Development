@@ -55,7 +55,7 @@
 }
 
 .top-menu {
-    -fx-background-color: -table-background-color;
+    -fx-background-color: -background-color;
 }
 
 .search-filter-box {
@@ -162,7 +162,7 @@
 ---------- Date Picker -------------
  */
 .date-picker .text-field {
-    -fx-control-inner-background: -background-color;
+    -fx-control-inner-background: -datepicker-background-color;
 }
 
 .date-picker-popup > .calendar-grid {
