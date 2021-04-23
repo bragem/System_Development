@@ -60,6 +60,14 @@ public class AddTaskController {
                 .filter(c -> c.getTitle().equals(categoryDropdown.getSelectionModel().getSelectedItem())).findAny()
                 .orElse(null);
 
+        if ((endDate == null || endDate.isBefore(startDate))) {
+            DialogFactory
+                    .getOKDialog("Task Not Added",
+                            "Start Date can not be set after End Date\n\nStart Date and or End Date can not be null")
+                    .show();
+            return;
+        }
+
         try {
             Task newTask = new Task(title, desc, startDate, endDate, priority, category);
             Session.getActiveUser().getTaskList().addTask(newTask);
