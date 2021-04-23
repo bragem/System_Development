@@ -5,12 +5,13 @@
     -dropdown-background-color: #ffffff;
     -button-background-color: #7292a6;
     -menu-background-color: #a4d1ed;
-    -user-menu-background-color: #b7b7b7;
+    -user-menu-background-color: #ffffff;
     -border-color: black;
     -fill-color: black;
     -prompt-color: #969696;
     -button-text-color: #ffffff;
     -unfocus-color: #a0a0a0;
+    -datepicker-background-color: whitesmoke;
 }
 
 .splash-img {
