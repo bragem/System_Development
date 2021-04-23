@@ -1,6 +1,5 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.controllers;
 
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import edu.ntnu.idatt1002.k2g10.todolistapp.Session;
 import edu.ntnu.idatt1002.k2g10.todolistapp.factories.DialogFactory;

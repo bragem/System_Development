@@ -74,6 +74,30 @@ public class LoginController {
                         shopping));
                 list.addTask(new Task("Title D", "Desc", LocalDate.of(2021, 4, 1), LocalDate.now(), Priority.MEDIUM,
                         freetime));
+                list.addTask(
+                        new Task("Title A", "Desc", LocalDate.of(2021, 1, 1), LocalDate.now(), Priority.HIGH, school));
+                list.addTask(
+                        new Task("Title B", "Desc", LocalDate.of(2021, 2, 1), LocalDate.now(), Priority.LOW, work));
+                list.addTask(new Task("Title C", "Desc", LocalDate.of(2021, 3, 1), LocalDate.now(), Priority.NONE,
+                        shopping));
+                list.addTask(new Task("Title D", "Desc", LocalDate.of(2021, 4, 1), LocalDate.now(), Priority.MEDIUM,
+                        freetime));
+                list.addTask(
+                        new Task("Title A", "Desc", LocalDate.of(2021, 1, 1), LocalDate.now(), Priority.HIGH, school));
+                list.addTask(
+                        new Task("Title B", "Desc", LocalDate.of(2021, 2, 1), LocalDate.now(), Priority.LOW, work));
+                list.addTask(new Task("Title C", "Desc", LocalDate.of(2021, 3, 1), LocalDate.now(), Priority.NONE,
+                        shopping));
+                list.addTask(new Task("Title D", "Desc", LocalDate.of(2021, 4, 1), LocalDate.now(), Priority.MEDIUM,
+                        freetime));
+                list.addTask(
+                        new Task("Title A", "Desc", LocalDate.of(2021, 1, 1), LocalDate.now(), Priority.HIGH, school));
+                list.addTask(
+                        new Task("Title B", "Desc", LocalDate.of(2021, 2, 1), LocalDate.now(), Priority.LOW, work));
+                list.addTask(new Task("Title C", "Desc", LocalDate.of(2021, 3, 1), LocalDate.now(), Priority.NONE,
+                        shopping));
+                list.addTask(new Task("Title D", "Desc", LocalDate.of(2021, 4, 1), LocalDate.now(), Priority.MEDIUM,
+                        freetime));
 
                 Session.setActiveUser(johndoe);
                 Session.setLocation("taskview");

@@ -56,8 +56,6 @@
 
 .top-menu {
     -fx-background-color: -table-background-color;
-    -fx-border-width: 0px 0px 1px 0px;
-    -fx-border-color: -border-color;
 }
 
 .search-filter-box {
@@ -94,7 +92,7 @@
 }
 
 .taskbox:hover {
-    -fx-effect: dropshadow(two-pass-box, #000000, 50, 0, 0, 10);
+    -fx-effect: dropshadow(two-pass-box, #979797, 8, 0, 0, 2);
 }
 
 
