@@ -52,12 +52,13 @@ public class AddCategoryController {
     /**
      * Sets the background color of the colorPicker to the chosen color
      */
+    //TODO: Fix bug that only shows the chosen color over the arrow on the combobox
     public void showChosenColor() {
         Label label = (Label) colorPicker.getSelectionModel().getSelectedItem();
         String style = label.getStyle();
-        String color = style.substring(22, style.length() - 1);
+        String color = style.substring(22, style.length() - 11);
 
-        colorPicker.setStyle("-fx-background-color: " + color + ";");
+        colorPicker.setStyle("-fx-background-color: " + color + "!important;");
     }
 
     public void onSubmit() {
