@@ -77,8 +77,8 @@ public class SignupController {
                 throw new IllegalArgumentException("The username contains invalid characters.");
             }
         } catch (IllegalArgumentException e) {
+            Session.getLogger().info("Registration failed: " + e.getMessage());
             DialogFactory.getOKDialog("Registration failed", e.getMessage()).show();
-            Session.getLogger().info("Could not register user: " + e.getMessage());
             return;
         }
 
@@ -88,8 +88,8 @@ public class SignupController {
             UserDAO userDAO = new UserDAO(Session.getEntityManager());
             userDAO.create(newUser);
         } catch (SQLException e) {
-            DialogFactory.getOKDialog("Registration failed", e.getMessage()).show();
             Session.getLogger().severe("Registration failed: " + e.getMessage());
+            DialogFactory.getOKDialog("Registration failed", e.getMessage()).show();
             return;
         }
 
@@ -98,11 +98,9 @@ public class SignupController {
         try {
             Session.setLocation("taskview");
         } catch (IOException e) {
-            DialogFactory
-                    .getOKDialog("Registration successful", "Registration succeeded but we're unable to take you to "
-                            + "the logged in screen. (" + e.getMessage() + ")")
-                    .show();
-            Session.getLogger().warning("Unable to view logged in screen.");
+            String content = "The account was registered, but the redirect failed.";
+            Session.getLogger().warning(content);
+            DialogFactory.getOKDialog("Registration successful", content).show();
         }
     }
 

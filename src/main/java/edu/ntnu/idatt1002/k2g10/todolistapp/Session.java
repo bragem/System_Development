@@ -59,7 +59,10 @@ public class Session {
             try {
                 Session.save();
             } catch (SQLException e) {
-                DialogFactory.getOKDialog("Theme change failed.", "Unable to save new theme to account.").show();
+                String content = String.format("Unable to save new theme to account.%nError message: '%s'",
+                        e.getMessage());
+                Session.getLogger().warning(content);
+                DialogFactory.getOKDialog("Theme save failed", content).show();
             }
         }
 

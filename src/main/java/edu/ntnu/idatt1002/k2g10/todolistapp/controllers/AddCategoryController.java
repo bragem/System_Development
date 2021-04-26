@@ -74,8 +74,9 @@ public class AddCategoryController {
             Session.save(); // Saves user data.
             stage.close();
         } catch (SQLException e) {
-            DialogFactory.getOKDialog("Category add failed", "Unable to add category.\n(" + e.getMessage() + ")")
-                    .show();
+            String content = String.format("Unable to add category.%nError message: '%s'", e.getMessage());
+            Session.getLogger().warning(content);
+            DialogFactory.getOKDialog("Category add failed", content).show();
         }
     }
 }
