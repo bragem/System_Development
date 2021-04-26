@@ -108,6 +108,11 @@
 .right-menu .check-box {
     -jfx-unchecked-color: -fill-color;
 }
+
+.category-color-box {
+    -fx-background-radius: 10px;
+}
+
 /*
 ---------- Left Menu List Views -------------
  */

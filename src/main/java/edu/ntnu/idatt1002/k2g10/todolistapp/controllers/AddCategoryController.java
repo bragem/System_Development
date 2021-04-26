@@ -11,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 /**
@@ -24,6 +23,8 @@ public class AddCategoryController {
     private JFXTextField titleField;
     @FXML
     private JFXComboBox colorPicker;
+    @FXML
+    private Label chosenColor;
 
     public void initialize() {
         for (FontAwesomeIcon icon : FontAwesomeIcon.values()) {
@@ -42,6 +43,7 @@ public class AddCategoryController {
         colorPicker.getItems().clear();
         for (String cl : colors) {
             Label label = new Label();
+            label.setText(cl);
             label.setStyle("-fx-background-color: " + cl + "!important;");
             label.setPrefHeight(30);
             label.setPrefWidth(100);
@@ -58,7 +60,8 @@ public class AddCategoryController {
         String style = label.getStyle();
         String color = style.substring(22, style.length() - 11);
 
-        colorPicker.setStyle("-fx-background-color: " + color + "!important;");
+
+        chosenColor.setStyle(String.format("-fx-background-color: %s!important", color));
     }
 
     public void onSubmit() {
