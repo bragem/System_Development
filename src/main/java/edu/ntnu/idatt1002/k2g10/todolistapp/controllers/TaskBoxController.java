@@ -84,6 +84,7 @@ public class TaskBoxController {
     public void updateLabels() {
         titleLabel.setText(task.getTitle());
         categoryLabel.setText(String.valueOf(task.getCategory().getIcon()));
+        categoryLabel.setStyle(String.format("-fx-text-fill: %s !important; -fx-font-size: 14px!important;", task.getCategory().getColor()));
         priorityLabel.setStyle(String.format("-fx-text-fill: %s !important", task.getPriority().getColor()));
         completedBox.selectedProperty().setValue(task.getCompleted());
 
