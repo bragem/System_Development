@@ -1,11 +1,13 @@
 * {
     -background-color: #222222;
+    -selectfield-background-color: #000000;
     -textfield-background-color: -background-color;
     -dropdown-background-color: -background-color;
     -button-background-color: -background-color;
     -menu-background-color: #444444;
     -user-menu-background-color: #222222;
     -border-color: whitesmoke;
+    -button-text-color: whitesmoke;
     -fill-color: whitesmoke;
     -prompt-color: whitesmoke;
     -unfocus-color: #a0a0a0;
