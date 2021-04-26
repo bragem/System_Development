@@ -26,6 +26,7 @@
 
 .selectfield {
     -fx-background-color: -selectfield-background-color;
+    -fx-prompt-text-fill: -prompt-color;
     -jfx-focus-color: -border-color;
 }
 
@@ -41,6 +42,7 @@
 .textfield {
     -fx-text-fill: -fill-color;
     -fx-background-color: -textfield-background-color;
+    -fx-prompt-text-fill: -prompt-color;
     -jfx-focus-color: -border-color;
     -jfx-unfocus-color: -unfocus-color;
 }
@@ -67,11 +69,11 @@
 }
 
 .right-menu {
-    -fx-background-color: -menu-background-color;
+    -fx-background-color: -background-color;
 }
 
 .left-menu {
-    -fx-background-color: -menu-background-color;
+    -fx-background-color: -background-color;
 }
 
 .menu-option {
@@ -92,7 +94,7 @@
 }
 
 .taskbox:hover {
-    -fx-effect: dropshadow(two-pass-box, #979797, 8, 0, 0, 2);
+    -fx-effect: dropshadow(two-pass-box, -taskbox-hover-color, 8, 0, 0, 2);
 }
 
 
@@ -105,6 +107,10 @@
     -jfx-unchecked-color: -fill-color;
 }
 
+.taskbox-container {
+    -fx-background-color: -taskbox-container-background-color;
+}
+
 .right-menu .check-box {
     -jfx-unchecked-color: -fill-color;
 }
@@ -115,20 +121,24 @@
 /*
 ---------- Also sets the colors of all the comboboxes ----------
 */
-.list-cell:filled:selected:focused, .list-cell:filled:selected {
+.list-view {
+    -fx-background-color: -textfield-background-color;
+}
+
+.list-view .list-cell:filled:selected:focused, .list-cell:filled:selected {
     -fx-background-color: -textfield-background-color;
     -fx-text-fill: -fill-color;
 }
 
-.list-cell:even {
+.list-view .list-cell:even {
     -fx-background-color: -textfield-background-color;
 }
 
-.list-cell:odd {
+.list-view .list-cell:odd {
     -fx-background-color: -textfield-background-color;
 }
 
-.list-cell:filled:hover {
+.list-view .list-cell:filled:hover {
     -fx-background-color: -textfield-background-color;
     -fx-text-fill: -fill-color;
 }
