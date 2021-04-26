@@ -1,18 +1,23 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.controllers;
 
 import com.jfoenix.controls.JFXCheckBox;
+import edu.ntnu.idatt1002.k2g10.todolistapp.Session;
+import edu.ntnu.idatt1002.k2g10.todolistapp.factories.DialogFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.factories.FXMLLoaderFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.Task;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Controller for the taskbox component.
@@ -79,6 +84,23 @@ public class TaskBoxController {
     public void saveTaskCompletedStatus(Event event) {
         task.setCompleted(completedBox.selectedProperty().get());
         parentController.showTaskDetails(task);
+        parentController.refreshAndFilterTaskList();
+    }
+
+    /**
+     * Deletes the task if the user confirms deletion.
+     */
+    @FXML
+    public void deleteTask() {
+        String content = String.format("Are you sure you want to delete '%s'", task.getTitle());
+        Dialog<ButtonType> dialog = DialogFactory.getYesNoDialog("Delete task?", content);
+        Optional<ButtonType> buttonChoice = dialog.showAndWait();
+
+        if (buttonChoice.isEmpty() || !buttonChoice.get().equals(ButtonType.YES)) {
+            return;
+        }
+
+        Session.getActiveUser().getTaskList().getTasks().remove(task);
         parentController.refreshAndFilterTaskList();
     }
 
