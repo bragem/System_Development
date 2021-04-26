@@ -24,7 +24,6 @@
                            </HBox.margin>
                            <styleClass>
                               <String fx:value="selectfield" />
-                              <String fx:value="combobox" />
                               <String fx:value="icon" />
                            </styleClass>
                         </JFXComboBox>
@@ -35,7 +34,6 @@
                         <JFXComboBox fx:id="colorPicker" onAction="#showChosenColor" promptText="Color" unFocusColor="BLACK">
                            <styleClass>
                               <String fx:value="selectfield" />
-                              <String fx:value="combobox" />
                               <String fx:value="icon" />
                            </styleClass>
                         </JFXComboBox>
@@ -47,7 +45,7 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="52.0" prefWidth="526.0" HBox.hgrow="NEVER">
                      <children>
-                        <JFXTextField fx:id="title" alignment="CENTER" prefWidth="410.0" promptText="Title" style="-fx-alignment: center;" styleClass="textfield">
+                        <JFXTextField fx:id="titleField" alignment="CENTER" prefWidth="410.0" promptText="Title" style="-fx-alignment: center;" styleClass="textfield">
                            <font>
                               <Font size="24.0" />
                            </font></JFXTextField>
