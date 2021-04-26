@@ -6,7 +6,7 @@ import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 
 /**
- * Generates {@link FXMLLoader} objects.
+ * Factory for {@link FXMLLoader} objects.
  * 
  * @author trthingnes
  */

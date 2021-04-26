@@ -8,7 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
- * TaskList is contained in {@link User}
+ * Entity contained in {@link User}.
  * 
  * @author hasanro, trthingnes, bragemi, andetel
  */

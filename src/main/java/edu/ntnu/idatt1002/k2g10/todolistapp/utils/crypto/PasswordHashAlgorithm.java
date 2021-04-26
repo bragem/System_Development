@@ -8,7 +8,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
 /**
- * Used to securely salt and hash passwords.
+ * Algorithm used to securely salt and hash passwords.
  *
  * @author trthingnes
  */
@@ -24,11 +24,11 @@ public class PasswordHashAlgorithm {
      * Constructs a new instance of the {@link PasswordHashAlgorithm} class.
      *
      * @param algorithm
-     *            The hashing algorithm to use
+     *            The hashing algorithm to use.
      * @param keyLength
-     *            The length of the derived key
+     *            The length of the derived key.
      * @param iterations
-     *            The number of iterations to derive the key
+     *            The number of iterations to derive the key.
      * 
      * @see SecretKeyFactory#getInstance(String)
      * @see PBEKeySpec#PBEKeySpec(char[], byte[], int, int)

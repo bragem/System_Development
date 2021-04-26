@@ -1,15 +1,13 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.utils.crypto;
 
 /**
- * Thrown to indicate that a hashing process has failed.
+ * Exception thrown to indicate that a hashing process has failed.
  *
  * @author trthingnes
  */
 public class HashException extends Exception {
     /**
      * Constructs an {@link HashException} with no detail message.
-     *
-     * @author trthingnes
      */
     public HashException() {
         super();
@@ -20,8 +18,6 @@ public class HashException extends Exception {
      *
      * @param message
      *            The detail message
-     * 
-     * @author trthingnes
      */
     public HashException(String message) {
         super(message);
@@ -39,8 +35,6 @@ public class HashException extends Exception {
      * @param cause
      *            the cause (which is saved for later retrieval by the {@link Throwable#getCause()} method). (A
      *            {@code null} value is permitted, and indicates that the cause is nonexistent or unknown.)
-     * 
-     * @author trthingnes
      */
     public HashException(String message, Throwable cause) {
         super(message, cause);
@@ -55,8 +49,6 @@ public class HashException extends Exception {
      * @param cause
      *            the cause (which is saved for later retrieval by the {@link Throwable#getCause()} method). (A
      *            {@code null} value is permitted, and indicates that the cause is nonexistent or unknown.)
-     * 
-     * @author trthingnes
      */
     public HashException(Throwable cause) {
         super(cause);

@@ -4,7 +4,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
- * Generates {@link TableColumn} objects.
+ * Factory for {@link TableColumn} objects.
  * 
  * @param <S>
  *            Type of the {@link javafx.scene.control.TableView} generic type.

@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
- * Task is contained in {@link TaskList} and is associated with {@link Category}
+ * Entity contained in {@link TaskList} and associated with {@link Category}
  * 
  * @author hasanro, trthingnes, bragemi
  */

@@ -23,7 +23,7 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 /**
- * Controller for displaying {@link Task} details.
+ * Controller for the task detail component.
  *
  * @author jonathhl, trthingnes
  */
@@ -103,10 +103,11 @@ public class TaskDetailsController {
         task.setPriority(priority);
 
         if ((endDate == null || endDate.getValue().isBefore(startDate.getValue()))) {
-            DialogFactory.getOKDialog("Task Not Updated",
-                    "Start Date cannot be set after End Date/\nEnd Date cannot be null").show();
+            String content = "End date cannot be null, and has to be after start date.";
+            DialogFactory.getOKDialog("Task update failed", content).show();
             return;
         }
+
         task.setStartTime(startDate.getValue());
         task.setEndTime(endDate.getValue());
 
@@ -116,7 +117,9 @@ public class TaskDetailsController {
         try {
             Session.save();
         } catch (SQLException e) {
-            DialogFactory.getOKDialog("Database save failed", "Could not save to database: " + e.getMessage()).show();
+            String content = String.format("Unable to save user to database%nError message: '%s'", e.getMessage());
+            Session.getLogger().severe(content);
+            DialogFactory.getOKDialog("Database save failed", content).show();
         }
     }
 

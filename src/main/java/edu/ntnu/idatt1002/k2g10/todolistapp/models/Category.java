@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Category is contained in {@link TaskList} and is associated with {@link Task}.
+ * Entity contained in {@link TaskList} and associated with {@link Task}.
  * 
  * @author hasanro, trthingnes, bragemi
  */

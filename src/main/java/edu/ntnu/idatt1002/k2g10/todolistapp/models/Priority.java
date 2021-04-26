@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Locale;
 
 /**
- * Priority is associated with {@link Task}.
+ * Entity associated with {@link Task}.
  * 
  * @author hasanro, trthingnes, bragemi
  */

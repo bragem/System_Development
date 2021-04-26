@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
- * User class. Contains {@link TaskList}
+ * User entity.
  * 
  * @author hasanro, Bragemi, trthingnes
  */
@@ -49,16 +49,16 @@ public class User implements Serializable {
     private Theme theme;
 
     /**
-     * Constructor of User class
+     * Constructs a new user instance.
      * 
      * @param username
-     *            Username of user
+     *            Username of user.
      * @param firstname
-     *            First name of user
+     *            First name of user.
      * @param lastname
-     *            Surname of user
+     *            Last name of user.
      * @param email
-     *            email address of user
+     *            Email address of user.
      */
     public User(String username, String firstname, String lastname, String email, String password, Theme theme) {
         this.username = username;
@@ -73,8 +73,27 @@ public class User implements Serializable {
         this.theme = theme;
     }
 
+    /**
+     * Constructs a new user element.
+     * 
+     * Used by persistence.
+     * 
+     * @see #User(String, String, String, String, String, Theme)
+     */
     public User() {
 
+    }
+
+    /**
+     * Verifies that the given password matches the one on record.
+     * 
+     * @param password
+     *            Password to verify.
+     * 
+     * @return True if password matches, false if not.
+     */
+    public boolean verifyPassword(String password) {
+        return PasswordHashAlgorithm.PBKDF2.verifyHash(password, passwordSalt, passwordHash);
     }
 
     public void setId(Long id) {
@@ -128,10 +147,6 @@ public class User implements Serializable {
         } catch (HashException ignored) {
             /* This will throw SQL exception in DAO anyway. */
         }
-    }
-
-    public boolean verifyPassword(String password) {
-        return PasswordHashAlgorithm.PBKDF2.verifyHash(password, passwordSalt, passwordHash);
     }
 
     public String getPasswordHash() {

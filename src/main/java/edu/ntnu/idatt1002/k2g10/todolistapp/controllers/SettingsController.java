@@ -8,16 +8,13 @@ import edu.ntnu.idatt1002.k2g10.todolistapp.App;
 import edu.ntnu.idatt1002.k2g10.todolistapp.Session;
 import edu.ntnu.idatt1002.k2g10.todolistapp.Theme;
 import edu.ntnu.idatt1002.k2g10.todolistapp.factories.DialogFactory;
-import edu.ntnu.idatt1002.k2g10.todolistapp.utils.crypto.HashException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
-import java.util.Objects;
-
 /**
+ * Controller for the settings window.
+ *
  * @author hasanro
  */
 public class SettingsController {
@@ -68,12 +65,14 @@ public class SettingsController {
     public void applyChanges() {
         if (Session.getActiveUser().verifyPassword(verifyPassword.getText())) {
             if (!emailTextField.getText().matches("^[\\w-_.+]*[\\w-_.]@([\\w]+\\.)+[\\w]+[\\w]$")) {
-                DialogFactory.getOKDialog("Save failed", "The email provided is not valid.").show();
+                String content = "The email provided is not valid.";
+                DialogFactory.getOKDialog("Save failed", content).show();
                 return;
             }
 
             if (!userNameTextField.getText().matches("([0-9A-Za-zæøåÆØÅ\\-_.])+")) {
-                DialogFactory.getOKDialog("Save failed", "The username contains invalid characters.").show();
+                String content = "The username contains invalid characters.";
+                DialogFactory.getOKDialog("Save failed", content).show();
                 return;
             }
 
