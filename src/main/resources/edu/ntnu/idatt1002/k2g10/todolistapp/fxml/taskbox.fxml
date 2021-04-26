@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="container" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="350.0" onMouseClicked="#showTaskDetails" prefHeight="50.0" prefWidth="0.0" styleClass="taskbox" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="container" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="550.0" onMouseClicked="#showTaskDetails" prefHeight="50.0" prefWidth="0.0" styleClass="taskbox" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-      <HBox prefHeight="50.0" prefWidth="782.0" styleClass="taskbox-design">
+      <HBox prefHeight="50.0" prefWidth="782.0" styleClass="taskbox-design" HBox.hgrow="ALWAYS">
          <children>
-              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="487.0" HBox.hgrow="ALWAYS">
+              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="487.0" HBox.hgrow="NEVER">
                   <children>
                       <JFXCheckBox fx:id="completedBox" onMouseClicked="#saveTaskCompletedStatus" prefHeight="18.0" prefWidth="15.0" text=" ">
                           <HBox.margin>
                               <Insets left="20.0" />
                           </HBox.margin>
                       </JFXCheckBox>
-                      <Label id="taskTitle" fx:id="titleLabel" style="-fx-font-size: 21px;" text="TASK TITLE">
+                      <Label id="taskTitle" fx:id="titleLabel" style="-fx-font-size: 16px;" text="TASK TITLE">
                           <font>
-                              <Font size="21.0" />
+                              <Font size="18.0" />
                           </font>
                           <HBox.margin>
                               <Insets left="10.0" />
@@ -27,9 +28,9 @@
                       </Label>
                   </children>
               </HBox>
-              <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
+              <HBox alignment="CENTER_RIGHT" minWidth="330.0" prefHeight="50.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
                   <children>
-                  <Label fx:id="dateLabel" style="-fx-font-size: 14px;" text="DATE">
+                  <Label fx:id="dateLabel" style="-fx-font-size: 14px;" text="DATE" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -53,6 +54,11 @@
                               <Insets right="20.0" />
                           </HBox.margin>
                       </Label>
+                  <JFXButton onMouseClicked="#deleteTask" text="">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </JFXButton>
                   </children>
               </HBox>
          </children>

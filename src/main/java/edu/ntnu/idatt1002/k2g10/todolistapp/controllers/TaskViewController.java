@@ -7,18 +7,18 @@ import edu.ntnu.idatt1002.k2g10.todolistapp.factories.PopupWindowFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.Category;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.Task;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.User;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Controller for the overview window.
@@ -33,6 +33,8 @@ public class TaskViewController {
     @FXML
     private ListView<Category> categoryList;
     @FXML
+    private ComboBox<String> categoryDeleteDropdown;
+    @FXML
     private VBox taskList;
     @FXML
     private Label usernameLabel;
@@ -43,7 +45,6 @@ public class TaskViewController {
 
     private TaskDetailsController activeTaskDetailsBox;
     private final List<Task> displayedTasks = new ArrayList<>();
-    private final List<Category> displayedCategories = new ArrayList<>();
 
     private TaskViewMode viewMode = TaskViewMode.OVERVIEW;
     private Category categoryFilter = null;
@@ -67,7 +68,7 @@ public class TaskViewController {
         refreshAndFilterTaskList();
 
         // Initialize view mode list.
-        viewModeList.setItems(FXCollections.observableList(List.of(TaskViewMode.values())));
+        viewModeList.getItems().addAll(TaskViewMode.values());
         viewModeList.getSelectionModel().selectedItemProperty().addListener(mode -> changeTaskViewMode());
 
         // Link category list view to category list.
@@ -212,21 +213,62 @@ public class TaskViewController {
      * Changes the category filter and refreshes the task list.
      */
     @FXML
-    void changeCategoryViewMode() {
+    public void changeCategoryViewMode() {
         categoryFilter = categoryList.getSelectionModel().getSelectedItem();
 
         refreshAndFilterTaskList();
     }
 
     /**
+     * Deletes the selected category on user confirmation.
+     */
+    @FXML
+    public void deleteSelectedCategory() {
+        Category category = Session.getActiveUser().getTaskList().getCategories().stream()
+                .filter(c -> c.getTitle().equals(categoryDeleteDropdown.getSelectionModel().getSelectedItem()))
+                .findAny().orElse(null);
+
+        if (Objects.nonNull(category)) {
+            String content = String.format("Are you sure you want to delete '%s'", category.getTitle());
+            Dialog<ButtonType> dialog = DialogFactory.getYesNoDialog("Delete category?", content);
+            Optional<ButtonType> buttonChoice = dialog.showAndWait();
+
+            if (buttonChoice.isPresent() && buttonChoice.get().equals(ButtonType.YES)) {
+                // Get all tasks that will lose their category.
+                Stream<Task> needsNewCategory = Session.getActiveUser().getTaskList().getTasks().stream()
+                        .filter(task -> task.getCategory().equals(category));
+
+                // Remove the category.
+                Session.getActiveUser().getTaskList().getCategories().remove(category);
+
+                // Assign a new category to the tasks that need it.
+                Category newCategory = Session.getActiveUser().getTaskList().getCategories().get(0);
+                needsNewCategory.forEach(task -> task.setCategory(newCategory));
+
+                try {
+                    Session.save();
+                } catch (SQLException e) {
+                    Session.getLogger().warning("Unable to delete category from database.");
+                    DialogFactory.getOKDialog("Category delete failed.", "Unable to save to account.").show();
+                }
+                refreshCategoryList();
+                refreshAndFilterTaskList();
+            }
+        }
+    }
+
+    /**
      * Refreshes the category list.
      */
     private void refreshCategoryList() {
-        displayedCategories.clear();
-        displayedCategories.addAll(Session.getActiveUser().getTaskList().getCategories());
+        categoryList.getItems().clear();
+        categoryList.getItems().addAll(Session.getActiveUser().getTaskList().getCategories());
 
-        categoryList.setItems(FXCollections.observableList(displayedCategories));
-        categoryList.refresh();
+        // Add categories to delete list.
+        List<String> categoryNames = Session.getActiveUser().getTaskList().getCategories().stream()
+                .map(Category::getTitle).collect(Collectors.toList());
+        categoryDeleteDropdown.getItems().clear();
+        categoryDeleteDropdown.getItems().addAll(categoryNames);
     }
 
     /**

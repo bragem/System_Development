@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -50,10 +51,17 @@
                         </Label>
                         <JFXButton onMouseClicked="#showAddCategory" prefHeight="25.0" prefWidth="200.0" text="Add new category">
                            <VBox.margin>
-                              <Insets bottom="5.0" />
+                              <Insets bottom="10.0" />
                            </VBox.margin>
                         </JFXButton>
-                        <JFXListView fx:id="categoryList" styleClass="list-view" VBox.vgrow="ALWAYS" />
+                        <VBox prefHeight="0.0" prefWidth="130.0" VBox.vgrow="NEVER" />
+                        <JFXComboBox fx:id="categoryDeleteDropdown" onAction="#deleteSelectedCategory" prefWidth="2000.0" promptText="Delete category" styleClass="selectfield">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </JFXComboBox>
+                        <JFXListView fx:id="categoryList" styleClass="categories-list" VBox.vgrow="ALWAYS" />
+                        <VBox prefHeight="40.0" prefWidth="144.0" VBox.vgrow="NEVER" />
                      </children>
                      <padding>
                         <Insets bottom="30.0" left="10.0" right="10.0" top="10.0" />

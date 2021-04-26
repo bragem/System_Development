@@ -25,7 +25,7 @@
             <RowConstraints maxHeight="63.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <JFXTextField fx:id="titleField" prefWidth="2000.0" promptText="New task" style="-fx-font-size: 21;" styleClass="textfield" GridPane.rowIndex="1">
+            <JFXTextField fx:id="titleField" prefWidth="2000.0" promptText="New category" style="-fx-font-size: 21;" styleClass="textfield" GridPane.rowIndex="1">
                <font>
                   <Font size="24.0" />
                </font>
