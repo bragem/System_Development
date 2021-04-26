@@ -1,11 +1,13 @@
 * {
     -background-color: #c9eaff;
+    -taskbox-container-background-color: whitesmoke;
+    -taskbox-hover-color: #979797;
     -selectfield-background-color: #ffffff;
     -textfield-background-color: #ffffff;
     -dropdown-background-color: #ffffff;
     -button-background-color: #7292a6;
     -menu-background-color: #a4d1ed;
-    -user-menu-background-color: #ffffff;
+    -user-menu-background-color: whitesmoke;
     -border-color: black;
     -fill-color: black;
     -prompt-color: #969696;
