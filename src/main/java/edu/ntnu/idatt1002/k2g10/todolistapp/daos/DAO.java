@@ -7,7 +7,7 @@ import java.util.Optional;
  * Interface for data access objects.
  * 
  * @param <T>
- *            Entity type of the DAO.
+ *            Entity type the DAO interacts with.
  * 
  * @author hasanoma
  */

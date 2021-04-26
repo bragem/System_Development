@@ -11,10 +11,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 /**
+ * Controller for the add category window.
+ *
  * @author andetel
  */
 public class AddCategoryController {
@@ -74,8 +75,9 @@ public class AddCategoryController {
             Session.save(); // Saves user data.
             stage.close();
         } catch (SQLException e) {
-            DialogFactory.getOKDialog("Category add failed", "Unable to add category.\n(" + e.getMessage() + ")")
-                    .show();
+            String content = String.format("Unable to add category.%nError message: '%s'", e.getMessage());
+            Session.getLogger().warning(content);
+            DialogFactory.getOKDialog("Category add failed", content).show();
         }
     }
 }

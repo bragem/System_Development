@@ -3,7 +3,6 @@ package edu.ntnu.idatt1002.k2g10.todolistapp.controllers;
 import com.jfoenix.controls.JFXCheckBox;
 import edu.ntnu.idatt1002.k2g10.todolistapp.factories.FXMLLoaderFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.Task;
-import edu.ntnu.idatt1002.k2g10.todolistapp.models.TaskList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
- * Custom controller for displaying a {@link Task} in a {@link TaskList}.
+ * Controller for the taskbox component.
  *
  * @author jonathhl, trthingnes
  */

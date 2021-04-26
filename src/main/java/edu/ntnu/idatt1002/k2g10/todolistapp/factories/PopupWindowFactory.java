@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Generates popup window stages.
+ * Factory for popup {@link Stage} objects.
  * 
  * @author trthingnes
  */

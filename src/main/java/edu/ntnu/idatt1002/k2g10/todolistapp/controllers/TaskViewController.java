@@ -20,9 +20,9 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 /**
- * Controller for Overview view.
+ * Controller for the overview window.
  *
- * @author tobiasth, bragemi
+ * @author trthingnes, bragemi
  */
 public class TaskViewController {
     @FXML
@@ -84,6 +84,8 @@ public class TaskViewController {
             popupWindow.showAndWait();
             refreshAndFilterTaskList();
         } catch (IOException e) {
+            Session.getLogger()
+                    .severe(String.format("Unable to open add task window.%nError message: '%s'", e.getMessage()));
             DialogFactory.getOKDialog("Add task failed", "Unable to open add task window.").show();
         }
     }
@@ -145,7 +147,7 @@ public class TaskViewController {
         }
 
         default: {
-            Session.getLogger().log(Level.INFO, "The view mode {} has not been implemented yet.", viewMode);
+            Session.getLogger().log(Level.WARNING, "The view mode {} has not been implemented yet.", viewMode);
         }
         }
 
@@ -172,8 +174,9 @@ public class TaskViewController {
                 TaskBoxController taskbox = new TaskBoxController(task, this);
                 taskList.getChildren().add(taskbox.getRootContainer());
             } catch (IOException e) {
-                DialogFactory.getOKDialog("Task box insertion failed", "Could not insert taskbox.\n" + e.getMessage())
-                        .show();
+                Session.getLogger()
+                        .severe(String.format("Unable to insert task box.%nError message: '%s'", e.getMessage()));
+                DialogFactory.getOKDialog("Refresh failed", "Unable to refresh task list.").show();
             }
         }
     }
@@ -192,6 +195,8 @@ public class TaskViewController {
                 activeTaskDetailsBox.updateLabels();
             }
         } catch (IOException e) {
+            Session.getLogger()
+                    .severe(String.format("Unable to open add category window.%nError message: '%s'", e.getMessage()));
             DialogFactory.getOKDialog("Add category failed", "Unable to open add category window.").show();
         }
 
@@ -243,10 +248,11 @@ public class TaskViewController {
             activeTaskDetailsBox = new TaskDetailsController(selectedTask, this);
             taskDetailPanel.getChildren().add(activeTaskDetailsBox.getRootContainer());
         } catch (IOException e) {
+            Session.getLogger()
+                    .severe(String.format("Failed to show detail task box.%nError message: '%s'", e.getMessage()));
             DialogFactory.getOKDialog("Task detail failed", "Failed to show detailed task view.").show();
-            e.printStackTrace();
         } catch (NullPointerException ignored) {
-        }
+            /* Do not try to show detail task box if task is not defined */}
     }
 
     /**
@@ -261,7 +267,9 @@ public class TaskViewController {
             emailLabel.setText(Session.getActiveUser().getEmail());
             refreshAndFilterTaskList();
         } catch (IOException e) {
-            DialogFactory.getOKDialog("Open settings failed", "Unable to open add settings window.").show();
+            Session.getLogger()
+                    .severe(String.format("Unable to open settings window.%nError message: '%s'", e.getMessage()));
+            DialogFactory.getOKDialog("Add task failed", "Unable to open settings window.").show();
         }
     }
 
@@ -273,7 +281,9 @@ public class TaskViewController {
         try {
             Session.setLocation("login");
         } catch (IOException e) {
-            DialogFactory.getOKDialog("Logout failed", "Unable to set location to login screen.").show();
+            Session.getLogger()
+                    .severe(String.format("Unable to open login screen%nError message: '%s'", e.getMessage()));
+            DialogFactory.getOKDialog("Logout failed", "Unable to go to login screen.").show();
         }
     }
 

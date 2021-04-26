@@ -1,5 +1,10 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.exceptions;
 
+/**
+ * Exception thrown to indicate a given password does not match the record.
+ *
+ * @author trthingnes
+ */
 public class IncorrectPasswordException extends Exception {
     public IncorrectPasswordException() {
         super();

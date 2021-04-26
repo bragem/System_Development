@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
- * Generates {@link Dialog} objects.
+ * Factory for {@link Dialog} objects.
  * 
  * @author trthingnes
  */

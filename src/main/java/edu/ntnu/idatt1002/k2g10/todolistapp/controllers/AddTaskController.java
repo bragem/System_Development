@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 /**
- * Custom controller for adding a new task
+ * Controller for the add task window.
  *
  * @author chrisoss
  */
@@ -47,7 +47,7 @@ public class AddTaskController {
      * @author bragem, trthingnes
      */
     public void onSubmit() {
-        // Get current stage from a field
+        // Get current stage from a field.
         Stage stage = (Stage) titleField.getScene().getWindow();
 
         String title = titleField.getText();
@@ -61,9 +61,8 @@ public class AddTaskController {
                 .orElse(null);
 
         if ((endDate == null || endDate.isBefore(startDate))) {
-            DialogFactory
-                    .getOKDialog("Task Not Added", "Start Date can not be set after End Date/\nEnd Date cannot be null")
-                    .show();
+            String content = "End date cannot be null, and has to be after start date.";
+            DialogFactory.getOKDialog("Task add failed", content).show();
             return;
         }
 
@@ -73,7 +72,9 @@ public class AddTaskController {
             Session.save();
             stage.close();
         } catch (SQLException e) {
-            DialogFactory.getOKDialog("Task add failed", "Unable to add task.\n(" + e.getMessage() + ")").show();
+            String content = String.format("Unable to add task.%nError message: '%s'", e.getMessage());
+            Session.getLogger().warning(content);
+            DialogFactory.getOKDialog("Task add failed", content).show();
         }
     }
 }

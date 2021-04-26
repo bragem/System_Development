@@ -21,7 +21,7 @@ import javafx.fxml.FXML;
 import javax.persistence.EntityNotFoundException;
 
 /**
- * Controller for the Login view.
+ * Controller for the login window.
  *
  * @author trthingnes
  */
@@ -128,12 +128,13 @@ public class LoginController {
 
             Session.setLocation("taskview");
         } catch (EntityNotFoundException | IncorrectPasswordException e) {
-            Session.getLogger().warning(e.getMessage());
+            Session.getLogger().info(String.format("Login failed with the message '%s'.", e.getMessage()));
             DialogFactory.getOKDialog("Login failed", "Incorrect username or password.").show();
         } catch (SQLException | IOException e) {
-            Session.getLogger().severe(e.getMessage());
-            DialogFactory.getOKDialog("Login failed",
-                    "Unable to log in because of an internal error. (" + e.getMessage() + ")").show();
+            String content = String.format("An internal error occured while logging in.%nError message: '%s'",
+                    e.getMessage());
+            Session.getLogger().severe(content);
+            DialogFactory.getOKDialog("Login failed", content).show();
         }
 
     }

@@ -1,5 +1,8 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.utils.icons;
 
+/**
+ * Enum containing unicode codes for FontAwesome icons.
+ */
 public enum FontAwesomeIcon {
     FA_500PX('\uf26e'), ADJUST('\uf042'), ADN('\uf170'), ALIGN_CENTER('\uf037'), ALIGN_JUSTIFY('\uf039'),
     ALIGN_LEFT('\uf036'), ALIGN_RIGHT('\uf038'), AMAZON('\uf270'), AMBULANCE('\uf0f9'), ANCHOR('\uf13d'),
