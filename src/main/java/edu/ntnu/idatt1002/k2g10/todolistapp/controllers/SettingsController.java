@@ -61,6 +61,9 @@ public class SettingsController {
         themePicker.getSelectionModel().select(newTheme.getDisplayName());
     }
 
+    /**
+     * Saves changes to user if all data is valid.
+     */
     @FXML
     public void applyChanges() {
         if (Session.getActiveUser().verifyPassword(verifyPassword.getText())) {
@@ -87,6 +90,9 @@ public class SettingsController {
         }
     }
 
+    /**
+     * Closes the popup window.
+     */
     @FXML
     public void cancel() {
         Stage stage = (Stage) cancelButton.getScene().getWindow();

@@ -12,13 +12,62 @@ import java.util.Optional;
  * @author hasanoma
  */
 public interface DAO<T> {
+    /**
+     * Gets object T with given identifier.
+     *
+     * @param identifier
+     *            Identifier.
+     *
+     * @return T
+     *
+     * @throws SQLException
+     *             If query fails.
+     */
     Optional<T> get(String identifier) throws SQLException;
 
+    /**
+     * Create the given object T.
+     *
+     * @param entity
+     *            T.
+     *
+     * @throws SQLException
+     *             If query fails.
+     */
     void create(T entity) throws SQLException;
 
+    /**
+     * Updates the given object T.
+     *
+     * @param entity
+     *            T.
+     *
+     * @throws SQLException
+     *             If query fails.
+     */
     void update(T entity) throws SQLException;
 
+    /**
+     * Deletes the given object T.
+     *
+     * @param entity
+     *            T.
+     *
+     * @throws SQLException
+     *             If query fails.
+     */
     void delete(T entity) throws SQLException;
 
+    /**
+     * Gets whether object T exists or not.
+     *
+     * @param entity
+     *            T.
+     *
+     * @return True if exists, false if not.
+     *
+     * @throws SQLException
+     *             If query fails.
+     */
     boolean exists(T entity) throws SQLException;
 }

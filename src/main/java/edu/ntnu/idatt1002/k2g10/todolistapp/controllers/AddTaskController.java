@@ -34,6 +34,9 @@ public class AddTaskController {
     @FXML
     private DatePicker endDatePicker;
 
+    /**
+     * Initializes the view on load.
+     */
     public void initialize() {
         // Add priorities and categories to dropdowns
         Arrays.stream(Priority.values()).forEach(p -> priorityDropdown.getItems().add(p.toString()));
@@ -42,7 +45,9 @@ public class AddTaskController {
     }
 
     /**
-     * Method which adds new task when user presses "add task"-button. Also saves the userdata to file upon completion.
+     * Adds new task when user presses "add task"-button.
+     *
+     * Also saves user data after adding task.
      *
      * @author bragem, trthingnes
      */

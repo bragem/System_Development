@@ -40,20 +40,20 @@ public class Task implements Serializable {
     private boolean completed = false;
 
     /**
-     * Constructor of Task class
+     * Constructor of Task class.
      * 
      * @param title
-     *            Title of the task
+     *            Title of the task.
      * @param description
-     *            Description of a task
+     *            Description of a task.
      * @param startTime
-     *            Time start of the task
+     *            Time start of the task.
      * @param endTime
-     *            Deadline of the task
+     *            Deadline of the task.
      * @param priority
-     *            Task priority
+     *            Task priority.
      * @param category
-     *            Category of the task object
+     *            Category of the task object.
      */
     public Task(String title, String description, LocalDate startTime, LocalDate endTime, Priority priority,
             Category category) {
@@ -66,18 +66,18 @@ public class Task implements Serializable {
     }
 
     /**
-     * Constructor of Task class
+     * Constructor of Task class.
      * 
      * @param title
-     *            Title of the task
+     *            Title of the task.
      * @param description
-     *            Description of a task
+     *            Description of a task.
      * @param startTime
-     *            Time start of the task
+     *            Time start of the task.
      * @param endTime
-     *            Deadline of the task
+     *            Deadline of the task.
      * @param priority
-     *            Task priority
+     *            Task priority.
      */
     public Task(String title, String description, LocalDate startTime, LocalDate endTime, Priority priority) {
         this.title = title;
@@ -153,9 +153,5 @@ public class Task implements Serializable {
 
     public Category getCategory() {
         return category;
-    }
-
-    public void removeCategory(Category category) {
-        setCategory(null);
     }
 }

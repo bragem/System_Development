@@ -71,6 +71,9 @@ public class TaskDetailsController {
         loader.load();
     }
 
+    /**
+     * Initializes the view on load.
+     */
     @FXML
     public void initialize() {
         updateLabels();
@@ -161,7 +164,7 @@ public class TaskDetailsController {
     }
 
     /**
-     * Updated the category icon with the icon for the selected category.
+     * Update the category icon with the icon for the selected category.
      */
     private void updateIcons() {
         Category category = Session.getActiveUser().getTaskList().getCategories().stream()
@@ -185,7 +188,7 @@ public class TaskDetailsController {
     }
 
     /**
-     * Gets the task from the box.
+     * Gets the displayed task.
      *
      * @return Task contained in box.
      */

@@ -36,7 +36,7 @@ public class SignupController {
     private JFXComboBox<String> themePicker;
 
     /**
-     * Runs when the view is loaded.
+     * Initializes the view on load.
      */
     @FXML
     public void initialize() {

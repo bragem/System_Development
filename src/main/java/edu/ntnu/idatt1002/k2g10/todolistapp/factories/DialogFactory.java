@@ -12,6 +12,9 @@ import javafx.stage.Stage;
  * @author trthingnes
  */
 public class DialogFactory {
+    private DialogFactory() {
+    }
+
     /**
      * Get a dialog with the given title, content and buttons.
      *

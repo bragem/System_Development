@@ -6,6 +6,7 @@ import edu.ntnu.idatt1002.k2g10.todolistapp.factories.DialogFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.factories.PopupWindowFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.Category;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.Task;
+import edu.ntnu.idatt1002.k2g10.todolistapp.models.User;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -48,9 +49,14 @@ public class TaskViewController {
     private Category categoryFilter = null;
 
     /**
-     * Initializes task and category lists and user info labels.
-     *
-     * Runs on scene load.
+     * Enum for task filtering modes.
+     */
+    enum TaskViewMode {
+        OVERVIEW, UPCOMING, DAY, WEEK, MONTH, COMPLETED
+    }
+
+    /**
+     * Initializes {@link Task} and {@link Category} lists and {@link User} info labels on load.
      */
     @FXML
     public void initialize() {
@@ -252,7 +258,8 @@ public class TaskViewController {
                     .severe(String.format("Failed to show detail task box.%nError message: '%s'", e.getMessage()));
             DialogFactory.getOKDialog("Task detail failed", "Failed to show detailed task view.").show();
         } catch (NullPointerException ignored) {
-            /* Do not try to show detail task box if task is not defined */}
+            /* Do not try to show detail task box if task is not defined */
+        }
     }
 
     /**
@@ -285,9 +292,5 @@ public class TaskViewController {
                     .severe(String.format("Unable to open login screen%nError message: '%s'", e.getMessage()));
             DialogFactory.getOKDialog("Logout failed", "Unable to go to login screen.").show();
         }
-    }
-
-    enum TaskViewMode {
-        OVERVIEW, UPCOMING, DAY, WEEK, MONTH, COMPLETED
     }
 }

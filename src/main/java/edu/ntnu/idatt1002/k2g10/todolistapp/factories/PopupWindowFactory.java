@@ -16,6 +16,9 @@ import java.io.IOException;
  * @author trthingnes
  */
 public class PopupWindowFactory {
+    private PopupWindowFactory() {
+    }
+
     /**
      * Gets a popup window with the given fxml name.
      * 
