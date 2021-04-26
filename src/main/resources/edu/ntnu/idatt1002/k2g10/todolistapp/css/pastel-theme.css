@@ -1,14 +1,17 @@
 * {
     -background-color: whitesmoke;
     -textfield-background-color: -background-color;
+    -selectfield-background-color: #ffffff;
     -dropdown-background-color: -background-color;
     -button-background-color: -background-color;
     -menu-background-color: linear-gradient(to bottom, whitesmoke, #1dbbdd11);
     -user-menu-background-color: #1dbbdd11;
     -border-color: black;
     -fill-color: black;
+    -button-text-color: black;
     -prompt-color: #969696;
     -unfocus-color: #a0a0a0;
+    -datepicker-background-color: whitesmoke;
 }
 
 .splash-img {
