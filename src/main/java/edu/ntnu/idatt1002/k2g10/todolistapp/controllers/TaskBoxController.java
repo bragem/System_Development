@@ -59,13 +59,18 @@ public class TaskBoxController {
         container.setPrefWidth(Double.MAX_VALUE);
     }
 
+    /**
+     * Makes the parent controller show task details screen.
+     * 
+     * @see TaskViewController#showTaskDetails(Task)
+     */
     @FXML
     public void showTaskDetails() {
         parentController.showTaskDetails(task);
     }
 
     /**
-     * Updated the completed status of the given event on checkbox check.
+     * Updates the completed status of the given event on checkbox check.
      *
      * @param event
      *            Click event.
