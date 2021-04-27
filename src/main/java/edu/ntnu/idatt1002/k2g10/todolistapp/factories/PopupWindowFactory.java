@@ -3,7 +3,7 @@ package edu.ntnu.idatt1002.k2g10.todolistapp.factories;
 import edu.ntnu.idatt1002.k2g10.todolistapp.App;
 import edu.ntnu.idatt1002.k2g10.todolistapp.Session;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+import javafx.scene.*;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -39,6 +39,7 @@ public class PopupWindowFactory {
         popupWindow.getScene().getStylesheets().add(App.class.getResource(path).toString());
         popupWindow.getIcons().add(new Image(App.class.getResource("img/icon.png").toString()));
         popupWindow.initModality(Modality.APPLICATION_MODAL);
+        popupWindow.setResizable(false);
 
         return popupWindow;
     }
