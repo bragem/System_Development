@@ -54,61 +54,6 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * This method adds a new Category to the category-hashset
-     *
-     * @author hasanro
-     */
-    public boolean addCategory(Category category) {
-        return categories.add(category);
-    }
-
-    /**
-     * This method removes a specific category
-     *
-     * @param category
-     *            Category to remove
-     *
-     * @author hasanro
-     */
-    public boolean removeCategory(Category category) {
-        return categories.remove(category);
-    }
-
-    /**
-     * Method that adds a task to the tasklist.
-     *
-     * @param newTask
-     *            Task to be added
-     *
-     * @author bragemi
-     */
-    public void addTask(Task newTask) {
-        tasks.add(newTask);
-    }
-
-    /**
-     * Method sets a task as completed
-     *
-     * @param task
-     *            task object
-     */
-    public void setCompleted(Task task) {
-        int index = tasks.indexOf(task);
-        tasks.get(index).setCompleted(true);
-    }
-
-    /**
-     * Sets task as not completed
-     *
-     * @param task
-     *            task object
-     */
-    public void setNotCompleted(Task task) {
-        int index = tasks.indexOf(task);
-        tasks.get(index).setCompleted(false);
-    }
-
-    /**
      * Method for sorting {@link Task} objects in {@link TaskList} by date
      *
      * @return A sorted ArrayList

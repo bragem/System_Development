@@ -48,7 +48,7 @@ public class AddCategoryController {
 
         try {
             Category newCategory = new Category(categoryTitle, categoryIcon);
-            Session.getActiveUser().getTaskList().addCategory(newCategory);
+            Session.getActiveUser().getTaskList().getCategories().add(newCategory);
             Session.save(); // Saves user data.
             stage.close();
         } catch (SQLException e) {

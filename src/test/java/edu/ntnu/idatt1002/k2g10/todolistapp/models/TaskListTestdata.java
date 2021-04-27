@@ -13,9 +13,9 @@ public final class TaskListTestdata {
         Category testC2 = new Category("c2", '\uf17b');
         Category testC3 = new Category("c3", '\uf17b');
 
-        tasks.addCategory(testC1);
-        tasks.addCategory(testC2);
-        tasks.addCategory(testC3);
+        tasks.getCategories().add(testC1);
+        tasks.getCategories().add(testC2);
+        tasks.getCategories().add(testC3);
 
         LocalDate today = LocalDate.now();
 
@@ -24,11 +24,12 @@ public final class TaskListTestdata {
         Task task3 = new Task("task3", "test task", today, today.plusDays(5), Priority.LOW, testC3);
         Task task4 = new Task("task4", "test task", today, today.plusDays(9), Priority.MEDIUM);
         Task task5 = new Task("task5", "test task", today, today.plusDays(1), Priority.NONE);
-        tasks.addTask(task1);
-        tasks.addTask(task2);
-        tasks.addTask(task3);
-        tasks.addTask(task4);
-        tasks.addTask(task5);
+        tasks.getTasks().add(task1);
+        tasks.getTasks().add(task2);
+        tasks.getTasks().add(task3);
+        tasks.getTasks().add(task4);
+        tasks.getTasks().add(task5);
+
         return tasks;
     }
 }
