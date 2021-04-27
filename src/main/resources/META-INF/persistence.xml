@@ -17,4 +17,21 @@
             <property name="javax.persistence.schema-generation.database.action" value="create" />
         </properties>
     </persistence-unit>
+    <persistence-unit name="pu-todo-derby-test">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <class>edu.ntnu.idatt1002.k2g10.todolistapp.models.User</class>
+        <class>edu.ntnu.idatt1002.k2g10.todolistapp.models.TaskList</class>
+        <class>edu.ntnu.idatt1002.k2g10.todolistapp.models.Task</class>
+        <class>edu.ntnu.idatt1002.k2g10.todolistapp.models.Category</class>
+
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.apache.derby.iapi.jdbc.AutoloadedDriver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:derby:todolistapp_test_db;create=true" />
+            <property name="javax.persistence.jdbc.user" value="root" />
+            <property name="javax.persistence.jdbc.password" value="TEST_PASSWORD" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyTenSevenDialect" />
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
+        </properties>
+    </persistence-unit>
 </persistence>

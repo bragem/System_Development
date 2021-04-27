@@ -7,80 +7,77 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TaskListTest {
-
     @Test
-    @DisplayName("Set tasks as completed")
+    @DisplayName("Task is completed after being marked as completed")
     void setTaskAsCompleted() {
         TaskList tasks = TaskListTestdata.fillTasklistWithData(new TaskList());
 
-        tasks.setCompleted(tasks.getTasks().get(0));
+        tasks.getTasks().get(0).setCompleted(true);
+
         assertTrue(tasks.getTasks().get(0).getCompleted());
     }
 
     @Test
-    @DisplayName("Set tasks as not completed")
+    @DisplayName("Task is not completed after being marked as not completed")
     void setTaskAsNotCompleted() {
         TaskList tasks = TaskListTestdata.fillTasklistWithData(new TaskList());
 
-        tasks.setCompleted(tasks.getTasks().get(0));
-        tasks.setNotCompleted(tasks.getTasks().get(0));
+        tasks.getTasks().get(0).setCompleted(true);
+        tasks.getTasks().get(0).setCompleted(false);
+
         assertFalse(tasks.getTasks().get(0).getCompleted());
     }
 
     @Test
-    @DisplayName("Sort tasks by category")
+    @DisplayName("Tasks sorted by category is sorted correctly")
     void sortTasksByCategory() {
         TaskList tasks = TaskListTestdata.fillTasklistWithData(new TaskList());
         Category category = tasks.getTasks().get(0).getCategory();
+
         ArrayList<Task> sortedList = tasks.filterByCategory(category);
+
         assertEquals(tasks.getTasks().get(0), sortedList.get(0));
     }
 
     @Test
-    @DisplayName("Sort tasks by priority")
+    @DisplayName("Tasks sorted by priority is sorted correctly")
     void sortTasksByPriority() {
         TaskList tasks = TaskListTestdata.fillTasklistWithData(new TaskList());
+
         ArrayList<Task> sortedList = tasks.sortByPriority();
+
         assertEquals(tasks.getTasks().get(1).getTitle(), sortedList.get(0).getTitle());
     }
 
     @Test
-    @DisplayName("Sort tasks by date")
+    @DisplayName("Tasks sorted by date is sorted correctly")
     void sortTasksByDate() {
         TaskList tasks = TaskListTestdata.fillTasklistWithData(new TaskList());
+
         ArrayList<Task> sortedList = tasks.sortByEndDate();
+
         assertEquals(tasks.getTasks().get(4).getTitle(), sortedList.get(0).getTitle());
     }
 
     @Test
-    @DisplayName("Adding a non-existent task when supposed to")
-    void addingNonExistingTaskWhenSupposedTo() {
-        TaskList tasks = TaskListTestdata.fillTasklistWithData(new TaskList());
-        int sizeBefore = tasks.getTasks().size();
-        Task newTask = new Task("tfe", "efef", tasks.getTasks().get(0).getStartTime(),
-                tasks.getTasks().get(0).getEndTime(), tasks.getTasks().get(0).getPriority());
-        tasks.addTask(newTask);
-
-        int sizeAfter = tasks.getTasks().size();
-        assertEquals(sizeBefore + 1, sizeAfter);
-
-    }
-
-    @Test
-    @DisplayName("Sorts tasks alphabetically")
+    @DisplayName("Tasks sorted A-Z by title is sorted correctly")
     void sortTasksAlphabetically() {
         TaskList tasks = TaskListTestdata.fillTasklistWithData(new TaskList());
+
         Task taskA = tasks.getTasks().get(0);
         ArrayList<Task> list = tasks.sortByName();
+
         assertEquals(taskA, list.get(0));
     }
 
     @Test
-    @DisplayName("Sorts tasks alphabetically by category name")
+    @DisplayName("Tasks sorted A-Z by category title is sorted correctly")
     void sortTasksAlphabeticallyByCategory() {
         TaskList tasks = TaskListTestdata.fillTasklistWithData(new TaskList());
+
         Task taskA = tasks.getTasks().get(0);
         ArrayList<Task> list = tasks.sortByCategory();
+
         assertEquals(taskA, list.get(0));
     }
 }

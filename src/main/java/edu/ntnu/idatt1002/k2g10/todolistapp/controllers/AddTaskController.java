@@ -73,7 +73,7 @@ public class AddTaskController {
 
         try {
             Task newTask = new Task(title, desc, startDate, endDate, priority, category);
-            Session.getActiveUser().getTaskList().addTask(newTask);
+            Session.getActiveUser().getTaskList().getTasks().add(newTask);
             Session.save();
             stage.close();
         } catch (SQLException e) {
