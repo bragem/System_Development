@@ -224,6 +224,12 @@ public class TaskViewController {
      */
     @FXML
     public void deleteSelectedCategory() {
+        if (!Session.getActiveUser().getTaskList().getTasks().isEmpty()
+                && Session.getActiveUser().getTaskList().getCategories().size() == 1) {
+            DialogFactory.getOKDialog("Category remove failed", "Cannot remove last category when tasks exist.").show();
+            return;
+        }
+
         Category category = Session.getActiveUser().getTaskList().getCategories().stream()
                 .filter(c -> c.getTitle().equals(categoryDeleteDropdown.getSelectionModel().getSelectedItem()))
                 .findAny().orElse(null);
@@ -242,8 +248,10 @@ public class TaskViewController {
                 Session.getActiveUser().getTaskList().getCategories().remove(category);
 
                 // Assign a new category to the tasks that need it.
-                Category newCategory = Session.getActiveUser().getTaskList().getCategories().get(0);
-                needsNewCategory.forEach(task -> task.setCategory(newCategory));
+                if (!Session.getActiveUser().getTaskList().getCategories().isEmpty()) {
+                    Category newCategory = Session.getActiveUser().getTaskList().getCategories().get(0);
+                    needsNewCategory.forEach(task -> task.setCategory(newCategory));
+                }
 
                 try {
                     Session.save();
