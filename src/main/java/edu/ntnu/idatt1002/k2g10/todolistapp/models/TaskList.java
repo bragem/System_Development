@@ -1,5 +1,7 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.models;
 
+import edu.ntnu.idatt1002.k2g10.todolistapp.utils.icons.FontAwesomeIcon;
+
 import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -32,6 +34,7 @@ public class TaskList implements Serializable {
     public TaskList() {
         this.tasks = new ArrayList<>();
         this.categories = new ArrayList<>();
+        categories.add(new Category("Uncategorized", FontAwesomeIcon.QUESTION_CIRCLE.getChar()));
     }
 
     public void setId(Long id) {

@@ -43,12 +43,12 @@
                   <Font size="16.0" />
                </font>
                <GridPane.margin>
-                  <Insets bottom="5.0" left="30.0" />
+                  <Insets bottom="5.0" />
                </GridPane.margin>
             </Label>
             <JFXTextField fx:id="titleField" style="-fx-font-size: 16;" styleClass="textfield" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets left="30.0" right="30.0" />
+                  <Insets />
                </GridPane.margin>
                <font>
                   <Font size="16.0" />
@@ -59,19 +59,19 @@
                   <Font size="16.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="30.0" />
+                  <Insets />
                </GridPane.margin>
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
                <children>
                   <Label fx:id="categoryIconLabel" minWidth="25.0" styleClass="icon" text="">
                      <HBox.margin>
-                        <Insets left="30.0" />
+                        <Insets />
                      </HBox.margin>
                   </Label>
-                  <JFXComboBox fx:id="categoryDropdown" prefWidth="1000.0" promptText="Category" styleClass="selectfield" HBox.hgrow="ALWAYS">
+                  <JFXComboBox fx:id="categoryDropdown" prefWidth="120.0" promptText="Category" styleClass="selectfield" HBox.hgrow="ALWAYS">
                      <HBox.margin>
-                        <Insets left="10.0" right="30.0" />
+                        <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </JFXComboBox>
                </children>
@@ -81,7 +81,7 @@
                   <Font size="16.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="30.0" />
+                  <Insets left="25.0" />
                </GridPane.margin>
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
@@ -93,7 +93,7 @@
                   </Label>
                   <JFXComboBox fx:id="priorityDropdown" prefWidth="1000.0" promptText="Priority" styleClass="selectfield" HBox.hgrow="ALWAYS">
                      <HBox.margin>
-                        <Insets left="10.0" right="30.0" />
+                        <Insets left="10.0" />
                      </HBox.margin>
                   </JFXComboBox>
                </children>
@@ -103,12 +103,12 @@
                   <Font size="16.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="30.0" />
+                  <Insets />
                </GridPane.margin>
             </Label>
             <DatePicker fx:id="startDate" styleClass="startDate" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7">
                <GridPane.margin>
-                  <Insets left="30.0" right="30.0" />
+                  <Insets right="15.0" />
                </GridPane.margin>
             </DatePicker>
             <Label text="End date" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6">
@@ -116,12 +116,12 @@
                   <Font size="16.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="30.0" />
+                  <Insets left="16.0" />
                </GridPane.margin>
             </Label>
             <DatePicker fx:id="endDate" styleClass="endDate" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7">
                <GridPane.margin>
-                  <Insets left="30.0" right="30.0" />
+                  <Insets left="15.0" />
                </GridPane.margin>
             </DatePicker>
             <Label text="Description" GridPane.rowIndex="9">
@@ -129,12 +129,12 @@
                   <Font size="16.0" />
                </font>
                <GridPane.margin>
-                  <Insets bottom="5.0" left="30.0" />
+                  <Insets bottom="5.0" />
                </GridPane.margin>
             </Label>
             <JFXTextArea id="descriptionField" fx:id="descriptionArea" styleClass="textfield" GridPane.columnSpan="2147483647" GridPane.rowIndex="10" GridPane.vgrow="ALWAYS">
                <GridPane.margin>
-                  <Insets left="30.0" right="30.0" />
+                  <Insets />
                </GridPane.margin>
             </JFXTextArea>
             <JFXCheckBox id="completedCheck" fx:id="completedBox" onAction="#saveTaskCompletedStatus" text="Mark as done" GridPane.halignment="CENTER" GridPane.rowIndex="12">
@@ -145,7 +145,7 @@
             <JFXButton id="saveButton" fx:id="saveButton" onMouseClicked="#saveTaskChanges" text="Save" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="12" />
          </children>
          <VBox.margin>
-            <Insets bottom="30.0" top="30.0" />
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </VBox.margin>
       </GridPane>
    </children>

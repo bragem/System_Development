@@ -61,13 +61,16 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label prefHeight="20.0" prefWidth="65.0" text="Category" GridPane.columnIndex="3" GridPane.rowIndex="4">
+            <Label prefHeight="20.0" prefWidth="65.0" text="Category" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="titleField" styleClass="textfield" GridPane.columnIndex="1" GridPane.columnSpan="2" />
-            <JFXComboBox fx:id="categoryDropdown" labelFloat="true" prefHeight="26.0" prefWidth="85.0" styleClass="selectfield" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <JFXTextField fx:id="titleField" styleClass="textfield" GridPane.columnIndex="1" GridPane.columnSpan="3" />
+            <JFXComboBox fx:id="categoryDropdown" labelFloat="true" prefHeight="26.0" prefWidth="1000.0" styleClass="selectfield" GridPane.columnIndex="3" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="25.0" />
+               </GridPane.margin></JFXComboBox>
             <JFXComboBox fx:id="priorityDropdown" labelFloat="true" prefHeight="26.0" prefWidth="85.0" styleClass="selectfield" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <!--<JFXDatePicker fx:id="startDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="6" />-->
             <!--<JFXDatePicker fx:id="endDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="8" />-->

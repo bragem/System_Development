@@ -71,7 +71,7 @@
                         </HBox>
                         <HBox alignment="CENTER_LEFT" minHeight="40.0" prefHeight="100.0" prefWidth="317.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                             <children>
-                                <JFXButton onMouseClicked="#login" text="Login">
+                                <JFXButton onMouseClicked="#login" text=" Login">
                                     <HBox.margin>
                                         <Insets />
                                     </HBox.margin>

@@ -30,7 +30,7 @@
                               <Insets bottom="5.0" left="2.0" />
                            </VBox.margin>
                         </Label>
-                        <JFXListView fx:id="viewModeList" styleClass="list-view" prefWidth="150.0" />
+                        <JFXListView fx:id="viewModeList" prefWidth="150.0" styleClass="list-view" />
                      </children>
                      <padding>
                         <Insets bottom="30.0" left="10.0" right="10.0" top="10.0" />
@@ -49,16 +49,19 @@
                               <Insets bottom="5.0" />
                            </VBox.margin>
                         </Label>
-                        <JFXButton onMouseClicked="#showAddCategory" prefHeight="25.0" prefWidth="200.0" text="Add new category">
+                        <JFXButton onMouseClicked="#showAddCategory" prefHeight="25.0" prefWidth="200.0" text=" Add new category">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </JFXButton>
                         <VBox prefHeight="0.0" prefWidth="130.0" VBox.vgrow="NEVER" />
-                        <JFXComboBox fx:id="categoryDeleteDropdown" onAction="#deleteSelectedCategory" prefWidth="2000.0" promptText="Delete category" styleClass="selectfield">
+                        <JFXComboBox fx:id="categoryDeleteDropdown" onAction="#deleteSelectedCategory" prefWidth="2000.0" promptText=" Delete category" styleClass="selectfield">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
                         </JFXComboBox>
                         <JFXListView fx:id="categoryList" styleClass="categories-list" VBox.vgrow="ALWAYS" />
                         <VBox prefHeight="40.0" prefWidth="144.0" VBox.vgrow="NEVER" />
@@ -80,12 +83,12 @@
                 <RowConstraints maxHeight="45.00001220703124" minHeight="10.0" prefHeight="41.00003662109375" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXButton alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#showSettings" text="Settings" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <JFXButton alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#showSettings" text=" Settings" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </JFXButton>
-                  <JFXButton id="logout" fx:id="logout" onMouseClicked="#logout" text="Logout" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <JFXButton id="logout" fx:id="logout" onMouseClicked="#logout" text=" Logout" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
@@ -113,7 +116,7 @@
          <children>
             <HBox styleClass="top-menu">
                <children>
-                  <JFXButton minWidth="-Infinity" onMouseClicked="#showAddTask" text="New task" HBox.hgrow="ALWAYS">
+                  <JFXButton minWidth="-Infinity" onMouseClicked="#showAddTask" text=" New task" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin></JFXButton>
