@@ -48,6 +48,17 @@ public class Session {
     }
 
     /**
+     * Deletes the current user from the database.
+     *
+     * @throws SQLException
+     *             If user not found.
+     */
+    public static void deleteUser() throws SQLException {
+        UserDAO userDAO = new UserDAO(em);
+        userDAO.delete(activeUser);
+    }
+
+    /**
      * Sets the scene location to the given FXML file.
      * 
      * @param fxml

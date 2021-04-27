@@ -10,7 +10,12 @@ import edu.ntnu.idatt1002.k2g10.todolistapp.Theme;
 import edu.ntnu.idatt1002.k2g10.todolistapp.factories.DialogFactory;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Controller for the settings window.
@@ -28,6 +33,8 @@ public class SettingsController {
     public JFXPasswordField verifyPassword;
     @FXML
     public JFXButton cancelButton;
+    @FXML
+    public JFXButton deleteAccount;
     @FXML
     private JFXComboBox<String> themePicker;
 
@@ -86,16 +93,44 @@ public class SettingsController {
             Session.getActiveUser().setEmail(emailTextField.getText());
             Session.getActiveUser().setUsername(userNameTextField.getText());
         } else {
-            DialogFactory.getOKDialog("Save failed", "Password was incorrect.").show();
+            DialogFactory.getOKDialog("Save failed", "Password is incorrect.").show();
         }
     }
 
     /**
-     * Closes the popup window.
+     * Closes current stage.
      */
     @FXML
     public void cancel() {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
+    }
+
+    /**
+     * Deletes account of user.
+     *
+     * @throws SQLException
+     *             If user not found.
+     */
+    public void deleteAccount() throws SQLException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                "Are you sure you want to delete user:\n" + Session.getActiveUser().getUsername(), ButtonType.YES,
+                ButtonType.NO);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.YES) {
+            Session.deleteUser();
+            alert.close();
+            Stage stage = (Stage) cancelButton.getScene().getWindow();
+            stage.close();
+            try {
+                Session.setLocation("login");
+            } catch (IOException e) {
+                Session.getLogger()
+                        .severe(String.format("Unable to open login screen%nError message: '%s'", e.getMessage()));
+                DialogFactory.getOKDialog("Logout failed", "Unable to go to login screen.").show();
+            }
+        } else if (alert.getResult() == ButtonType.NO) {
+            alert.close();
+        }
     }
 }
