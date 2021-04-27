@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.controllers;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import edu.ntnu.idatt1002.k2g10.todolistapp.Session;
 import edu.ntnu.idatt1002.k2g10.todolistapp.factories.DialogFactory;
@@ -28,6 +29,8 @@ import java.util.stream.Stream;
 public class TaskViewController {
     @FXML
     private JFXTextField searchField;
+    @FXML
+    private JFXComboBox sortBox;
     @FXML
     private ListView<TaskViewMode> viewModeList;
     @FXML
@@ -71,12 +74,16 @@ public class TaskViewController {
         viewModeList.getItems().addAll(TaskViewMode.values());
         viewModeList.getSelectionModel().selectedItemProperty().addListener(mode -> changeTaskViewMode());
 
+        sortBox.getSelectionModel().selectedItemProperty().addListener(filter -> refreshAndFilterTaskList());
+
         // Link category list view to category list.
         categoryList.getSelectionModel().selectedItemProperty().addListener(category -> changeCategoryViewMode());
         refreshCategoryList();
 
         // Make detail panel grow to fill right menu.
         taskDetailPanel.setPrefHeight(Double.MAX_VALUE);
+
+        addSortModes();
 
     }
 
@@ -103,7 +110,7 @@ public class TaskViewController {
     @FXML
     public void refreshAndFilterTaskList() {
         String query = searchField.getText().toLowerCase(Locale.ROOT);
-        List<Task> tasksToDisplay = new ArrayList<>(Session.getActiveUser().getTaskList().getTasks());
+        List<Task> tasksToDisplay = getSortedTaskList();
 
         // Filter by view mode.
         switch (viewMode) {
@@ -342,5 +349,61 @@ public class TaskViewController {
                     .severe(String.format("Unable to open login screen%nError message: '%s'", e.getMessage()));
             DialogFactory.getOKDialog("Logout failed", "Unable to go to login screen.").show();
         }
+    }
+
+    /**
+     * Fills the desired filters into the filterBox in the GUI
+     */
+    public void addSortModes() {
+        sortBox.getItems().clear();
+        String[] filters = { "Name (A - Z)", "Name (Z - A)", "Category (A - Z)", "Category (Z - A)",
+                "Priority (High - Low)", "Priority (Low - High)" };
+        sortBox.getItems().addAll(filters);
+    }
+
+    /**
+     * Filters the tasks by the chosen filter
+     *
+     * @throws IOException
+     *
+     * @author andetel
+     */
+    public List<Task> getSortedTaskList() {
+
+        List<Task> sortedTaskList = Session.getActiveUser().getTaskList().getTasks();
+
+        if (sortBox.getValue() != null) {
+            String filter = sortBox.getValue().toString();
+
+            switch (filter) {
+            case "Priority (High - Low)":
+                sortedTaskList = Session.getActiveUser().getTaskList().sortByPriority();
+                break;
+            case "Priority (Low - High)":
+                ArrayList<Task> plhTaskList = Session.getActiveUser().getTaskList().sortByPriority();
+                Collections.reverse(plhTaskList);
+                sortedTaskList = plhTaskList;
+                break;
+            case "Category (A - Z)":
+                sortedTaskList = Session.getActiveUser().getTaskList().sortByCategory();
+                break;
+            case "Category (Z - A)":
+                ArrayList<Task> czaTaskList = Session.getActiveUser().getTaskList().sortByCategory();
+                Collections.reverse(czaTaskList);
+                sortedTaskList = czaTaskList;
+                break;
+            case "Name (A - Z)":
+                sortedTaskList = Session.getActiveUser().getTaskList().sortByName();
+                break;
+            case "Name (Z - A)":
+                ArrayList<Task> nzaTaskList = Session.getActiveUser().getTaskList().sortByName();
+                Collections.reverse(nzaTaskList);
+                sortedTaskList = nzaTaskList;
+                break;
+            }
+        }
+
+        return sortedTaskList;
+
     }
 }
