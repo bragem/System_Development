@@ -106,6 +106,7 @@
                 <configuration>
                     <source>${project.java.version}</source>
                     <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
+                    <additionalJOption>-Xdoclint:none</additionalJOption>
                     <reportOutputDirectory>public/javadoc</reportOutputDirectory>
                     <destDir>/</destDir>
                 </configuration>

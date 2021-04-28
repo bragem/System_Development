@@ -5,8 +5,8 @@
     -selectfield-background-color: #ffffff;
     -textfield-background-color: #ffffff;
     -dropdown-background-color: #ffffff;
-    -button-background-color: #7292a6;
-    -menu-background-color: #a4d1ed;
+    -button-background-color: #587587;
+    -menu-background-color: -background-color;
     -user-menu-background-color: whitesmoke;
     -border-color: black;
     -fill-color: black;
@@ -17,5 +17,5 @@
 }
 
 .splash-img {
-    -fx-background-image: url("../img/light/splash.jpg");
+    -fx-background-image: url("../img/light/light.jpg");
 }

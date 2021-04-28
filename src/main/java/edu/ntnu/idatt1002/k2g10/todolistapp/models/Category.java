@@ -31,8 +31,15 @@ public class Category implements Serializable {
      *            Category title to display
      * @param icon
      *            Category symbol/emoji to display
+     *
+     * @throws IllegalArgumentException
+     *             if title or icon is empty
      */
     public Category(String title, char icon) {
+        if (title.isBlank() || Character.toString(icon).equals("")) {
+            throw new IllegalArgumentException("A category must have a title and an icon.");
+        }
+
         this.title = title;
         this.icon = icon;
     }

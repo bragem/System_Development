@@ -9,15 +9,18 @@ import edu.ntnu.idatt1002.k2g10.todolistapp.daos.UserDAO;
 import edu.ntnu.idatt1002.k2g10.todolistapp.factories.DialogFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.User;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Controller for the signup window.
  *
- * @author chrisoss, trthingnes
+ * @author chrisoss, trthingnes, jonathhl, andetel
  */
 public class SignupController {
     @FXML
@@ -34,6 +37,8 @@ public class SignupController {
     private JFXPasswordField confirmPasswordField;
     @FXML
     private JFXComboBox<String> themePicker;
+    @FXML
+    private Label passwordRequirements;
 
     /**
      * Initializes the view on load.
@@ -63,6 +68,14 @@ public class SignupController {
         try {
             if (firstname.isBlank() || lastname.isBlank()) {
                 throw new IllegalArgumentException("First or last name was blank.");
+            }
+
+            if (!isPasswordValid(password)) {
+                passwordRequirements
+                        .setText("The password should at least contain:\n" + "one number,\n" + "one lowercase letter,\n"
+                                + "one symbol,\n" + "no whitespaces,\n" + "and be between 8 and 20 characters long.");
+                throw new IllegalArgumentException("The password doesn't contain all the required characters");
+
             }
 
             if (!Objects.equals(password, confirmPasswordField.getText())) {
@@ -123,5 +136,28 @@ public class SignupController {
         Theme newTheme = Theme.get(themePicker.getSelectionModel().getSelectedItem());
         Session.setTheme(newTheme);
         themePicker.getSelectionModel().select(newTheme.getDisplayName());
+    }
+
+    /**
+     * Checks if the password matches the required pattern and length
+     *
+     * @param pwd
+     *            password to be validated
+     *
+     * @return true if, and only if, password matches pattern
+     */
+    public boolean isPasswordValid(String pwd) {
+        // regex to check valid password
+        String regex = "^(?=.*[0-9])" + // digit must occur at least once
+                "(?=.*[a-z])" + // lowercase letter must occur at least once
+                "(?=.*[A-Z])" + // uppercase letter must occur at least once
+                "(?=.*[!_\"?:;.,@#$%^&-+=()])" + // special character must occur at least once
+                "(?=\\S+$).{8,20}$"; // white spaces not allowed, and length must be 8 - 20
+
+        Pattern pattern = Pattern.compile(regex);
+
+        Matcher matcher = pattern.matcher(pwd);
+
+        return matcher.matches();
     }
 }
