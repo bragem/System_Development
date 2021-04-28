@@ -127,9 +127,14 @@ public class TaskViewController {
 
         case DAY: {
             tasksToDisplay = tasksToDisplay.stream().filter(task -> !task.getCompleted()).collect(Collectors.toList());
-            tasksToDisplay = tasksToDisplay.stream().filter(task -> task.getStartTime()
-                    .datesUntil(task.getEndTime().plusDays(1)).anyMatch(date -> date.equals(LocalDate.now())))
-                    .collect(Collectors.toList());
+            tasksToDisplay = tasksToDisplay.stream().filter(task -> {
+                if (Objects.isNull(task.getStartTime())) {
+                    return task.getEndTime().equals(LocalDate.now());
+                } else {
+                    return task.getStartTime().datesUntil(task.getEndTime().plusDays(1))
+                            .anyMatch(date -> date.equals(LocalDate.now()));
+                }
+            }).collect(Collectors.toList());
             break;
         }
 
@@ -138,9 +143,14 @@ public class TaskViewController {
             List<LocalDate> nextWeekDates = LocalDate.now().datesUntil(LocalDate.now().plusDays(8))
                     .collect(Collectors.toList());
 
-            tasksToDisplay = tasksToDisplay.stream().filter(task -> task.getStartTime()
-                    .datesUntil(task.getEndTime().plusDays(1)).anyMatch(nextWeekDates::contains))
-                    .collect(Collectors.toList());
+            tasksToDisplay = tasksToDisplay.stream().filter(task -> {
+                if (Objects.isNull(task.getStartTime())) {
+                    return nextWeekDates.contains(task.getEndTime());
+                } else {
+                    return task.getStartTime().datesUntil(task.getEndTime().plusDays(1))
+                            .anyMatch(nextWeekDates::contains);
+                }
+            }).collect(Collectors.toList());
             break;
         }
 
@@ -149,9 +159,14 @@ public class TaskViewController {
             List<LocalDate> nextMonthDates = LocalDate.now().datesUntil(LocalDate.now().plusMonths(1).plusDays(1))
                     .collect(Collectors.toList());
 
-            tasksToDisplay = tasksToDisplay.stream().filter(task -> task.getStartTime()
-                    .datesUntil(task.getEndTime().plusDays(1)).anyMatch(nextMonthDates::contains))
-                    .collect(Collectors.toList());
+            tasksToDisplay = tasksToDisplay.stream().filter(task -> {
+                if (Objects.isNull(task.getStartTime())) {
+                    return nextMonthDates.contains(task.getEndTime());
+                } else {
+                    return task.getStartTime().datesUntil(task.getEndTime().plusDays(1))
+                            .anyMatch(nextMonthDates::contains);
+                }
+            }).collect(Collectors.toList());
             break;
         }
 
@@ -231,12 +246,6 @@ public class TaskViewController {
      */
     @FXML
     public void deleteSelectedCategory() {
-        if (!Session.getActiveUser().getTaskList().getTasks().isEmpty()
-                && Session.getActiveUser().getTaskList().getCategories().size() == 1) {
-            DialogFactory.getOKDialog("Category remove failed", "Cannot remove last category when tasks exist.").show();
-            return;
-        }
-
         Category category = Session.getActiveUser().getTaskList().getCategories().stream()
                 .filter(c -> c.getTitle().equals(categoryDeleteDropdown.getSelectionModel().getSelectedItem()))
                 .findAny().orElse(null);
@@ -281,7 +290,7 @@ public class TaskViewController {
 
         // Add categories to delete list.
         List<String> categoryNames = Session.getActiveUser().getTaskList().getCategories().stream()
-                .map(Category::getTitle).collect(Collectors.toList());
+                .map(Category::getTitle).filter(s -> !s.equals("Uncategorized")).collect(Collectors.toList());
         categoryDeleteDropdown.getItems().clear();
         categoryDeleteDropdown.getItems().addAll(categoryNames);
     }

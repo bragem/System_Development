@@ -1,19 +1,21 @@
 * {
-    -background-color: whitesmoke;
-    -textfield-background-color: -background-color;
+    -background-color: transparent;
+    -taskbox-container-background-color: -menu-background-color;
+    -taskbox-hover-color: #979797;
     -selectfield-background-color: #ffffff;
-    -dropdown-background-color: -background-color;
-    -button-background-color: -background-color;
+    -textfield-background-color: -background-color;
+    -dropdown-background-color: #ffffff;
+    -button-background-color: #7292a6;
     -menu-background-color: linear-gradient(to bottom, whitesmoke, #1dbbdd11);
-    -user-menu-background-color: #1dbbdd11;
+    -user-menu-background-color: transparent;
     -border-color: black;
     -fill-color: black;
-    -button-text-color: black;
     -prompt-color: #969696;
+    -button-text-color: #ffffff;
     -unfocus-color: #a0a0a0;
     -datepicker-background-color: whitesmoke;
 }
 
 .splash-img {
-    -fx-background-image: url("../img/light/splash.jpg");
+    -fx-background-image: url("../img/light/pastel.jpg");
 }

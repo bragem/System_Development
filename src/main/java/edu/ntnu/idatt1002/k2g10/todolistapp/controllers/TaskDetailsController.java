@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 /**
  * Controller for the task detail component.
  *
- * @author jonathhl, trthingnes
+ * @author jonathhl, trthingnes, andetel
  */
 public class TaskDetailsController {
     @FXML
@@ -91,34 +91,49 @@ public class TaskDetailsController {
      */
     @FXML
     public void saveTaskChanges() {
-        task.setTitle(titleField.getText());
-        task.setDescription(descriptionArea.getText());
 
-        Category category = Session.getActiveUser().getTaskList().getCategories().stream()
-                .filter(c -> c.getTitle().equals(categoryDropdown.getSelectionModel().getSelectedItem())).findAny()
-                .orElse(task.getCategory());
-        task.setCategory(category);
-        categoryIconLabel.setText(String.valueOf(task.getCategory().getIcon()));
-
-        Priority priority = Arrays.stream(Priority.values())
-                .filter(p -> p.toString().equals(priorityDropdown.getSelectionModel().getSelectedItem())).findAny()
-                .orElse(task.getPriority());
-        task.setPriority(priority);
-
-        if ((endDate == null || endDate.getValue().isBefore(startDate.getValue()))) {
-            String content = "End date cannot be null, and has to be after start date.";
-            DialogFactory.getOKDialog("Task update failed", content).show();
-            return;
-        }
-
-        task.setStartTime(startDate.getValue());
-        task.setEndTime(endDate.getValue());
-
-        parentController.refreshAndFilterTaskList();
-
-        // Saves user to DB.
         try {
+            String title = titleField.getText();
+
+            if (title.equals("")) {
+                throw new IllegalArgumentException("The task needs to have a title.");
+            }
+
+            task.setTitle(title);
+
+            task.setDescription(descriptionArea.getText());
+
+            Category category = Session.getActiveUser().getTaskList().getCategories().stream()
+                    .filter(c -> c.getTitle().equals(categoryDropdown.getSelectionModel().getSelectedItem())).findAny()
+                    .orElse(task.getCategory());
+            task.setCategory(category);
+            categoryIconLabel.setText(String.valueOf(task.getCategory().getIcon()));
+
+            Priority priority = Arrays.stream(Priority.values())
+                    .filter(p -> p.toString().equals(priorityDropdown.getSelectionModel().getSelectedItem())).findAny()
+                    .orElse(task.getPriority());
+            task.setPriority(priority);
+
+            if (startDate != null) {
+                if (endDate == null || endDate.getValue().isBefore(startDate.getValue())) {
+                    String content = "End date can not be empty, and it has to be after start date.";
+                    DialogFactory.getOKDialog("Add task failed", content).show();
+                    return;
+                }
+            }
+
+            task.setStartTime(startDate.getValue());
+            task.setEndTime(endDate.getValue());
+
+            parentController.refreshAndFilterTaskList();
+
+            // Saves user to DB.
             Session.save();
+
+        } catch (IllegalArgumentException e) {
+            String content = String.format("Unable to save changes to task.%nError message: '%s'", e.getMessage());
+            Session.getLogger().warning(content);
+            DialogFactory.getOKDialog("Edit task failed", content).show();
         } catch (SQLException e) {
             String content = String.format("Unable to save user to database%nError message: '%s'", e.getMessage());
             Session.getLogger().severe(content);

@@ -1,6 +1,8 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.controllers;
 
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import edu.ntnu.idatt1002.k2g10.todolistapp.Session;
 import edu.ntnu.idatt1002.k2g10.todolistapp.factories.DialogFactory;
 import edu.ntnu.idatt1002.k2g10.todolistapp.models.Category;
@@ -14,11 +16,12 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * Controller for the add task window.
  *
- * @author chrisoss
+ * @author chrisoss, jonathhl, andetel
  */
 public class AddTaskController {
     @FXML
@@ -46,7 +49,7 @@ public class AddTaskController {
 
     /**
      * Adds new task when user presses "add task"-button.
-     *
+     * <p>
      * Also saves user data after adding task.
      *
      * @author bragem, trthingnes
@@ -59,16 +62,27 @@ public class AddTaskController {
         String desc = descriptionField.getText();
         LocalDate startDate = startDatePicker.getValue();
         LocalDate endDate = endDatePicker.getValue();
-        Priority priority = Priority
-                .valueOf(priorityDropdown.getSelectionModel().getSelectedItem().toUpperCase(Locale.ROOT));
+        Priority priority = Priority.NONE;
+        if (!Objects.isNull(priorityDropdown.getSelectionModel().getSelectedItem())) {
+            priority = Priority
+                    .valueOf(priorityDropdown.getSelectionModel().getSelectedItem().toUpperCase(Locale.ROOT));
+        }
         Category category = Session.getActiveUser().getTaskList().getCategories().stream()
                 .filter(c -> c.getTitle().equals(categoryDropdown.getSelectionModel().getSelectedItem())).findAny()
                 .orElse(null);
 
-        if ((endDate == null || endDate.isBefore(startDate))) {
-            String content = "End date cannot be null, and has to be after start date.";
-            DialogFactory.getOKDialog("Task add failed", content).show();
+        if (title.isBlank() || category == null) {
+            String content = "Some of the data entered was invalid, please correct it and try again.";
+            DialogFactory.getOKDialog("Add task failed", content).show();
             return;
+        }
+
+        if (startDate != null) {
+            if (endDate == null || endDate.isBefore(startDate)) {
+                String content = "End date can not be empty, and it has to be after start date.";
+                DialogFactory.getOKDialog("Add task failed", content).show();
+                return;
+            }
         }
 
         try {

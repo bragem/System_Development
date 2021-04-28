@@ -55,6 +55,7 @@
 .right-menu .text-area {
     -fx-text-fill: -fill-color;
     -fx-background-color: -textfield-background-color;
+    -fx-border-color: -border-color;
 }
 
 .top-menu {
@@ -70,11 +71,11 @@
 }
 
 .right-menu {
-    -fx-background-color: -background-color;
+    -fx-background-color: -menu-background-color;
 }
 
 .left-menu {
-    -fx-background-color: -background-color;
+    -fx-background-color: -menu-background-color;
 }
 
 .menu-option {
@@ -110,11 +111,17 @@
 
 .taskbox-container {
     -fx-background-color: -taskbox-container-background-color;
+    -fx-border-color: -border-color;
 }
 
 .right-menu .check-box {
     -jfx-unchecked-color: -fill-color;
 }
+
+.dialog-pane {
+    -fx-background-color: -background-color;
+}
+
 /*
 ---------- Left Menu List Views -------------
  */
@@ -162,9 +169,6 @@
     -fx-background-color: -user-menu-background-color;
 }
 
-.taskViewBG {
-    -fx-background-color: -menu-background-color;
-}
 /*
 ------------- End List View ---------------
  */

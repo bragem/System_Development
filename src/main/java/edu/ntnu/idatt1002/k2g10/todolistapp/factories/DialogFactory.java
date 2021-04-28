@@ -1,8 +1,10 @@
 package edu.ntnu.idatt1002.k2g10.todolistapp.factories;
 
 import edu.ntnu.idatt1002.k2g10.todolistapp.App;
+import edu.ntnu.idatt1002.k2g10.todolistapp.Session;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -29,6 +31,14 @@ public class DialogFactory {
      */
     public static Dialog<ButtonType> getDialog(String title, String content, ButtonType[] buttonTypes) {
         Dialog<ButtonType> dialog = new Dialog<>();
+
+        DialogPane dialogPane = dialog.getDialogPane();
+        String theme = String.format("css/%s.css", Session.getTheme().getFileName());
+        String styleCss = "css/style.css";
+        dialogPane.getStylesheets().clear();
+        dialogPane.getStylesheets().addAll(App.class.getResource(theme).toString(),
+                App.class.getResource(styleCss).toString());
+
         dialog.setTitle(title);
         dialog.setContentText(content);
         dialog.getDialogPane().getButtonTypes().addAll(buttonTypes);

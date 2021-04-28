@@ -40,17 +40,27 @@ public class AddCategoryController {
      * Submits the new category and closes the window.
      */
     public void onSubmit() {
+        if (titleField.getText().equals("Uncategorized")) {
+            DialogFactory.getOKDialog("Category add failed", "'Uncategorized' is a reserved category name.").show();
+            return;
+        }
+
         // Get current stage from a field
         Stage stage = (Stage) titleField.getScene().getWindow();
 
-        String categoryTitle = titleField.getText();
-        char categoryIcon = iconPicker.getSelectionModel().getSelectedItem().getText().charAt(0);
-
         try {
+            String categoryTitle = titleField.getText();
+            char categoryIcon = iconPicker.getSelectionModel().getSelectedItem().getText().charAt(0);
+
             Category newCategory = new Category(categoryTitle, categoryIcon);
             Session.getActiveUser().getTaskList().getCategories().add(newCategory);
             Session.save(); // Saves user data.
             stage.close();
+        } catch (RuntimeException e) {
+            String content = String.format("Category needs to have both a title and an icon.%nError message: '%s'",
+                    e.getMessage());
+            Session.getLogger().warning(content);
+            DialogFactory.getOKDialog("Category add failed", "Category needs to have both a title and an icon.").show();
         } catch (SQLException e) {
             String content = String.format("Unable to add category.%nError message: '%s'", e.getMessage());
             Session.getLogger().warning(content);
