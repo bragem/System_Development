@@ -73,7 +73,7 @@ public class SignupController {
             if (!isPasswordValid(password)) {
                 passwordRequirements
                         .setText("The password should at least contain:\n" + "one number,\n" + "one lowercase letter,\n"
-                                + "one symbol,\n" + "no whitespaces,\n" + "and be between 8 and 20 characters long.");
+                                + "one special symbol,\n" + "no whitespaces,\n" + "and be between 8 and 20 characters long.");
                 throw new IllegalArgumentException("The password doesn't contain all the required characters");
 
             }
