@@ -1,3 +1,7 @@
+stages:
+  - generatepdf
+  - pages
+
 generatepdf:
   image: ubuntu:20.04  # vi kjører dette i en docker container, som kjører Ubuntu Linux
   stage: deploy # vi kjører den parallelt med å publisere javadoc til Pages
