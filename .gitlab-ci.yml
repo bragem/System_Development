@@ -1,10 +1,6 @@
-image: ubuntu:20.04
-
-stages:
-  - pages
-
-pages:
-  stage: pages
+generatepdf:
+  image: ubuntu:20.04  # vi kjører dette i en docker container, som kjører Ubuntu Linux
+  stage: deploy # vi kjører den parallelt med å publisere javadoc til Pages
   script:
     - apt-get update  # apt-get er en pakkehåndterer som kan laste ned og installere pakker på linux-system
     - apt-get install -y wget  # installerer et tool som heter "wget", som kan fyre av HTML-requester på kommandolinja
@@ -19,9 +15,24 @@ pages:
     - export final_url="https://gitlab-ci-token:$CI_JOB_TOKEN@$my_url"  # Bruker CI-token for å omgå krav til brukernavn/passord
     - git clone "$final_url.wiki.git"  # hver eneste gitlab-wiki ligger i et eget repo, og kan klones med git som man kloner andre prosjekter
     - gwtc $CI_PROJECT_NAME.wiki  # NB! DERSOM DENNE FEILER, ERSTATT MED NAVNET PÅ REPOET (enkelte gitlab-instanser ser ut til å gi denne feil verdi for gruppeprosjekter)
-    - wkhtmltopdf documentation.html /wiki.pdf --enable-local-file-access --load-error-handling ignore --load-media-error-handling ignore # Dette konverterer fra HTML til PDF
+    - wkhtmltopdf documentation.html wiki.pdf  # Dette konverterer fra HTML til PDF
   artifacts:
     paths:
-     - public/wiki  # Vi gjør fila tilgjengelig som en nedlastbar artefakt (CI/CD -> Pipelines, deretter ikon helt til høyre for bygget). Fila kalles wiki.pdf.
+      - wiki.pdf  # Vi gjør fila tilgjengelig som en nedlastbar artefakt (CI/CD -> Pipelines, deretter ikon helt til høyre for bygget). Fila kalles wiki.pdf.
   only:
-    - feature/generatePDF  # Only web gjør at vi kun kjører denne delen av pipeline når en trykker på knappen "Run pipeline"
+    - web  # Only web gjør at vi kun kjører denne delen av pipeline når en trykker på knappen "Run pipeline"
+
+
+# NB! Javadoc genereres IKKE under bygging av prosjektet. Man må kjøre javadoc lokalt og legge til katalogen (med navnet "javadoc")
+# til roten av prosjektet. Ellers vil denne delen feile.
+pages:
+  stage: deploy
+  script:
+    - mkdir .public
+    - cp -r javadoc/* .public
+    - mv .public public
+  artifacts:
+    paths:
+      - public
+  only:
+    - feature/generatePDF
