@@ -1,6 +1,5 @@
 stages:
-  - generatepdf #
-  - pages
+  - deploy
 
 generatepdf:
   image: ubuntu:20.04  # vi kjører dette i en docker container, som kjører Ubuntu Linux
