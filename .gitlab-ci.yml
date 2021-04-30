@@ -1,10 +1,10 @@
 image: ubuntu:20.04
 
 stages:
-  - generatepdf
+  - pages
 
-generatepdf:
-  stage: generatepdf
+pages:
+  stage: pages
   script:
     - apt-get update  # apt-get er en pakkehåndterer som kan laste ned og installere pakker på linux-system
     - apt-get install -y wget  # installerer et tool som heter "wget", som kan fyre av HTML-requester på kommandolinja
@@ -22,6 +22,6 @@ generatepdf:
     - wkhtmltopdf documentation.html wiki.pdf --enable-local-file-access --load-error-handling ignore # Dette konverterer fra HTML til PDF
   artifacts:
     paths:
-     - wiki.pdf  # Vi gjør fila tilgjengelig som en nedlastbar artefakt (CI/CD -> Pipelines, deretter ikon helt til høyre for bygget). Fila kalles wiki.pdf.
-  only: 
+     - public/wiki  # Vi gjør fila tilgjengelig som en nedlastbar artefakt (CI/CD -> Pipelines, deretter ikon helt til høyre for bygget). Fila kalles wiki.pdf.
+  only:
     - feature/generatePDF  # Only web gjør at vi kun kjører denne delen av pipeline når en trykker på knappen "Run pipeline"
